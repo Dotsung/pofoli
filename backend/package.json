@@ -18,5 +18,8 @@
     "babel-preset-stage-3": "^6.24.1",
     "cross-env": "^5.2.0",
     "nodemon": "^1.18.11"
+  },
+  "scripts": {
+    "start": "cross-env NODE_PATH=src nodemon --exec babel-node src/app.js --config nodemon.json"
   }
 }
