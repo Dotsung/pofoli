@@ -9,5 +9,7 @@ post.get('/', (ctx) => {
 
 // 라우터
 post.post('/write', postCtrl.write)
+post.get('/list', postCtrl.list)
+post.get('/read/:id', postCtrl.read)
 
 export default post 
