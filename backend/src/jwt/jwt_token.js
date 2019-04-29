@@ -27,30 +27,30 @@ function decodeToken (token) {
     })
   }
   
-  exports.jwtMiddleware = async (ctx, next) => {
+exports.jwtMiddleware = async (ctx, next) => {
     const token = ctx.cookies.get('access_token')
-  
+
     if (!token) return next()
-  
+
     try {
-      const decoded = await decodeToken(token)
-  
-      if (Date.now() / 1000 - decoded.iat > 60 * 60 * 24) {
-        const { _id, email } = decoded
-        const newToken = await generateToken({ _id, email }, 'User')
-  
-        ctx.cookies.set('access_token', newToken, {
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24 * 7
-        })
-      }
-  
-      ctx.request.user = decoded
+        const decoded = await decodeToken(token)
+
+        if (Date.now() / 1000 - decoded.iat > 60 * 60 * 24) {
+            const { _id, email } = decoded
+            const newToken = await generateToken({ _id, email }, 'User')
+
+            ctx.cookies.set('access_token', newToken, {
+                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24 * 7
+            })
+        }
+
+        ctx.request.user = decoded
     } catch (err) {
-      ctx.request.user = null
+        ctx.request.user = null
     }
-  
+
     return next()
-  }
+}
   
   exports.generateToken = generateToken
