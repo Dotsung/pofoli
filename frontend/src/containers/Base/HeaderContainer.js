@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import Header from 'components/Base/Header';
+import Header from 'components/base/Header';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
