@@ -7,8 +7,8 @@ import { shadow, media } from 'lib/styleUtils';
 const CardWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    max-height: 500px;
     margin: 10px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.05);
 
     ${media.wide`
         width: calc(20% - 1.75rem);
@@ -32,7 +32,7 @@ const ThumbnailWrapper = styled.a`
     width: 100%;
     overflow: hidden;
     display: block;
-    position: relative;
+    max-height: 300px;
 `
 
 const CardThumbnail = styled.img`
@@ -44,18 +44,35 @@ const CardThumbnail = styled.img`
 const CardContents = styled.div`
     background-color: white;
     width: 100%;
+    padding: 1rem;
     flex: 1;
+    box-sizing: border-box;
+`
+
+const CardTitle = styled.h3`
+    margin: 0px;
+`
+
+const CardDate = styled.span`
+    color: ${oc.gray[6]}
 `
 
 class PostCard extends React.Component{
     render(){
-        const { img } = this.props;
+        const { title, author, img, hearts, views } = this.props;
         return(
             <CardWrapper className="CardWrapper">
                 <ThumbnailWrapper href="a">
                     <CardThumbnail src={img}/>
                 </ThumbnailWrapper>
-                <CardContents>content</CardContents>
+                <CardContents>
+                    <CardTitle>
+                        Penguin
+                    </CardTitle>
+                    <CardDate>
+                        2019.03.03
+                    </CardDate>
+                </CardContents>
             </CardWrapper>
         )
     }

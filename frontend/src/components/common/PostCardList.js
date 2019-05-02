@@ -12,8 +12,18 @@ import Img3 from 'testimg/img3.png';
 import Img4 from 'testimg/img4.gif';
 import Img5 from 'testimg/img5.jpg';
 import Img6 from 'testimg/img6.png';
-import Img7 from 'testimg/img7.gif';
+import Img9 from 'testimg/img9.gif';
 import Img8 from 'testimg/img8.jpg';
+
+const CardList = [
+    {
+        title: "penguin",
+        author: "uu",
+        img: Img1,
+        hearts: 35,
+        views: 243
+    }
+]
 
 const Wrapper = styled.div`
     display: flex;
@@ -30,7 +40,7 @@ class PostCardList extends React.Component{
                 <PostCard img={Img4}/>
                 <PostCard img={Img5}/>
                 <PostCard img={Img6}/>
-                <PostCard img={Img7}/> 
+                <PostCard img={Img9}/> 
                 <PostCard img={Img8}/>
                 <PostCard/>
             </Wrapper>
