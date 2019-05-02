@@ -1,12 +1,12 @@
 // @flow
 import React from 'react';
-import PostCard from 'components/common/PostCard'
+import PostCardList from 'components/common/PostCardList'
 
 class Trending extends React.Component{
     render(){
         return(
             <>
-                <PostCard />
+                <PostCardList />
             </>
         )
     }

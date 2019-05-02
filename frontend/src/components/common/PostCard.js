@@ -8,6 +8,7 @@ const CardWrapper = styled.div`
     display: flex;
     flex-direction: column;
     height: 500px;
+    margin: 10px;
 
     ${media.wide`
         width: calc(20% - 1.75rem);
@@ -18,7 +19,7 @@ const CardWrapper = styled.div`
     `}
 
     ${media.tablet`
-        width: calc(33% - 1.75rem);
+        width: calc(50% - 1.75rem);
     `}
 
     ${media.phone`
@@ -39,7 +40,7 @@ const CardContents = styled.div`
 class PostCard extends React.Component{
     render(){
         return(
-            <CardWrapper>
+            <CardWrapper className="CardWrapper">
                 <CardImg>img</CardImg>
                 <CardContents>content</CardContents>
             </CardWrapper>
