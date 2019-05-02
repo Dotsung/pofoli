@@ -10,7 +10,7 @@ import { faHeart as rheart, faComment, faStar, faEye } from '@fortawesome/free-r
 const CardWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 10px;
+    margin-bottom: 10px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.05);
     width: 100%;
     break-inside: avoid;
@@ -21,20 +21,21 @@ const ThumbnailWrapper = styled.a`
     width: 100%;
     overflow: hidden;
     display: block;
+    height:100%;
     max-height: 300px;
 `
 
 const CardThumbnail = styled.img`
-    object-fit: cover;
-    height: 100%;
+    // object-fit: cover;
     width: 100%;
+    height: 100%;
 `
 
 const CardContents = styled.div`
     background-color: white;
     width: 100%;
     padding: 1rem;
-    max-height: 7rem;
+    height: 7rem;
     flex: 1;
     box-sizing: border-box;
 `
