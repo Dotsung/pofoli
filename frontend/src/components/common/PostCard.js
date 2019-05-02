@@ -7,7 +7,7 @@ import { shadow, media } from 'lib/styleUtils';
 const CardWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    height: 500px;
+    max-height: 500px;
     margin: 10px;
 
     ${media.wide`
@@ -27,21 +27,34 @@ const CardWrapper = styled.div`
     `}
 `
 
-const CardImg = styled.div`
+const ThumbnailWrapper = styled.a`
     background-color: ${oc.red[1]};
-    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    position: relative;
+`
+
+const CardThumbnail = styled.img`
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 `
 
 const CardContents = styled.div`
-    background-color: ${oc.violet[1]};
+    background-color: white;
+    width: 100%;
     flex: 1;
 `
 
 class PostCard extends React.Component{
     render(){
+        const { img } = this.props;
         return(
             <CardWrapper className="CardWrapper">
-                <CardImg>img</CardImg>
+                <ThumbnailWrapper href="a">
+                    <CardThumbnail src={img}/>
+                </ThumbnailWrapper>
                 <CardContents>content</CardContents>
             </CardWrapper>
         )

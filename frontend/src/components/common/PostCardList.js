@@ -5,6 +5,16 @@ import oc from 'open-color';
 import { shadow, media } from 'lib/styleUtils';
 import PostCard from './PostCard';
 
+
+import Img1 from 'testimg/img1.gif';
+import Img2 from 'testimg/img2.jpg';
+import Img3 from 'testimg/img3.png';
+import Img4 from 'testimg/img4.gif';
+import Img5 from 'testimg/img5.jpg';
+import Img6 from 'testimg/img6.png';
+import Img7 from 'testimg/img7.gif';
+import Img8 from 'testimg/img8.jpg';
+
 const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -14,14 +24,14 @@ class PostCardList extends React.Component{
     render(){
         return(
             <Wrapper>
-                <PostCard/>
-                <PostCard/>
-                <PostCard/> 
-                <PostCard/>
-                <PostCard/>
-                <PostCard/> 
-                <PostCard/>
-                <PostCard/>
+                <PostCard img={Img1}/>
+                <PostCard img={Img2}/>
+                <PostCard img={Img3}/> 
+                <PostCard img={Img4}/>
+                <PostCard img={Img5}/>
+                <PostCard img={Img6}/>
+                <PostCard img={Img7}/> 
+                <PostCard img={Img8}/>
                 <PostCard/>
             </Wrapper>
         )
