@@ -4,27 +4,16 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'lib/styleUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart as sheart, faEye } from '@fortawesome/free-solid-svg-icons'
-import { faHeart as rheart } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as sheart } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as rheart, faComment, faStar, faEye } from '@fortawesome/free-regular-svg-icons'
 
 const CardWrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin: 10px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.05);
-    width: calc(20% - 1.75rem);
-
-    ${media.desktop`
-        width: calc(25% - 1.75rem);
-    `}
-
-    ${media.tablet`
-        width: calc(33% - 1.75rem);
-    `}
-
-    ${media.phone`
-        width: calc(100% - 1.75rem);
-    `}
+    width: 100%;
+    break-inside: avoid;
 `
 
 const ThumbnailWrapper = styled.a`
@@ -45,6 +34,7 @@ const CardContents = styled.div`
     background-color: white;
     width: 100%;
     padding: 1rem;
+    max-height: 7rem;
     flex: 1;
     box-sizing: border-box;
 `
@@ -73,9 +63,24 @@ const Likes = styled.div`
 `
 
 const Views = styled.div`
-    margin-left: 1rem;
     display: flex;
     color: ${oc.gray[7]}
+`
+
+const Comments = styled.div`
+    display: flex;
+    &:hover{
+        color: ${oc.indigo[5]};
+    }
+    color: ${oc.gray[7]}
+`
+
+const Star = styled.div`
+    display: flex;
+    color: ${oc.gray[7]}
+    &:hover{
+        color: ${oc.yellow[5]};
+    }
 `
 
 const H5 = styled.h5`
@@ -86,11 +91,15 @@ const H5 = styled.h5`
     font-weight: 600;
 `
 
+const Spacer = styled.div`
+    flex: 1;
+`
+
 class PostCard extends React.Component{
     render(){
         const { title, author, img, hearts, views } = this.props;
         return(
-            <CardWrapper className="CardWrapper">
+            <CardWrapper>
                 <ThumbnailWrapper href="a">
                     <CardThumbnail src={img}/>
                 </ThumbnailWrapper>
@@ -106,10 +115,21 @@ class PostCard extends React.Component{
                             <FontAwesomeIcon icon={rheart} />
                             <H5>234</H5>
                         </Likes>
+                        <Spacer />
                         <Views>
                             <FontAwesomeIcon icon={faEye} />
                             <H5>3844</H5>
                         </Views>
+                        <Spacer />
+                        <Comments>
+                            <FontAwesomeIcon icon={faComment} />
+                            <H5>45</H5>
+                        </Comments>
+                        <Spacer />
+                        <Star>
+                            <FontAwesomeIcon icon={faStar} />
+                            <H5>67</H5>
+                        </Star>
                     </Icons>
                 </CardContents>
             </CardWrapper>

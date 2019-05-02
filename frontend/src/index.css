@@ -2,3 +2,9 @@ body {
     margin: 0px;
     background-color: #f8f9fa;
 }
+
+html {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
