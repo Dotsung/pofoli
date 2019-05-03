@@ -11,6 +11,7 @@ const Positioner = styled.div`
     position: fixed;
     top: 0px;
     width: 100%;
+    z-index: 100;
 `;
 
 // 흰 배경, 내용 중간 정렬

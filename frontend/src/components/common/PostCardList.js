@@ -30,7 +30,7 @@ const CardList = [
         stars: 13
     },
     {
-        title: "ipsum",
+        title: "Ipsum",
         date: "2019.03.05",
         author: "uu",
         img: Img2,
@@ -40,7 +40,7 @@ const CardList = [
         stars: 24
     },
     {
-        title: "dolor",
+        title: "Dolor",
         date: "2019.03.06",
         author: "uu",
         img: Img3,
@@ -50,7 +50,7 @@ const CardList = [
         stars: 2
     },
     {
-        title: "shit",
+        title: "Shit",
         date: "2019.03.07",
         author: "uu",
         img: Img4,
@@ -60,7 +60,7 @@ const CardList = [
         stars: 13
     },
     {
-        title: "amet",
+        title: "Amet",
         date: "2019.03.08",
         author: "uu",
         img: Img5,
@@ -70,7 +70,7 @@ const CardList = [
         stars: 13
     },
     {
-        title: "consectetur",
+        title: "Consectetur",
         date: "2019.03.09",
         author: "uu",
         img: Img6,
@@ -80,7 +80,7 @@ const CardList = [
         stars: 13
     },
     {
-        title: "adipiscing",
+        title: "Adipiscing",
         date: "2019.03.10",
         author: "uu",
         img: Img7,
@@ -90,7 +90,7 @@ const CardList = [
         stars: 13
     },
     {
-        title: "elit",
+        title: "Elit",
         date: "2019.03.11",
         author: "uu",
         img: Img8,
@@ -100,7 +100,7 @@ const CardList = [
         stars: 13
     },
     {
-        title: "sed",
+        title: "Sed",
         date: "2019.03.12",
         author: "uu",
         img: Img9,
@@ -110,7 +110,7 @@ const CardList = [
         stars: 13
     },
     {
-        title: "do",
+        title: "Do",
         date: "2019.03.13",
         author: "uu",
         img: Img10,
@@ -120,7 +120,7 @@ const CardList = [
         stars: 13
     },
     {
-        title: "eiusmod",
+        title: "Eiusmod",
         date: "2019.03.14",
         author: "uu",
         img: Img11,
@@ -130,7 +130,7 @@ const CardList = [
         stars: 13
     },
     {
-        title: "tempor",
+        title: "Tempor",
         date: "2019.03.15",
         author: "uu",
         img: Img12,
@@ -146,6 +146,19 @@ const Wrapper = styled.div`
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+
+    @media (max-width: 1400px){
+        column-count: 4;
+    }
+    @media (max-width: 1000px){
+        column-count: 3;
+    }
+    @media (max-width: 700px){
+        column-count: 2;
+    }
+    @media (max-width: 500px){
+        column-count: 1;
+    }
 `
 
 class PostCardList extends React.Component{
