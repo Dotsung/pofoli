@@ -115,7 +115,7 @@ const Spacer = styled.div`
 
 class PostCard extends React.Component{
     render(){
-        const { title, author, img, hearts, views } = this.props;
+        const { title, date, author, img, hearts, views, comments, stars } = this.props;
         return(
             <CardWrapper>
                 <ThumbnailWrapper href="a">
@@ -124,30 +124,30 @@ class PostCard extends React.Component{
                 </ThumbnailWrapper>
                 <CardContents>
                     <CardTitle>
-                        Penguin
+                        {title}
                     </CardTitle>
                     <CardDate>
-                        2019.03.03
+                        {date}
                     </CardDate>
                     <Icons>
                         <Likes>
                             <FontAwesomeIcon icon={rheart} />
-                            <H5>234</H5>
+                            <H5>{hearts}</H5>
                         </Likes>
                         <Spacer />
                         <Views>
                             <FontAwesomeIcon icon={faEye} />
-                            <H5>3844</H5>
+                            <H5>{views}</H5>
                         </Views>
                         <Spacer />
                         <Comments>
                             <FontAwesomeIcon icon={faComment} />
-                            <H5>45</H5>
+                            <H5>{comments}</H5>
                         </Comments>
                         <Spacer />
                         <Star>
                             <FontAwesomeIcon icon={faStar} />
-                            <H5>67</H5>
+                            <H5>{stars}</H5>
                         </Star>
                     </Icons>
                 </CardContents>
