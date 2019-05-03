@@ -17,6 +17,7 @@ const CardWrapper = styled.div`
 `
 
 const ThumbnailWrapper = styled.a`
+    position: relative;
     background-color: ${oc.red[1]};
     width: 100%;
     overflow: hidden;
@@ -30,6 +31,21 @@ const CardThumbnail = styled.img`
     width: 100%;
     height: 100%;
     display: block;
+`
+
+const Mask = styled.div`
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transition: 0.125s all ease-in;
+
+    &:hover {
+        opacity: 1;
+    }
 `
 
 const CardContents = styled.div`
@@ -104,6 +120,7 @@ class PostCard extends React.Component{
             <CardWrapper>
                 <ThumbnailWrapper href="a">
                     <CardThumbnail src={img}/>
+                    <Mask />
                 </ThumbnailWrapper>
                 <CardContents>
                     <CardTitle>
