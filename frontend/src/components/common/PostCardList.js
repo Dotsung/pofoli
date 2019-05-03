@@ -166,16 +166,16 @@ class PostCardList extends React.Component{
         return(
             <Wrapper>
                 {CardList.map((card, index)=>
-                <PostCard 
-                    title={card.title}
-                    date={card.date}
-                    author={card.author}
-                    img={card.img}
-                    hearts={card.hearts}
-                    views={card.views}
-                    comments={card.comments}
-                    stars={card.stars}
-                /> 
+                    <PostCard 
+                        title={card.title}
+                        date={card.date}
+                        author={card.author}
+                        img={card.img}
+                        hearts={card.hearts}
+                        views={card.views}
+                        comments={card.comments}
+                        stars={card.stars}
+                    /> 
                 )}
             </Wrapper>
         )

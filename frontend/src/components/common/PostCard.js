@@ -24,6 +24,7 @@ const ThumbnailWrapper = styled.a`
     display: block;
     height:100%;
     max-height: 300px;
+    z-index: 1;
 `
 
 const CardThumbnail = styled.img`
@@ -49,12 +50,36 @@ const Mask = styled.div`
 `
 
 const CardContents = styled.div`
+    position: relative;
+    z-index: 1;
     background-color: white;
     width: 100%;
     padding: 1rem;
     height: 7rem;
     flex: 1;
     box-sizing: border-box;
+`
+
+const UserThumbnailWrapper = styled.a`
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: white;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+    display: felx;
+`
+
+const UserThumbnail = styled.img`
+    display: block;
+    width: 2.75rem;
+    height: 2.75rem;
+    object-fit: cover;
+    border-radius: 50%;
 `
 
 const CardTitle = styled.h3`
@@ -123,6 +148,9 @@ class PostCard extends React.Component{
                     <Mask />
                 </ThumbnailWrapper>
                 <CardContents>
+                    <UserThumbnailWrapper>
+                        <UserThumbnail src={img}/>
+                    </UserThumbnailWrapper>
                     <CardTitle>
                         {title}
                     </CardTitle>
