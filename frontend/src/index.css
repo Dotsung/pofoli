@@ -1,7 +1,7 @@
 body {
     margin: 0px;
-    background: #f1f3f5;
     background: linear-gradient(-90deg, #d0bfff, #c3fae8);
+    background: #f1f3f5;
 }
 
 html {

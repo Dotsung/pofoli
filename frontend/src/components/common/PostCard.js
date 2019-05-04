@@ -60,6 +60,27 @@ const CardContents = styled.div`
     box-sizing: border-box;
 `
 
+
+const UserProfile = styled.div`
+    display: none;
+    position: absolute;
+    right: 4rem;
+    background: #ccc;
+    height: 50px;
+    width: 7rem;
+    margin: 0 auto 10px;
+    
+    &:after{
+        content: '';
+        position: absolute;
+        border-left: 10px solid #ccc;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        bottom: 1rem;
+        left: 7rem;
+    }
+`
+
 const UserThumbnailWrapper = styled.a`
     position: absolute;
     right: 1rem;
@@ -72,6 +93,10 @@ const UserThumbnailWrapper = styled.a`
     justify-content: center;
     transform: translateY(-50%);
     display: felx;
+
+    &:hover ${UserProfile} {
+        display: inline-block;
+    }
 `
 
 const UserThumbnail = styled.img`
@@ -150,6 +175,7 @@ class PostCard extends React.Component{
                 <CardContents>
                     <UserThumbnailWrapper>
                         <UserThumbnail src={img}/>
+                        <UserProfile />
                     </UserThumbnailWrapper>
                     <CardTitle>
                         {title}
