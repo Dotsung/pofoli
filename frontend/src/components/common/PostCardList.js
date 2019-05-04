@@ -7,16 +7,18 @@ import PostCard from './PostCard';
 
 import Img1 from 'testimg/img1.gif';
 import Img2 from 'testimg/img2.jpg';
-import Img3 from 'testimg/img3.png';
+import Img3 from 'testimg/img3.gif';
 import Img4 from 'testimg/img4.gif';
 import Img5 from 'testimg/img5.gif';
 import Img6 from 'testimg/img6.png';
 import Img7 from 'testimg/img7.gif';
-import Img8 from 'testimg/img8.jpg';
+import Img8 from 'testimg/img8.gif';
 import Img9 from 'testimg/img9.gif';
 import Img10 from 'testimg/img10.gif';
 import Img11 from 'testimg/img11.gif';
-import Img12 from 'testimg/img12.gif';
+import Img12 from 'testimg/img12.jpg';
+import Img13 from 'testimg/img13.gif';
+import Img14 from 'testimg/img14.png';
 
 const CardList = [
     {
@@ -139,6 +141,26 @@ const CardList = [
         comments: 4,
         stars: 13
     },
+    {
+        title: "Tempor",
+        date: "2019.03.15",
+        author: "uu",
+        img: Img13,
+        hearts: 35,
+        views: 243,
+        comments: 4,
+        stars: 13
+    },
+    {
+        title: "Tempor",
+        date: "2019.03.15",
+        author: "uu",
+        img: Img14,
+        hearts: 35,
+        views: 243,
+        comments: 4,
+        stars: 13
+    }
 ]
 
 const Wrapper = styled.div`
