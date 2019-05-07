@@ -21,34 +21,65 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
+
+    @media (max-width: 800px){
+        flex-direction: column;
+    }
 `
 
 const IntroSection = styled.div`
     width: 50%;
+    height: 100%;
     background-color: ${oc.violet[1]}
+
+    @media (max-width: 800px){
+        width: 100%;
+        height: 30%;
+    }
 `
 
 const AuthSection = styled.div`
     width: 50%;
+    height: 100%;
+    @media (max-width: 800px){
+        width: 100%;
+    }
 `
 
 const SignInCard = styled.div`
     background-color: white;
-    height: 50%;
-    margin: 5rem;
+    margin: auto;
+    width: 500px;
+`
+
+const FormWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 3rem;
 `
 
 const SignInForm = styled.form`
-    padding: 3rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
 `
 
 const StyledInput = styled.input`
     margin-top: 0.5rem;
+    border: none;
+    height: 2rem;
+    background-color: ${oc.gray[1]}
+`
+
+const H1 = styled.h1`
+    margin: 0;
+
 `
 
 const StyledButton = styled.button`
+    margin-top: 0.5rem;
+    width: 5rem;
 `
 
 class AuthForm extends React.Component {
@@ -59,11 +90,14 @@ class AuthForm extends React.Component {
                 <IntroSection />
                 <AuthSection>
                     <SignInCard>
-                        <SignInForm>
-                            <StyledInput name="email" placeholder="Email"/>
-                            <StyledInput name="password" placeholder="Password"/>
-                            <StyledButton>LogIn</StyledButton>
-                        </SignInForm>
+                        <FormWrapper>
+                            <H1>Log In</H1>
+                            <SignInForm>
+                                <StyledInput name="email" placeholder="Email"/>
+                                <StyledInput name="password" placeholder="Password"/>
+                                <StyledButton>LogIn</StyledButton>
+                            </SignInForm>
+                        </FormWrapper>
                     </SignInCard>
                 </AuthSection>
             </Wrapper>

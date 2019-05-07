@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
+import oc from 'open-color';
 import Header from 'components/base/Header';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledButton = styled.button`
-    border: 1px solid #000000;
+    border: 0px;
+    color: white;
+    background-image: linear-gradient(to right, ${oc.blue[4]} 0%, ${oc.violet[4]} 51%, ${oc.blue[4]} 100%);
+    background-size: 200% auto;
+    transition: 0.5s;
+
+    width: 4rem;
+    height: 1.5rem;
+    cursor: pointer;
+
+    &:hover{
+        background-position: right center;
+    }
+`
+
+const Href = styled(Link)`
 `
 
 class HeaderContainer extends Component {
     render() {
         return (
             <Header>
-                <StyledButton>Login</StyledButton>
+                <Href to="/auth"><StyledButton>Login</StyledButton></Href>
             </Header>
         );
     }
