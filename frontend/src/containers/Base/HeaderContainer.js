@@ -17,6 +17,8 @@ const StyledButton = styled.button`
     height: 1.5rem;
     cursor: pointer;
 
+    border-radius: 3px;
+
     &:hover{
         background-position: right center;
     }

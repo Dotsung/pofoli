@@ -69,7 +69,7 @@ const StyledInput = styled.input`
     margin-top: 0.5rem;
     border: none;
     height: 2rem;
-    background-color: ${oc.gray[1]}
+    background-color: ${oc.indigo[1]}
 `
 
 const H1 = styled.h1`
@@ -77,9 +77,33 @@ const H1 = styled.h1`
 
 `
 
-const StyledButton = styled.button`
+const ButtonWrapper = styled.div`
     margin-top: 0.5rem;
-    width: 5rem;
+    display: flex;
+`
+
+const StyledButton = styled.button`
+    margin-top: 1rem;
+    border: none;
+    height: 2rem;
+    background-color: ${oc.indigo[5]}
+    color: white;
+`
+
+const Spacer = styled.div`
+    flex: 1;
+`
+
+const ToSignUp = styled(Link)`
+    color: ${oc.violet[4]}
+
+    &:visited{
+        color: ${oc.violet[4]}
+    }
+
+    &:hover{
+        color: ${oc.violet[6]}
+    }
 `
 
 class AuthForm extends React.Component {
@@ -95,7 +119,8 @@ class AuthForm extends React.Component {
                             <SignInForm>
                                 <StyledInput name="email" placeholder="Email"/>
                                 <StyledInput name="password" placeholder="Password"/>
-                                <StyledButton>LogIn</StyledButton>
+                                <StyledButton>로그인</StyledButton>
+                                <ToSignUp>회원이 아니신가요?가입하기</ToSignUp>
                             </SignInForm>
                         </FormWrapper>
                     </SignInCard>
