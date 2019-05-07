@@ -8,9 +8,7 @@ import { Link } from 'react-router-dom';
 class AuthContainer extends React.Component {
     render(){
         return (
-            <AuthForm>
-
-            </AuthForm>
+            <AuthForm />
         )
     }
 }
