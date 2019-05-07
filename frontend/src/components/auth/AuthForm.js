@@ -3,6 +3,8 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
 
 const GlobalStyle = createGlobalStyle`
     html, body {
@@ -106,6 +108,17 @@ const ToSignUp = styled(Link)`
     }
 `
 
+const FaceBookButton = styled.div`
+
+`
+
+const TwitterButton = styled.div`
+
+`
+
+const GoogleButton = styled.div`
+`
+
 class AuthForm extends React.Component {
     render(){
         return (
@@ -122,6 +135,15 @@ class AuthForm extends React.Component {
                                 <StyledButton>로그인</StyledButton>
                                 <ToSignUp>회원이 아니신가요?가입하기</ToSignUp>
                             </SignInForm>
+                            <FaceBookButton>
+                                <FontAwesomeIcon icon={faFacebook} />
+                            </FaceBookButton>
+                            <TwitterButton>
+                                <FontAwesomeIcon icon={faTwitter} />
+                            </TwitterButton>
+                            <GoogleButton>
+                                <FontAwesomeIcon icon={faGoogle} />
+                            </GoogleButton>
                         </FormWrapper>
                     </SignInCard>
                 </AuthSection>
