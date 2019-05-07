@@ -65,19 +65,26 @@ const UserProfile = styled.div`
     display: none;
     position: absolute;
     right: 4rem;
-    background: #ccc;
-    height: 50px;
-    width: 7rem;
+    top: -4rem;
+    background: ${oc.gray[1]};
+    height: 8rem;
+    width: 10rem;
     margin: 0 auto 10px;
+    animation: fadein 0.5s;
+
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
     
     &:after{
         content: '';
         position: absolute;
-        border-left: 10px solid #ccc;
+        border-left: 10px solid ${oc.gray[1]};
         border-top: 5px solid transparent;
         border-bottom: 5px solid transparent;
-        bottom: 1rem;
-        left: 7rem;
+        bottom: 2rem;
+        left: 10rem;
     }
 `
 
@@ -173,7 +180,7 @@ class PostCard extends React.Component{
                     <Mask />
                 </ThumbnailWrapper>
                 <CardContents>
-                    <UserThumbnailWrapper>
+                    <UserThumbnailWrapper href="a">
                         <UserThumbnail src={img}/>
                         <UserProfile />
                     </UserThumbnailWrapper>
