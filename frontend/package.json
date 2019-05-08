@@ -73,8 +73,9 @@
   },
   "scripts": {
     "start": "cross-env NODE_PATH=src node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "build": "cross-env NODE_PATH=src node scripts/build.js",
+    "test": "cross-env NODE_PATH=src node scripts/test.js",
+    "deploy": "aws s3 sync ./build s3://dotia --profile=Dotsung"
   },
   "eslintConfig": {
     "extends": "react-app"
