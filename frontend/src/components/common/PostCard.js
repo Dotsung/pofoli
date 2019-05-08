@@ -92,8 +92,8 @@ const UserThumbnailWrapper = styled.a`
     position: absolute;
     right: 1rem;
     top: 0;
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 4.5rem;
+    height: 4.5rem;
     border-radius: 50%;
     background: white;
     align-items: center;
@@ -108,25 +108,31 @@ const UserThumbnailWrapper = styled.a`
 
 const UserThumbnail = styled.img`
     display: block;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 3.75rem;
+    height: 3.75rem;
     object-fit: cover;
     border-radius: 50%;
 `
 
 const CardTitle = styled.h3`
     margin: 0px;
+    font-size: 1.5rem;
 `
 
 const CardDate = styled.span`
+    font-size: 1.2rem;
     color: ${oc.gray[6]}
 `
 
 const Icons = styled.div`
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     display: flex;
     border-top: 1px solid ${oc.gray[5]};
-    padding-top: 0.5rem;
+    padding-top: 1rem;
+`
+
+const Icon = styled(FontAwesomeIcon)`
+    font-size: 1.3rem;
 `
 
 const Likes = styled.div`
@@ -161,8 +167,8 @@ const Star = styled.div`
 const H5 = styled.h5`
     margin: 0px;
     margin-left: 0.1rem;
-    font-size: 0.9rem;
-    line-height: 0.9rem;
+    font-size: 1.3rem;
+    line-height: 1.3rem;
     font-weight: 600;
 `
 
@@ -192,22 +198,22 @@ class PostCard extends React.Component{
                     </CardDate>
                     <Icons>
                         <Likes>
-                            <FontAwesomeIcon icon={rheart} />
+                            <Icon icon={rheart} />
                             <H5>{hearts}</H5>
                         </Likes>
                         <Spacer />
                         <Views>
-                            <FontAwesomeIcon icon={faEye} />
+                            <Icon icon={faEye} />
                             <H5>{views}</H5>
                         </Views>
                         <Spacer />
                         <Comments>
-                            <FontAwesomeIcon icon={faComment} />
+                            <Icon icon={faComment} />
                             <H5>{comments}</H5>
                         </Comments>
                         <Spacer />
                         <Star>
-                            <FontAwesomeIcon icon={faStar} />
+                            <Icon icon={faStar} />
                             <H5>{stars}</H5>
                         </Star>
                     </Icons>
