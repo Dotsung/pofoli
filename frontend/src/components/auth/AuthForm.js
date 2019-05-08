@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 `
 
 const IntroSection = styled.div`
-    width: 50%;
+    width: 45%;
     height: 100%;
     background-color: ${oc.violet[1]}
 
@@ -41,7 +41,7 @@ const IntroSection = styled.div`
 `
 
 const AuthSection = styled.div`
-    width: 50%;
+    width: 55%;
     height: 100%;
     @media (max-width: 800px){
         width: 100%;
@@ -58,11 +58,11 @@ const FormWrapper = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
+    padding: 3rem;
     padding-top: 3rem;
 `
 
 const SignInForm = styled.form`
-    padding: 1rem;
     display: flex;
     flex-direction: column;
 `
@@ -70,8 +70,12 @@ const SignInForm = styled.form`
 const StyledInput = styled.input`
     margin-top: 0.5rem;
     border: none;
-    height: 2rem;
+    height: 2.5rem;
     background-color: ${oc.indigo[1]}
+    &::placeholder {
+        padding-left: 0.5rem;
+        font-size: 1rem;
+    }
 `
 
 const H1 = styled.h1`
@@ -87,9 +91,11 @@ const ButtonWrapper = styled.div`
 const StyledButton = styled.button`
     margin-top: 1rem;
     border: none;
-    height: 2rem;
+    height: 2.5rem;
     background-color: ${oc.indigo[5]}
     color: white;
+    border-radius: 3px;
+    font-size: 1.5rem;
 `
 
 const Spacer = styled.div`
@@ -97,6 +103,7 @@ const Spacer = styled.div`
 `
 
 const ToSignUp = styled(Link)`
+    margin-top: 0.5rem;
     color: ${oc.violet[4]}
 
     &:visited{
@@ -108,9 +115,31 @@ const ToSignUp = styled(Link)`
     }
 `
 
+const Separator = styled.div`
+    height: 1px;
+    width: 100%;
+    background: #ced4da;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+`
+
+const Or = styled.div`
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    background: #fff;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    font-size: .85em;
+    font-weight: 600;
+    color: #212529;
+`
+
 const SocialButtons = styled.div`
-    margin: auto;
-    margin: 1rem 2rem;
+    margin: auto 0;
 `
 
 const FaceBookButton = styled.div`
@@ -119,6 +148,7 @@ const FaceBookButton = styled.div`
     color: white;
     height: 2.5rem;
     line-height: 2.4rem;
+    border-radius: 3px;
     &:hover{
         background-color: ${oc.blue[8]};
     }
@@ -131,6 +161,7 @@ const TwitterButton = styled.div`
     margin-top: 0.5rem;
     height: 2.5rem;
     line-height: 2.4rem;
+    border-radius: 3px;
     &:hover{
         background-color: ${oc.indigo[7]};
     }
@@ -143,6 +174,7 @@ const GoogleButton = styled.div`
     margin-top: 0.5rem;
     height: 2.5rem;
     line-height: 2.4rem;
+    border-radius: 3px;
     &:hover{
         background-color: ${oc.red[8]};
     }
@@ -174,8 +206,9 @@ class AuthForm extends React.Component {
                                 <StyledInput name="email" placeholder="Email"/>
                                 <StyledInput name="password" placeholder="Password"/>
                                 <StyledButton>로그인</StyledButton>
-                                <ToSignUp>회원이 아니신가요?가입하기</ToSignUp>
                             </SignInForm>
+                            <ToSignUp>회원이 아니신가요?가입하기</ToSignUp>
+                            <Separator><Or>or</Or></Separator>
                             <SocialButtons>
                                 <FaceBookButton>
                                     <Icon icon={faFacebook} />
