@@ -110,33 +110,54 @@ const ToSignUp = styled(Link)`
 
 const SocialButtons = styled.div`
     margin: auto;
+    margin: 1rem 2rem;
 `
 
 const FaceBookButton = styled.div`
     display: flex;
     background-color: ${oc.blue[7]};
     color: white;
+    height: 2.5rem;
+    line-height: 2.4rem;
+    &:hover{
+        background-color: ${oc.blue[8]};
+    }
 `
 
 const TwitterButton = styled.div`
     display: flex;
     background-color: ${oc.indigo[5]};
     color: white;
-
+    margin-top: 0.5rem;
+    height: 2.5rem;
+    line-height: 2.4rem;
+    &:hover{
+        background-color: ${oc.indigo[7]};
+    }
 `
 
 const GoogleButton = styled.div`
     display: flex;
     background-color: ${oc.red[7]};
     color: white;
+    margin-top: 0.5rem;
+    height: 2.5rem;
+    line-height: 2.4rem;
+    &:hover{
+        background-color: ${oc.red[8]};
+    }
 `
 
 const Icon = styled(FontAwesomeIcon)`
+    margin-left: 1rem;
     font-size: 2rem;
+    padding-top: 0.25rem;
 `
 
 const H3 = styled.h3`
     margin: 0;
+    margin-left: 1rem;
+    font-size: 1.5rem;
 `
 
 class AuthForm extends React.Component {
@@ -148,7 +169,7 @@ class AuthForm extends React.Component {
                 <AuthSection>
                     <SignInCard>
                         <FormWrapper>
-                            <H1>Log In</H1>
+                            <H1>LogIn</H1>
                             <SignInForm>
                                 <StyledInput name="email" placeholder="Email"/>
                                 <StyledInput name="password" placeholder="Password"/>
