@@ -108,15 +108,35 @@ const ToSignUp = styled(Link)`
     }
 `
 
-const FaceBookButton = styled.div`
+const SocialButtons = styled.div`
+    margin: auto;
+`
 
+const FaceBookButton = styled.div`
+    display: flex;
+    background-color: ${oc.blue[7]};
+    color: white;
 `
 
 const TwitterButton = styled.div`
+    display: flex;
+    background-color: ${oc.indigo[5]};
+    color: white;
 
 `
 
 const GoogleButton = styled.div`
+    display: flex;
+    background-color: ${oc.red[7]};
+    color: white;
+`
+
+const Icon = styled(FontAwesomeIcon)`
+    font-size: 2rem;
+`
+
+const H3 = styled.h3`
+    margin: 0;
 `
 
 class AuthForm extends React.Component {
@@ -135,15 +155,20 @@ class AuthForm extends React.Component {
                                 <StyledButton>로그인</StyledButton>
                                 <ToSignUp>회원이 아니신가요?가입하기</ToSignUp>
                             </SignInForm>
-                            <FaceBookButton>
-                                <FontAwesomeIcon icon={faFacebook} />
-                            </FaceBookButton>
-                            <TwitterButton>
-                                <FontAwesomeIcon icon={faTwitter} />
-                            </TwitterButton>
-                            <GoogleButton>
-                                <FontAwesomeIcon icon={faGoogle} />
-                            </GoogleButton>
+                            <SocialButtons>
+                                <FaceBookButton>
+                                    <Icon icon={faFacebook} />
+                                    <H3>FaceBook 로그인</H3>
+                                </FaceBookButton>
+                                <TwitterButton>
+                                    <Icon icon={faTwitter} />
+                                    <H3>Twitter 로그인</H3>
+                                </TwitterButton>
+                                <GoogleButton>
+                                    <Icon icon={faGoogle} />
+                                    <H3>Google 로그인</H3>
+                                </GoogleButton>
+                            </SocialButtons>
                         </FormWrapper>
                     </SignInCard>
                 </AuthSection>
