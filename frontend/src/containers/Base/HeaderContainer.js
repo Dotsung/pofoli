@@ -13,8 +13,8 @@ const StyledButton = styled.button`
     background-size: 200% auto;
     transition: 0.5s;
 
-    width: 5rem;
-    height: 2rem;
+    width: 4.5rem;
+    height: 1.7rem;
     font-size: 1rem;
     cursor: pointer;
 

@@ -7,6 +7,8 @@ import { Route } from 'react-router-dom';
 
 import SignIn from './SignIn';
 
+import Img1 from 'testimg/img9.gif';
+
 const GlobalStyle = createGlobalStyle`
     html, body {
         height: 100%;
@@ -31,19 +33,30 @@ const Wrapper = styled.div`
 `
 
 const IntroSection = styled.div`
-    width: 45%;
+    position: relative;
+    width: 100%;
     height: 100%;
-    background-color: ${oc.gray[8]}
+    background-image: url(${Img1});
+    background-repeat: no-repeat;
+    background-size: 1920px 1080px;
+    display: flex;
+    align-items: center;
+`
 
-    @media (max-width: 900px){
-        width: 100%;
-        height: 30%;
-    }
+const Mask = styled.div`
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
 `
 
 const AuthSection = styled.div`
-    width: 55%;
+    width: 50%;
     height: 100%;
+    background-color: ${oc.indigo[5]};
     display: flex;
     align-items: center;
     @media (max-width: 900px){
@@ -56,10 +69,10 @@ class AuthForm extends React.Component {
         return (
             <Wrapper>
                 <GlobalStyle />
-                <IntroSection />
-                <AuthSection>
+                <IntroSection>
+                    <Mask />
                     <Route path='/auth/signin' component={SignIn} />
-                </AuthSection>
+                </IntroSection>
             </Wrapper>
         )
     }

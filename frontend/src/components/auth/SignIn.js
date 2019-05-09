@@ -6,10 +6,12 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
 
+
 const SignInCard = styled.div`
     background-color: white;
     margin: auto;
     width: 500px;
+    z-index: 2;
     @media (max-width: 550px){
         width: 100%;
         height: 100%;
@@ -33,7 +35,7 @@ const StyledInput = styled.input`
     margin-top: 0.5rem;
     border: none;
     height: 2.5rem;
-    background-color: ${oc.indigo[1]}
+    background-color: ${oc.gray[2]}
     border-radius: 3px;
     font-size: 1rem;
     &::placeholder {
@@ -56,7 +58,7 @@ const StyledButton = styled.button`
     margin-top: 1rem;
     border: none;
     height: 2.5rem;
-    background-color: ${oc.indigo[5]}
+    background-color: ${oc.gray[7]}
     color: white;
     border-radius: 3px;
     font-size: 1.5rem;
@@ -67,15 +69,16 @@ const Spacer = styled.div`
 `
 
 const ToSignUp = styled(Link)`
-    margin-top: 0.5rem;
-    color: ${oc.violet[4]}
+    margin-top: 0.7rem;
+    font-size: 1rem;
+    color: ${oc.gray[6]}
 
     &:visited{
-        color: ${oc.violet[4]}
+        color: ${oc.gray[6]}
     }
 
     &:hover{
-        color: ${oc.violet[6]}
+        color: ${oc.gray[7]}
     }
 `
 
