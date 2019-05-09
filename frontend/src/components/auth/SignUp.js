@@ -7,13 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
 
 
-const SignInCard = styled.div`
+const SignUpCard = styled.div`
     background-color: white;
     margin: auto;
-    margin-top: 5rem;
-    width: 500px;
+    margin-top: 4rem;
+    width: 650px;
     z-index: 2;
-    @media (max-width: 550px){
+    @media (max-width: 650px){
         width: 100%;
         height: 100%;
         margin: auto;
@@ -28,7 +28,7 @@ const FormWrapper = styled.div`
     padding-top: 3rem;
 `
 
-const SignInForm = styled.form`
+const SignUpForm = styled.form`
     display: flex;
     flex-direction: column;
 `
@@ -37,6 +37,7 @@ const StyledInput = styled.input`
     margin-top: 0.5rem;
     border: none;
     height: 2.5rem;
+    width: 100%;
     background-color: ${oc.gray[2]}
     border-radius: 3px;
     font-size: 1rem;
@@ -46,15 +47,20 @@ const StyledInput = styled.input`
     }
 `
 
+const LabelWrapper = styled.div`
+    display: flex;
+    text-align: left;
+`
+
+const Label = styled.h3`
+    margin-right: 1rem;
+    width: 30%;
+`
+
 const H1 = styled.h1`
     margin: 0;
     margin-bottom: 1rem;
     font-size: 2.5rem;
-`
-
-const ButtonWrapper = styled.div`
-    margin-top: 0.5rem;
-    display: flex;
 `
 
 const StyledButton = styled.button`
@@ -71,7 +77,7 @@ const Spacer = styled.div`
     flex: 1;
 `
 
-const ToSignUp = styled(Link)`
+const ToSignIn = styled(Link)`
     margin-top: 0.7rem;
     font-size: 1rem;
     color: ${oc.gray[6]}
@@ -162,37 +168,51 @@ const H3 = styled.h3`
     font-size: 1.5rem;
 `
 
-class SignIn extends React.Component {
+class SignUp extends React.Component {
     render(){
         return(
-            <SignInCard>
+            <SignUpCard>
                 <FormWrapper>
-                    <H1>로그인</H1>
-                    <SignInForm>
-                        <StyledInput type="text" name="email" placeholder="Email"/>
-                        <StyledInput type="password" name="password" placeholder="Password"/>
-                        <StyledButton>로그인</StyledButton>
-                    </SignInForm>
-                    <ToSignUp to='/auth/signup'>회원이 아니신가요?가입하기</ToSignUp>
+                    <H1>회원가입</H1>
+                    <SignUpForm>
+                        <LabelWrapper>
+                            <Label>Email</Label>
+                            <StyledInput type="text" name="email" placeholder="Email"/>
+                        </LabelWrapper>
+                        <LabelWrapper>
+                            <Label>닉네임</Label>
+                            <StyledInput type="text" name="username" placeholder="Username"/>
+                        </LabelWrapper>
+                        <LabelWrapper>
+                            <Label>비밀번호</Label>
+                            <StyledInput type="password" name="password" placeholder="Password"/>
+                        </LabelWrapper>
+                        <LabelWrapper>
+                            <Label>비밀번호 확인</Label>
+                            <StyledInput type="password" name="passwordcheck" placeholder="Password Check"/>
+                        </LabelWrapper>
+                        <StyledButton>가입하기</StyledButton>
+                    </SignUpForm>
+                    <ToSignIn to='/auth/signin'>계정이 이미 있으신가요?로그인</ToSignIn>
                     <Separator><Or>or</Or></Separator>
                     <SocialButtons>
                         <FaceBookButton>
                             <Icon icon={faFacebook} />
-                            <H3>FaceBook 로그인</H3>
+                            <H3>FaceBook으로 시작하기</H3>
                         </FaceBookButton>
                         <TwitterButton>
                             <Icon icon={faTwitter} />
-                            <H3>Twitter 로그인</H3>
+                            <H3>Twitter로 시작하기</H3>
                         </TwitterButton>
                         <GoogleButton>
                             <Icon icon={faGoogle} />
-                            <H3>Google 로그인</H3>
+                            <H3>Google로 시작하기</H3>
                         </GoogleButton>
                     </SocialButtons>
                 </FormWrapper>
-            </SignInCard>
+            </SignUpCard>
         )
     }
 }
 
-export default SignIn;
+export default SignUp;
