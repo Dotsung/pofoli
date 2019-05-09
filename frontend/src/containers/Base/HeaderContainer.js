@@ -8,20 +8,25 @@ import { Link } from 'react-router-dom';
 
 const StyledButton = styled.button`
     border: 0px;
-    color: white;
-    background-image: linear-gradient(to right, ${oc.blue[4]} 0%, ${oc.violet[4]} 51%, ${oc.blue[4]} 100%);
-    background-size: 200% auto;
-    transition: 0.5s;
+    color: black;
+    // background-image: linear-gradient(to right, ${oc.blue[4]} 0%, ${oc.violet[4]} 51%, ${oc.blue[4]} 100%);
+    // background-size: 200% auto;
+    // transition: 0.5s;
+
+    background-color: white;
 
     width: 4.5rem;
-    height: 1.7rem;
+    height: 1.8rem;
     font-size: 1rem;
     cursor: pointer;
 
+    border: 1px solid black;
     border-radius: 3px;
 
     &:hover{
-        background-position: right center;
+        //background-position: right center;
+        background-color:  ${oc.gray[9]};
+        color: white;
     }
 `
 

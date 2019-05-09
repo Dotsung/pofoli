@@ -41,6 +41,7 @@ const IntroSection = styled.div`
     background-size: 1920px 1080px;
     display: flex;
     align-items: center;
+    flex-direction: column;
 `
 
 const Mask = styled.div`
@@ -51,6 +52,42 @@ const Mask = styled.div`
     height: 100%;
     background-color: black;
     opacity: 0.5;
+`
+
+const TitleWrapper = styled.div`
+    display: flex;
+    width: 100%;
+`
+
+const ToHome = styled(Link)`
+    z-index: 2;
+    color: white;
+
+    &:visited{
+        text-decoration: none;
+        color: white;
+    }
+    &:hover{
+        text-decoration: none;
+        color: ${oc.gray[2]}
+    }
+    &:link{
+        text-decoration: none;
+    }
+`
+
+const Title = styled.h1`
+    z-index: 2;
+    font-size: 3rem;
+    margin: 0;
+    margin-left: 1rem;
+`
+
+const Blank = styled.div`
+    margin-bottom: 10rem;
+    @media (max-width: 550px){
+        display: none;
+    }
 `
 
 const AuthSection = styled.div`
@@ -71,7 +108,11 @@ class AuthForm extends React.Component {
                 <GlobalStyle />
                 <IntroSection>
                     <Mask />
+                    <TitleWrapper>
+                        <ToHome to='/'><Title>Dotia</Title></ToHome>
+                    </TitleWrapper>
                     <Route path='/auth/signin' component={SignIn} />
+                    <Blank />
                 </IntroSection>
             </Wrapper>
         )
