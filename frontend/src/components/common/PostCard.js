@@ -132,7 +132,7 @@ const Icons = styled.div`
 `
 
 const Icon = styled(FontAwesomeIcon)`
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 `
 
 const Likes = styled.div`
@@ -167,7 +167,7 @@ const Star = styled.div`
 const H5 = styled.h5`
     margin: 0px;
     margin-left: 0.1rem;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     line-height: 1.3rem;
     font-weight: 600;
 `

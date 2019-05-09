@@ -169,16 +169,16 @@ const Wrapper = styled.div`
     padding: 10px;
     box-sizing: border-box;
 
-    @media (max-width: 1400px){
+    @media (max-width: 1600px){
         column-count: 4;
     }
-    @media (max-width: 1000px){
+    @media (max-width: 1200px){
         column-count: 3;
     }
-    @media (max-width: 700px){
+    @media (max-width: 900px){
         column-count: 2;
     }
-    @media (max-width: 500px){
+    @media (max-width: 700px){
         column-count: 1;
     }
 `
