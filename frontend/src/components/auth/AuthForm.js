@@ -3,8 +3,7 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
+import { Route } from 'react-router-dom';
 
 import SignIn from './SignIn';
 
@@ -59,7 +58,7 @@ class AuthForm extends React.Component {
                 <GlobalStyle />
                 <IntroSection />
                 <AuthSection>
-                    <SignIn />
+                    <Route path='/auth/signin' component={SignIn} />
                 </AuthSection>
             </Wrapper>
         )

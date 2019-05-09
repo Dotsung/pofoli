@@ -13,8 +13,9 @@ const StyledButton = styled.button`
     background-size: 200% auto;
     transition: 0.5s;
 
-    width: 4rem;
-    height: 1.5rem;
+    width: 5rem;
+    height: 2rem;
+    font-size: 1rem;
     cursor: pointer;
 
     border-radius: 3px;
@@ -31,7 +32,7 @@ class HeaderContainer extends Component {
     render() {
         return (
             <Header>
-                <Href to="/auth"><StyledButton>Login</StyledButton></Href>
+                <Href to="/auth/signin"><StyledButton>Login</StyledButton></Href>
             </Header>
         );
     }
