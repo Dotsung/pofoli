@@ -5,8 +5,14 @@
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
     "express": "^4.16.4",
-    "nodemon": "^1.19.0"
+    "express-session": "^1.16.1",
+    "mongoose": "^5.5.7",
+    "nodemon": "^1.19.0",
+    "passport": "^0.4.0"
   },
   "scripts": {
     "start": "nodemon --exec babel-node app.js"
