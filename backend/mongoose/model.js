@@ -1,5 +1,5 @@
 module.exports = (function(){
-    import mongoose from 'mongoose';
+    const mongoose = require('mongoose');
     require('dotenv').config();
     const URI = process.env.MONGO_URI;
   
