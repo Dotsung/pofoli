@@ -106,7 +106,7 @@ class AuthForm extends React.Component {
                         <ToHome to='/'><Title>Dotia</Title></ToHome>
                     </TitleWrapper>
                     <Route path='/auth/signin' component={SignIn} />
-                    <Route path='/auth/signup' component={SignUp} /> 
+                    <Route path='/auth/signup' component={SignUp} />
                 </IntroSection>
             </Wrapper>
         )
