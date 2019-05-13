@@ -164,11 +164,14 @@ const CardList = [
 ]
 
 const Wrapper = styled.div`
-    column-count: 5;
+    column-count: 6;
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
 
+    @media (max-width: 1920px){
+        column-count: 5;
+    }
     @media (max-width: 1600px){
         column-count: 4;
     }
