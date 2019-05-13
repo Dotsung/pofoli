@@ -1,3 +1,4 @@
+src/testimg
 /node_modules
 .env
 nodemon.json

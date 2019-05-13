@@ -5,14 +5,35 @@ import crypto from 'crypto'
 import { generateToken } from 'jwt/jwt_token'
 
 const User = new mongoose.Schema({
-  username: String,
+  profile: {
+    username: String,
+    Introduction: String,
+    thumbnail: { type: String, default: 'testimg/bonobono.png' },
+    hearts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
+    stars: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  },
   email: String,
+  social: {
+    facebook: {
+        id: String,
+        accessToken: String
+    },
+    twitter: {
+      id: String,
+      accessToken: String
+    },
+    google: {
+        id: String,
+        accessToken: String
+    }
+  },
   password: String,
   createdAt: {
     type: Date,
     default: Date.now
   }
-})
+});
 
 function hash (password) {
     return crypto.createHmac(
