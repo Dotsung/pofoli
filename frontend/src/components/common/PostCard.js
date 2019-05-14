@@ -187,6 +187,7 @@ class PostCard extends React.Component{
         this.setState({
             modal: !this.state.modal
         })
+        console.log(this.state.modal);
     }
 
     render(){
@@ -194,7 +195,7 @@ class PostCard extends React.Component{
         
         return(
             <CardWrapper>
-                <PostContainer modal={this.state.modal}/>
+                <PostContainer modal={this.state.modal} ModalOnOff={this.ModalOnOff} {...this.props}/>
                 <ThumbnailWrapper onClick={this.ModalOnOff}>
                     <CardThumbnail src={img}/>
                     <Mask />
