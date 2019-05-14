@@ -1,4 +1,4 @@
-import Post from 'models/Post'
+import Article from 'models/Article'
 import User from 'models/User'
 import Joi from 'joi'
 

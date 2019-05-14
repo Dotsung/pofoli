@@ -12,8 +12,6 @@ import api from './api';
 // MongoDB 모듈
 import mongoose from 'mongoose'
 
-import { jwtMiddleware } from 'jwt/jwt_token'
-
 // Dotenv 설정파일 사용 (/.env)
 config()
 
@@ -32,7 +30,6 @@ mongoose.connect(mongoURI, { useNewUrlParser: true })
 
 
 app.use(bodyParser()); // 바디파서 적용, 라우터 적용코드보다 상단에 있어야합니다.
-app.use(jwtMiddleware);
 
 router.use('/api', api.routes()); // api 라우트를 /api 경로 하위 라우트로 설정
 

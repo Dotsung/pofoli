@@ -1,8 +1,10 @@
 import User from "models/User";
 import Joi from "joi";
 
+import { decodeToken } from "jwt/jwt_token";
+
 // 회원가입 (POST) API '/api/auth/register'
-exports.localRegister = async ctx => {
+export const localRegister = async (ctx) => {
   const schema = Joi.object().keys({
     email: Joi.string()
       .email()
@@ -11,9 +13,6 @@ exports.localRegister = async ctx => {
       .alphanum()
       .min(4)
       .max(15)
-      .required(),
-    email: Joi.string()
-      .email()
       .required(),
     password: Joi.string()
       .min(6)
@@ -57,7 +56,7 @@ exports.localRegister = async ctx => {
 };
 
 // 로그인 (POST) API '/api/auth/login'
-exports.localLogin = async (ctx) => {
+export const localLogin = async (ctx) => {
   // 데이터 검증
   const schema = Joi.object().keys({
     email: Joi.string()
@@ -106,17 +105,6 @@ exports.localLogin = async (ctx) => {
   ctx.body = { "token": token };
 };
 
-// 로그아웃 (POST) API '/api/auth/logout'
-exports.logout = async ctx => {
-  ctx.cookies.set("access_token", null, {
-    httpOnly: true,
-    maxAge: 0
-  });
-
-  // 204: 컨텐츠 없음
-  ctx.status = 204;
-};
-
 export const exists = async (ctx) => {
   const { key, value } = ctx.params;
   let user = null;
@@ -134,8 +122,11 @@ export const exists = async (ctx) => {
 }
 
 // 사용자 접속 확인 (GET) API '/api/auth/check'
-exports.check = ctx => {
-  const { user } = ctx.request;
+export const check = async (ctx) => {
+  const { token } = ctx.header;
+  const decoded = await decodeToken(token);
+
+  const user = decoded;
 
   if (!user) {
     ctx.body = "";
