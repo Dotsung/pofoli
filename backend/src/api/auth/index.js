@@ -7,7 +7,7 @@ auth.get('/', (ctx) => {
   ctx.body = 'Auth 분기점'
 })
 
-// 사용자 인증 함수
+
 auth.post('/register', authCtrl.register)
 auth.post('/login', authCtrl.login)
 auth.post('/logout', authCtrl.logout)
