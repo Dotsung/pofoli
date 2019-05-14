@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar, faEye } from '@fortawesome/free-regular-svg-icons'
 
+import PostContainer from 'containers/common/PostContainer';
+
 const CardWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -177,11 +179,23 @@ const Spacer = styled.div`
 `
 
 class PostCard extends React.Component{
+    state = {
+        modal: false
+    };
+    
+    ModalOnOff = () => {
+        this.setState({
+            modal: !this.state.modal
+        })
+    }
+
     render(){
         const { title, date, author, img, hearts, views, comments, stars } = this.props;
+        
         return(
             <CardWrapper>
-                <ThumbnailWrapper href="a">
+                <PostContainer modal={this.state.modal}/>
+                <ThumbnailWrapper onClick={this.ModalOnOff}>
                     <CardThumbnail src={img}/>
                     <Mask />
                 </ThumbnailWrapper>
