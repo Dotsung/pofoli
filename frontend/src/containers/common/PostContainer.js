@@ -12,6 +12,8 @@ const Wrapper = styled.div`
     z-index: 20;
     left: 0;
     top: 0;
+    width: 100%;
+    height: 100%;
 `
 
 const Background = styled.div`
@@ -20,7 +22,6 @@ const Background = styled.div`
     left: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 `
