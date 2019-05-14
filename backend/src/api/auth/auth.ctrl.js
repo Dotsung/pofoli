@@ -124,9 +124,7 @@ export const exists = async (ctx) => {
 // 사용자 접속 확인 (GET) API '/api/auth/check'
 export const check = async (ctx) => {
   const { token } = ctx.header;
-  const decoded = await decodeToken(token);
-
-  const user = decoded;
+  const user = await decodeToken(token);
 
   if (!user) {
     ctx.body = "";

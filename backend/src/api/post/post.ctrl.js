@@ -1,22 +1,33 @@
-import Article from 'models/Article'
+import Post from 'models/Post'
 import User from 'models/User'
 import Joi from 'joi'
 
-// 포스트 작성 (POST) API '/api/post/write'
-exports.write = async (ctx) => {
-  // 사용자 로그인 상태 확인
-  const { user } = ctx.request
+import { decodeToken } from "jwt/jwt_token";
 
-  if (!user) {
+// 포스트 작성 (POST) API '/api/post/write'
+export const write = async (ctx) => {
+  // 사용자 로그인 상태 확인
+  const { token } = ctx.header;
+  const user = await decodeToken(token);
+
+  let currentUser = null
+  try {
+    currentUser = await User.findById(user).exec()
+  } catch (err) {
+    ctx.throw(500, err)
+  }
+
+  if (!currentUser) {
     ctx.status = 403  // 권한 없음
-    ctx.body = 'NO'
     return
   }
+  
 
   // 입력값 검증
   const data = Joi.object().keys({
     title: Joi.string().required(),
-    body: Joi.string().required()
+    body: Joi.string().required(),
+    image: Joi.string().required()
   })
 
   const result = Joi.validate(ctx.request.body, data)
@@ -27,23 +38,13 @@ exports.write = async (ctx) => {
     return
   }
 
-  // 현재 접속자 정보
-  let currentUser = null
-
-  try {
-    currentUser = await User.findById(user).exec()
-  } catch (err) {
-    ctx.throw(500, err)
-  }
-
   // 데이터베이스에 저장할 정보
-  const { title, body } = ctx.request.body
-  const author = ctx.request.user
-  const name = currentUser.username
+  const { title, body, image } = ctx.request.body
 
   // 새 글 작성
   const post = new Post({
-    title, body, author, name
+    title, body, image, 
+    author: currentUser
   })
 
   try {
@@ -135,7 +136,8 @@ exports.update = async (ctx) => {
 // 특정 게시글 삭제하기 (DELETE) API '/api/post/remove/:id'
 exports.remove = async (ctx) => {
   // 게시글 사용자 비교를 위한 user
-  const { user } = ctx.request
+  const { token } = ctx.header;
+  const user = await decodeToken(token);
   const { id } = ctx.params
 
   try {

@@ -25,7 +25,6 @@ export const generateToken = payload => {
 
 export const decodeToken = (token) => {
   return new Promise((resolve, reject) => {
-    //console.log(token);
     jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
       if (error) reject(error);
       resolve(decoded);
