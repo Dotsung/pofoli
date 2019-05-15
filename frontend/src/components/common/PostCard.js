@@ -134,18 +134,18 @@ const Icons = styled.div`
     padding-top: 1rem;
 `
 
-const HeartIcon = ({hearted, hearts}) => {
+const HeartIcon = ({hearted, hearts, ToggleHeart}) => {
     return (
-        <Hearts hearted={hearted}>
+        <Hearts hearted={hearted} onClick={ToggleHeart}>
             <Icon icon={hearted?sheart:rheart} hearted={hearted}/>
             <H5>{hearts}</H5>
         </Hearts>
     )
 }
 
-const StarIcon = ({stared, stars}) => {
+const StarIcon = ({stared, stars, ToggleStar}) => {
     return (
-        <Stars stared={stared}>
+        <Stars stared={stared} onClick={ToggleStar}>
             <Icon icon={stared?sstar:rstar} stared={stared}/>
             <H5>{stars}</H5>
         </Stars>
@@ -214,7 +214,9 @@ const Spacer = styled.div`
 
 class PostCard extends React.Component{
     state = {
-        modal: false
+        modal: false,
+        hearted: this.props.hearted,
+        stared: this.props.stared
     };
     
     ModalOnOff = () => {
@@ -223,10 +225,25 @@ class PostCard extends React.Component{
         })
         console.log(this.state.modal);
     }
+    
+    ToggleHeart = () => {
+        this.setState({
+            hearted: !this.state.hearted
+        });
+        console.log(this.state.hearted)
+    }
+
+    ToggleStar = () => {
+        this.setState({
+            stared: !this.state.stared
+        });
+        console.log(this.state.stared);
+    }
 
     render(){
-        const { title, date, author, img, hearts, views, comments, stars, hearted, stared } = this.props;
-        
+        const { title, date, author, img, hearts, views, comments, stars} = this.props;
+        const { hearted, stared } = this.state;
+        const { ToggleHeart, ToggleStar } = this;
         return(
             <CardWrapper>
                 <PostContainer modal={this.state.modal} ModalOnOff={this.ModalOnOff} {...this.props}/>
@@ -246,7 +263,7 @@ class PostCard extends React.Component{
                         {date}
                     </CardDate>
                     <Icons>
-                        { HeartIcon({hearted, hearts}) }
+                        { HeartIcon({hearted, hearts, ToggleHeart}) }
                         <Spacer />
                         <Views>
                             <Icon icon={faEye} />
@@ -258,7 +275,7 @@ class PostCard extends React.Component{
                             <H5>{comments}</H5>
                         </Comments>
                         <Spacer />
-                        { StarIcon({stared, stars}) }
+                        { StarIcon({stared, stars, ToggleStar }) }
                     </Icons>
                 </CardContents>
             </CardWrapper>

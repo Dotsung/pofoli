@@ -22,6 +22,7 @@ import Img14 from "testimg/img14.png";
 
 const CardList = [
   {
+    id: 1,
     title: "Lorem",
     date: "2019.03.04",
     author: "uu",
@@ -35,6 +36,7 @@ const CardList = [
     stared: true
   },
   {
+    id: 2,
     title: "Ipsum",
     date: "2019.03.05",
     author: "uu",
@@ -48,6 +50,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 3,
     title: "Dolor",
     date: "2019.03.06",
     author: "uu",
@@ -61,6 +64,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 4,
     title: "Shit",
     date: "2019.03.07",
     author: "uu",
@@ -74,6 +78,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 5,
     title: "Amet",
     date: "2019.03.08",
     author: "uu",
@@ -87,6 +92,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 6,
     title: "Consectetur",
     date: "2019.03.09",
     author: "uu",
@@ -100,6 +106,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 7,
     title: "Adipiscing",
     date: "2019.03.10",
     author: "uu",
@@ -113,6 +120,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 8,
     title: "Elit",
     date: "2019.03.11",
     author: "uu",
@@ -126,6 +134,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 9,
     title: "Sed",
     date: "2019.03.12",
     author: "uu",
@@ -139,6 +148,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 10,
     title: "Do",
     date: "2019.03.13",
     author: "uu",
@@ -152,6 +162,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 11,
     title: "Eiusmod",
     date: "2019.03.14",
     author: "uu",
@@ -165,6 +176,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 12,
     title: "Tempor",
     date: "2019.03.15",
     author: "uu",
@@ -178,6 +190,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 13,
     title: "Tempor",
     date: "2019.03.15",
     author: "uu",
@@ -191,6 +204,7 @@ const CardList = [
     stared: false
   },
   {
+    id: 14,
     title: "Tempor",
     date: "2019.03.15",
     author: "uu",
@@ -229,11 +243,14 @@ const Wrapper = styled.div`
 `;
 
 class PostCardList extends React.Component {
+  
+  
   render() {
     return (
       <Wrapper>
         {CardList.map((card, index) => (
           <PostCard
+            id={card.id}
             title={card.title}
             date={card.date}
             author={card.author}
@@ -245,6 +262,7 @@ class PostCardList extends React.Component {
             views={card.views}
             comments={card.comments}
             stars={card.stars}
+            key={index}
           />
         ))}
       </Wrapper>
