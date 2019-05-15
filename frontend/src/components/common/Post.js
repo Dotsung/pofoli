@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
 
+import CommentList from './CommentList';
+
 const ContentArea = styled.div`
     height: 100vh;
     position: fixed;
@@ -168,6 +170,7 @@ class Post extends React.Component{
                             { StarIcon({stared, stars, ToggleStar}) }
                         </Icons>
                     </Content>
+                    <CommentList img={img}/>
                 </WhiteBox>
             </ContentArea>
         )
