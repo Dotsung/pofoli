@@ -27,6 +27,7 @@ const ThumbnailWrapper = styled.a`
     height:100%;
     max-height: 300px;
     z-index: 1;
+    cursor: pointer;
 `
 
 const CardThumbnail = styled.img`
@@ -137,12 +138,13 @@ const Icon = styled(FontAwesomeIcon)`
     font-size: 1.2rem;
 `
 
-const Likes = styled.div`
+const Hearts = styled.div`
     display: flex;
     &:hover{
         color: red;
     }
     color: ${oc.gray[7]}
+    cursor: pointer;
 `
 
 const Views = styled.div`
@@ -156,6 +158,7 @@ const Comments = styled.div`
         color: ${oc.indigo[5]};
     }
     color: ${oc.gray[7]}
+    cursor: pointer;
 `
 
 const Star = styled.div`
@@ -164,6 +167,7 @@ const Star = styled.div`
     &:hover{
         color: ${oc.yellow[5]};
     }
+    cursor: pointer;
 `
 
 const H5 = styled.h5`
@@ -212,10 +216,10 @@ class PostCard extends React.Component{
                         {date}
                     </CardDate>
                     <Icons>
-                        <Likes>
+                        <Hearts>
                             <Icon icon={rheart} />
                             <H5>{hearts}</H5>
-                        </Likes>
+                        </Hearts>
                         <Spacer />
                         <Views>
                             <Icon icon={faEye} />
