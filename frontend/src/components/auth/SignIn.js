@@ -178,7 +178,7 @@ class SignIn extends React.Component {
                     <SocialButtons>
                         <FaceBookButton>
                             <Icon icon={faFacebook} />
-                            <H3>FaceBook 로그인</H3>
+                            <H3>Facebook 로그인</H3>
                         </FaceBookButton>
                         <TwitterButton>
                             <Icon icon={faTwitter} />

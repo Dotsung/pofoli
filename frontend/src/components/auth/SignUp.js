@@ -198,7 +198,7 @@ class SignUp extends React.Component {
                     <SocialButtons>
                         <FaceBookButton>
                             <Icon icon={faFacebook} />
-                            <H3>FaceBook으로 시작하기</H3>
+                            <H3>Facebook으로 시작하기</H3>
                         </FaceBookButton>
                         <TwitterButton>
                             <Icon icon={faTwitter} />

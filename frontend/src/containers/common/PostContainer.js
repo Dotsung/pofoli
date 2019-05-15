@@ -28,7 +28,7 @@ const Background = styled.div`
 
 class PostContainer extends React.Component {
     render(){
-        const { modal, ModalOnOff, title } = this.props;
+        const { modal, ModalOnOff } = this.props;
         return (
             <Wrapper modal={modal}>
                 <Background onClick={ModalOnOff}/>

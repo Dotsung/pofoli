@@ -13,7 +13,7 @@ const CardWrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
     width: 100%;
     break-inside: avoid;
 `
@@ -223,21 +223,18 @@ class PostCard extends React.Component{
         this.setState({
             modal: !this.state.modal
         })
-        console.log(this.state.modal);
     }
     
     ToggleHeart = () => {
         this.setState({
             hearted: !this.state.hearted
         });
-        console.log(this.state.hearted)
     }
 
     ToggleStar = () => {
         this.setState({
             stared: !this.state.stared
         });
-        console.log(this.state.stared);
     }
 
     render(){
@@ -246,7 +243,7 @@ class PostCard extends React.Component{
         const { ToggleHeart, ToggleStar } = this;
         return(
             <CardWrapper>
-                <PostContainer modal={this.state.modal} ModalOnOff={this.ModalOnOff} {...this.props}/>
+                <PostContainer modal={this.state.modal} ModalOnOff={this.ModalOnOff} hearted={hearted} stared={stared} ToggleHeart={ToggleHeart} ToggleStar={ToggleStar} {...this.props} />
                 <ThumbnailWrapper onClick={this.ModalOnOff}>
                     <CardThumbnail src={img}/>
                     <Mask />

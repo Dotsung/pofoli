@@ -44,9 +44,7 @@ const Title = styled.h1`
     margin: 0px;
 `
 
-const Desc = styled.p`
-
-`
+const Desc = styled.p``
 
 const Icons = styled.div`
     border-top: 1px solid ${oc.gray[5]};
@@ -54,6 +52,25 @@ const Icons = styled.div`
     padding-top: 1rem;
     display: flex;
 `
+const HeartIcon = ({hearted, hearts, ToggleHeart}) => {
+    return (
+        <Hearts hearted={hearted} onClick={ToggleHeart}>
+            <Icon icon={hearted?sheart:rheart} hearted={hearted}/>
+            <IconName>Hearts</IconName>
+            <H5>{hearts}</H5>
+        </Hearts>
+    )
+}
+
+const StarIcon = ({stared, stars, ToggleStar}) => {
+    return (
+        <Stars stared={stared} onClick={ToggleStar}>
+            <Icon icon={stared?sstar:rstar} stared={stared}/>
+            <IconName>Stars</IconName>
+            <H5>{stars}</H5>
+        </Stars>
+    )
+}
 
 const Icon = styled(FontAwesomeIcon)`
     font-size: 1.2rem;
@@ -62,10 +79,16 @@ const Icon = styled(FontAwesomeIcon)`
 const Hearts = styled.div`
     display: flex;
     &:hover{
-        color: red;
+        color:  ${oc.red[6]};
     }
     color: ${oc.gray[7]}
     cursor: pointer;
+
+    ${
+        props=>{
+            return props.hearted?`color: ${oc.red[6]}`:``
+        }
+    }
 `
 
 const Views = styled.div`
@@ -82,13 +105,19 @@ const Comments = styled.div`
     cursor: pointer;
 `
 
-const Star = styled.div`
+const Stars = styled.div`
     display: flex;
     color: ${oc.gray[7]}
     &:hover{
         color: ${oc.yellow[5]};
     }
     cursor: pointer;
+    
+    ${
+        props=>{
+            return props.stared?`color:${oc.yellow[5]}`:``
+        }
+    }
 `
 
 const IconName = styled.h5`
@@ -113,7 +142,7 @@ const Spacer = styled.div`
 
 class Post extends React.Component{
     render(){
-        const { title, date, author, body, img, hearts, views, comments, stars } = this.props;
+        const { title, date, author, body, img, hearts, views, comments, stars, hearted, ToggleHeart, stared, ToggleStar } = this.props;
         return(
             <ContentArea>
                 <WhiteBox>
@@ -122,29 +151,21 @@ class Post extends React.Component{
                         <Img src={img} />
                         <Desc>{body}</Desc>
                         <Icons>
-                        <Hearts>
-                            <Icon icon={rheart} />
-                            <IconName>Hearts</IconName>
-                            <H5>{hearts}</H5>
-                        </Hearts>
-                        <Spacer />
-                        <Views>
-                            <Icon icon={faEye} />
-                            <IconName>Views</IconName>
-                            <H5>{views}</H5>
-                        </Views>
-                        <Spacer />
-                        <Comments>
-                            <Icon icon={faComment} />
-                            <IconName>Commnets</IconName>
-                            <H5>{comments}</H5>
-                        </Comments>
-                        <Spacer />
-                        <Star>
-                            <Icon icon={rstar} />
-                            <IconName>Stars</IconName>
-                            <H5>{stars}</H5>
-                        </Star>
+                            { HeartIcon({hearted, hearts, ToggleHeart}) }
+                            <Spacer />
+                            <Views>
+                                <Icon icon={faEye} />
+                                <IconName>Views</IconName>
+                                <H5>{views}</H5>
+                            </Views>
+                            <Spacer />
+                            <Comments>
+                                <Icon icon={faComment} />
+                                <IconName>Commnets</IconName>
+                                <H5>{comments}</H5>
+                            </Comments>
+                            <Spacer />
+                            { StarIcon({stared, stars, ToggleStar}) }
                         </Icons>
                     </Content>
                 </WhiteBox>
