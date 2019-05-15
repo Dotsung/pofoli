@@ -38,13 +38,13 @@ const CommentText = styled.span`
 
 class Comment extends React.Component{
     render(){
-        const { img } = this.props;
+        const { img, desc, author } = this.props;
         return(
             <Wrapper>
                 <UserThumbnail src={img} />
                 <CommentBox>
-                    <Username>dosung</Username>
-                    <CommentText>lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.</CommentText>
+                    <Username>{author}</Username>
+                    <CommentText>{desc}</CommentText>
                 </CommentBox>
             </Wrapper>
         )

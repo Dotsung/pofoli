@@ -106,6 +106,12 @@ const Comments = styled.div`
     }
     color: ${oc.gray[7]}
     cursor: pointer;
+
+    ${
+        props=>{
+            return props.watchComment?`color: ${oc.indigo[5]};`:``
+        }
+    }
 `
 
 const Stars = styled.div`
@@ -173,7 +179,7 @@ class Post extends React.Component{
                                 <H5>{views}</H5>
                             </Views>
                             <Spacer />
-                            <Comments onClick={this.ToggleComment}>
+                            <Comments onClick={this.ToggleComment} watchComment={this.state.watchComment}>
                                 <Icon icon={faComment} />
                                 <IconName>Commnets</IconName>
                                 <H5>{comments}</H5>
