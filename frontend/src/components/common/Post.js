@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'lib/styleUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart as sheart } from '@fortawesome/free-solid-svg-icons'
-import { faHeart as rheart, faComment, faStar, faEye } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
 
 const ContentArea = styled.div`
     height: 100vh;
@@ -141,7 +141,7 @@ class Post extends React.Component{
                         </Comments>
                         <Spacer />
                         <Star>
-                            <Icon icon={faStar} />
+                            <Icon icon={rstar} />
                             <IconName>Stars</IconName>
                             <H5>{stars}</H5>
                         </Star>

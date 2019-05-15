@@ -30,7 +30,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: true,
+    stared: true
   },
   {
     title: "Ipsum",
@@ -41,7 +43,9 @@ const CardList = [
     hearts: 45,
     views: 643,
     comments: 12,
-    stars: 24
+    stars: 24,
+    hearted: false,
+    stared: false
   },
   {
     title: "Dolor",
@@ -52,7 +56,9 @@ const CardList = [
     hearts: 3,
     views: 43,
     comments: 3,
-    stars: 2
+    stars: 2,
+    hearted: false,
+    stared: false
   },
   {
     title: "Shit",
@@ -63,7 +69,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Amet",
@@ -74,7 +82,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Consectetur",
@@ -85,7 +95,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Adipiscing",
@@ -96,7 +108,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Elit",
@@ -107,7 +121,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Sed",
@@ -118,7 +134,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Do",
@@ -129,7 +147,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Eiusmod",
@@ -140,7 +160,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Tempor",
@@ -151,7 +173,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Tempor",
@@ -162,7 +186,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   },
   {
     title: "Tempor",
@@ -173,7 +199,9 @@ const CardList = [
     hearts: 35,
     views: 243,
     comments: 4,
-    stars: 13
+    stars: 13,
+    hearted: false,
+    stared: false
   }
 ];
 
@@ -211,6 +239,8 @@ class PostCardList extends React.Component {
             author={card.author}
             body={card.body}
             img={card.img}
+            hearted={card.hearted}
+            stared={card.stared}
             hearts={card.hearts}
             views={card.views}
             comments={card.comments}

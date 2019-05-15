@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'lib/styleUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart as sheart } from '@fortawesome/free-solid-svg-icons'
-import { faHeart as rheart, faComment, faStar, faEye } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
 
 import PostContainer from 'containers/common/PostContainer';
 
@@ -134,17 +134,37 @@ const Icons = styled.div`
     padding-top: 1rem;
 `
 
-const Icon = styled(FontAwesomeIcon)`
-    font-size: 1.2rem;
-`
+const HeartIcon = ({hearted, hearts}) => {
+    return (
+        <Hearts hearted={hearted}>
+            <Icon icon={hearted?sheart:rheart} hearted={hearted}/>
+            <H5>{hearts}</H5>
+        </Hearts>
+    )
+}
+
+const StarIcon = ({stared, stars}) => {
+    return (
+        <Stars stared={stared}>
+            <Icon icon={stared?sstar:rstar} stared={stared}/>
+            <H5>{stars}</H5>
+        </Stars>
+    )
+}
 
 const Hearts = styled.div`
     display: flex;
     &:hover{
-        color: red;
+        color:  ${oc.red[6]};
     }
     color: ${oc.gray[7]}
     cursor: pointer;
+
+    ${
+        props=>{
+            return props.hearted?`color: ${oc.red[6]}`:``
+        }
+    }
 `
 
 const Views = styled.div`
@@ -161,13 +181,23 @@ const Comments = styled.div`
     cursor: pointer;
 `
 
-const Star = styled.div`
+const Stars = styled.div`
     display: flex;
     color: ${oc.gray[7]}
     &:hover{
         color: ${oc.yellow[5]};
     }
     cursor: pointer;
+    
+    ${
+        props=>{
+            return props.stared?`color:${oc.yellow[5]}`:``
+        }
+    }
+`
+
+const Icon = styled(FontAwesomeIcon)`
+    font-size: 1.2rem;
 `
 
 const H5 = styled.h5`
@@ -195,7 +225,7 @@ class PostCard extends React.Component{
     }
 
     render(){
-        const { title, date, author, img, hearts, views, comments, stars } = this.props;
+        const { title, date, author, img, hearts, views, comments, stars, hearted, stared } = this.props;
         
         return(
             <CardWrapper>
@@ -216,10 +246,7 @@ class PostCard extends React.Component{
                         {date}
                     </CardDate>
                     <Icons>
-                        <Hearts>
-                            <Icon icon={rheart} />
-                            <H5>{hearts}</H5>
-                        </Hearts>
+                        { HeartIcon({hearted, hearts}) }
                         <Spacer />
                         <Views>
                             <Icon icon={faEye} />
@@ -231,10 +258,7 @@ class PostCard extends React.Component{
                             <H5>{comments}</H5>
                         </Comments>
                         <Spacer />
-                        <Star>
-                            <Icon icon={faStar} />
-                            <H5>{stars}</H5>
-                        </Star>
+                        { StarIcon({stared, stars}) }
                     </Icons>
                 </CardContents>
             </CardWrapper>
