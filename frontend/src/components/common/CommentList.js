@@ -12,15 +12,21 @@ const Slicer = styled.div`
     background-color: ${oc.indigo[1]};
 `
 
+const Wrapper = styled.div`
+    ${ props => {
+        return props.watchComment?`display: block`:`display: none`
+    }}
+`
+
 class CommentList extends React.Component{
     render(){
-        const { img } = this.props;
+        const { img, watchComment } = this.props;
         return(
-            <>
+            <Wrapper watchComment={watchComment}>
                 <Comment img={img}/>
                 <Comment img={img}/>
                 <Comment img={img}/>
-            </>
+            </Wrapper>
         )
     }
 }

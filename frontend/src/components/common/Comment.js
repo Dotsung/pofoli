@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import oc from 'open-color';
 
 const Wrapper = styled.div`
-    padding: 1rem;
     display: flex;
-    border-top: 1px solid ${oc.gray[5]};
+    padding: 1rem;
+    padding-top: 0;
+    // border-top: 1px solid ${oc.gray[5]};
 `
 
 const UserThumbnail = styled.img`
@@ -33,6 +34,7 @@ const CommentText = styled.span`
     padding-top: 0.2rem;
 `
 
+// Comment 아이콘을 누르면 Commet아이콘에 파란 불 들어오고 CommentList 불러오기
 
 class Comment extends React.Component{
     render(){
@@ -42,7 +44,7 @@ class Comment extends React.Component{
                 <UserThumbnail src={img} />
                 <CommentBox>
                     <Username>dosung</Username>
-                    <CommentText>lorem ipsum dolor shit.</CommentText>
+                    <CommentText>lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.lorem ipsum dolor shit.</CommentText>
                 </CommentBox>
             </Wrapper>
         )

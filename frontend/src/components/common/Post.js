@@ -35,6 +35,7 @@ const WhiteBox = styled.div`
 const Content = styled.div`
     box-sizing: border-box;
     padding: 30px;
+    padding-bottom: 20px;
 `
 
 const Img = styled.img`
@@ -143,6 +144,17 @@ const Spacer = styled.div`
 `
 
 class Post extends React.Component{
+    state = {
+        watchComment: Boolean(false)
+    }
+
+    ToggleComment = () => {
+        this.setState({
+            watchComment: !this.state.watchComment
+        });
+        console.log(this.state.watchComment);
+    }
+
     render(){
         const { title, date, author, body, img, hearts, views, comments, stars, hearted, ToggleHeart, stared, ToggleStar } = this.props;
         return(
@@ -161,7 +173,7 @@ class Post extends React.Component{
                                 <H5>{views}</H5>
                             </Views>
                             <Spacer />
-                            <Comments>
+                            <Comments onClick={this.ToggleComment}>
                                 <Icon icon={faComment} />
                                 <IconName>Commnets</IconName>
                                 <H5>{comments}</H5>
@@ -170,7 +182,7 @@ class Post extends React.Component{
                             { StarIcon({stared, stars, ToggleStar}) }
                         </Icons>
                     </Content>
-                    <CommentList img={img}/>
+                    <CommentList img={img} watchComment={this.state.watchComment}/>
                 </WhiteBox>
             </ContentArea>
         )

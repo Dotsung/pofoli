@@ -32,8 +32,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: true,
-    stared: true
+    hearted: Boolean(true),
+    stared: Boolean(true)
   },
   {
     id: 2,
@@ -46,8 +46,8 @@ const CardList = [
     views: 643,
     comments: 12,
     stars: 24,
-    hearted: false,
-    stared: false
+    hearted: Boolean(Boolean(false)),
+    stared: Boolean(Boolean(false))
   },
   {
     id: 3,
@@ -60,8 +60,8 @@ const CardList = [
     views: 43,
     comments: 3,
     stars: 2,
-    hearted: false,
-    stared: false
+    hearted: Boolean(Boolean(false)),
+    stared: Boolean(Boolean(false))
   },
   {
     id: 4,
@@ -74,8 +74,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 5,
@@ -88,8 +88,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 6,
@@ -102,8 +102,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 7,
@@ -116,8 +116,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 8,
@@ -130,8 +130,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 9,
@@ -144,8 +144,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 10,
@@ -158,8 +158,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 11,
@@ -172,8 +172,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 12,
@@ -186,8 +186,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 13,
@@ -200,8 +200,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   },
   {
     id: 14,
@@ -214,8 +214,8 @@ const CardList = [
     views: 243,
     comments: 4,
     stars: 13,
-    hearted: false,
-    stared: false
+    hearted: Boolean(false),
+    stared: Boolean(false)
   }
 ];
 
