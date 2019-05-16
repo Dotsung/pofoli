@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 import { Provider } from "mobx-react"
 import { Router, Route, Switch } from "react-router-dom";
 
-import { Home, Auth } from 'pages';
+import { Home, Auth, Test } from 'pages';
 import { stores } from './stores'
 
 const history = createBrowserHistory()
@@ -18,6 +18,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/auth' component={Auth} />
+              <Route path='/test' component={Test} />
             </Switch>
           </Router>
         </Provider>

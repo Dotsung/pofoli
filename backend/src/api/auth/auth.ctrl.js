@@ -1,7 +1,14 @@
-import User from "models/User";
-import Joi from "joi";
+import User from 'models/User';
+import Joi from 'joi';
+import cloudinary from 'cloudinary'
 
-import { decodeToken } from "jwt/jwt_token";
+import { decodeToken } from 'jwt/jwt_token';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
 
 // 회원가입 (POST) API '/api/auth/register'
 export const localRegister = async (ctx) => {
