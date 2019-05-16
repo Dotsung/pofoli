@@ -5,8 +5,7 @@ import oc from 'open-color';
 
 const Wrapper = styled.div`
     display: flex;
-    padding: 1rem;
-    padding-top: 0;
+    padding-bottom: 1rem;
     // border-top: 1px solid ${oc.gray[5]};
 `
 

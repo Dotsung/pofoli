@@ -10,17 +10,19 @@ import Img2 from "testimg/img13.gif";
 import Img3 from "testimg/img14.png";
 import Img4 from "testimg/img8.gif";
 
-const Slicer = styled.div`
-    width: 100%;
-    margin: 0;
-    height: 0.2rem;
-    background-color: ${oc.indigo[1]};
-`
-
 const Wrapper = styled.div`
     ${ props => {
         return props.watchComment?`display: block`:`display: none`
     }}
+    padding: 5px 30px;
+`
+
+const Slicer = styled.div`
+    width: 100%;
+    margin: 0;
+    height: 0.2rem;
+    background-color: ${oc.indigo[3]};
+    margin-bottom: 1rem;
 `
 
 class CommentList extends React.Component{

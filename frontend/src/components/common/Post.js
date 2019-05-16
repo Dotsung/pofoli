@@ -99,6 +99,12 @@ const Views = styled.div`
     color: ${oc.gray[7]}
 `
 
+const CommentNav = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+`
+
 const Comments = styled.div`
     display: flex;
     &:hover{
@@ -112,6 +118,20 @@ const Comments = styled.div`
             return props.watchComment?`color: ${oc.indigo[5]};`:``
         }
     }
+`
+
+const CommentsLine = styled.div`
+    ${
+        props=>{
+            return props.watchComment?`display: block;`:`display: none;`
+        }
+    }
+    position: absolute;
+    top: 2rem;
+    width: 100%;
+    margin: 0;
+    height: 0.2rem;
+    background-color: ${oc.indigo[3]};
 `
 
 const Stars = styled.div`
@@ -135,6 +155,14 @@ const IconName = styled.h5`
     font-size: 1.1rem;
     line-height: 1.3rem;
     font-weight: 600;
+
+    // 스크롤 방지
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 `
 
 const H5 = styled.h5`
@@ -143,6 +171,14 @@ const H5 = styled.h5`
     font-size: 1.1rem;
     line-height: 1.3rem;
     font-weight: 600;
+
+    // 스크롤 방지
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 `
 
 const Spacer = styled.div`
@@ -158,7 +194,6 @@ class Post extends React.Component{
         this.setState({
             watchComment: !this.state.watchComment
         });
-        console.log(this.state.watchComment);
     }
 
     render(){
@@ -179,11 +214,14 @@ class Post extends React.Component{
                                 <H5>{views}</H5>
                             </Views>
                             <Spacer />
-                            <Comments onClick={this.ToggleComment} watchComment={this.state.watchComment}>
-                                <Icon icon={faComment} />
-                                <IconName>Commnets</IconName>
-                                <H5>{comments}</H5>
-                            </Comments>
+                            <CommentNav>
+                                <Comments onClick={this.ToggleComment} watchComment={this.state.watchComment}>
+                                    <Icon icon={faComment} />
+                                    <IconName>Commnets</IconName>
+                                    <H5>{comments}</H5>
+                                </Comments>
+                                <CommentsLine watchComment={this.state.watchComment} />
+                            </CommentNav>
                             <Spacer />
                             { StarIcon({stared, stars, ToggleStar}) }
                         </Icons>

@@ -105,7 +105,7 @@ const UserThumbnailWrapper = styled.a`
     display: felx;
 
     &:hover ${UserProfile} {
-        display: inline-block;
+        // display: inline-block;
     }
 `
 
@@ -206,6 +206,14 @@ const H5 = styled.h5`
     font-size: 1.1rem;
     line-height: 1.3rem;
     font-weight: 600;
+
+    // 스크롤 방지
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 `
 
 const Spacer = styled.div`
@@ -251,7 +259,6 @@ class PostCard extends React.Component{
                 <CardContents>
                     <UserThumbnailWrapper href="a">
                         <UserThumbnail src={img}/>
-                        <UserProfile />
                     </UserThumbnailWrapper>
                     <CardTitle>
                         {title}
