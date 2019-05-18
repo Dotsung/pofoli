@@ -4,13 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "async-busboy": "^0.7.0",
     "cloudinary": "^1.14.0",
     "dotenv": "^7.0.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
+    "koa-body": "^4.1.0",
     "koa-bodyparser": "^4.2.1",
     "koa-morgan": "^1.0.1",
+    "koa-multer": "^1.0.2",
     "koa-router": "^7.4.0",
     "mongoose": "^5.5.4"
   },
