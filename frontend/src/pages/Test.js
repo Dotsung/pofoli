@@ -22,7 +22,8 @@ class Test extends React.Component{
     handleSubmit = (e) => {
         e.preventDefault();
         
-        const file = new Blob([this.state.file], {type: 'image/png'});
+        // const file = new Blob([this.state.file], {type: 'image/png'});
+        const file = this.state.file;
 
         const url = 'http://localhost:4000/api/test/save'
         const formData = new FormData();
