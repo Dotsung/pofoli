@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
 
-
 const SignInCard = styled.div`
     background-color: white;
     margin: auto;
@@ -168,7 +167,7 @@ class SignIn extends React.Component {
             <SignInCard>
                 <FormWrapper>
                     <H1>로그인</H1>
-                    <SignInForm>
+                    <SignInForm >
                         <StyledInput type="text" name="email" placeholder="Email"/>
                         <StyledInput type="password" name="password" placeholder="Password"/>
                         <StyledButton>로그인</StyledButton>

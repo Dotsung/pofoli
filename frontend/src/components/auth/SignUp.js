@@ -5,6 +5,7 @@ import oc from 'open-color';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
+import * as authApi from 'lib/api/auth';
 
 
 const SignUpCard = styled.div`
@@ -169,27 +170,59 @@ const H3 = styled.h3`
 `
 
 class SignUp extends React.Component {
+    state = {
+        email: '',
+        username: '',
+        password: '',
+        confirmPassword: ''
+    }
+
+    onChange = (e) => {
+        const { name, value } = e.target; 
+        this.setState({
+            [name]: value
+        });
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+
+        const {email, username, password} = this.state;
+
+        authApi.localRegister({email, username, password})
+        .then((result) => {
+            console.log(result);
+            console.log('성공');
+        })
+        .catch((result) => {
+            console.log(result);
+            console.log('실패');
+        });
+    }
+
     render(){
+        const { email, username, password, confirmPassword } = this.state;
+
         return(
             <SignUpCard>
                 <FormWrapper>
                     <H1>회원가입</H1>
-                    <SignUpForm>
+                    <SignUpForm onSubmit={this.onSubmit}>
                         <LabelWrapper>
                             <Label>Email</Label>
-                            <StyledInput type="text" name="email" placeholder="Email"/>
+                            <StyledInput type="text" name="email" value={email} placeholder="Email" onChange={this.onChange} />
                         </LabelWrapper>
                         <LabelWrapper>
                             <Label>닉네임</Label>
-                            <StyledInput type="text" name="username" placeholder="Username"/>
+                            <StyledInput type="text" name="username" value={username} placeholder="Username" onChange={this.onChange} />
                         </LabelWrapper>
                         <LabelWrapper>
                             <Label>비밀번호</Label>
-                            <StyledInput type="password" name="password" placeholder="Password"/>
+                            <StyledInput type="password" name="password" value={password} placeholder="Password" onChange={this.onChange} />
                         </LabelWrapper>
                         <LabelWrapper>
                             <Label>비밀번호 확인</Label>
-                            <StyledInput type="password" name="passwordcheck" placeholder="Password Check"/>
+                            <StyledInput type="password" name="confirmPassword" value={confirmPassword} placeholder="Confirm Password" onChange={this.onChange} />
                         </LabelWrapper>
                         <StyledButton>가입하기</StyledButton>
                     </SignUpForm>
