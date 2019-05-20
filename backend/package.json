@@ -6,6 +6,7 @@
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "async-busboy": "^0.7.0",
+    "aws-sdk": "^2.458.0",
     "cloudinary": "^1.14.0",
     "dotenv": "^7.0.0",
     "joi": "^14.3.1",
