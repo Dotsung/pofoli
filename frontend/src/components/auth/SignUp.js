@@ -72,6 +72,7 @@ const StyledButton = styled.button`
     color: white;
     border-radius: 3px;
     font-size: 1.5rem;
+    cursor: pointer;
 `
 
 const Spacer = styled.div`
