@@ -11,5 +11,13 @@ export const save = async (ctx) => {
         fileType: file.type
     });
 
-    ctx.body = { key, url };
+    let img = null;
+
+    try {
+        img = await ImgTest.saveImg({key, url});
+    } catch (err) {
+        ctx.throw(500, err);
+    }
+
+    ctx.body = img;
 }
