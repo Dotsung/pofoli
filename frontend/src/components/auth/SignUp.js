@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
 import * as authApi from 'lib/api/auth';
-
+import { Redirect } from 'react-router'
 
 const SignUpCard = styled.div`
     background-color: white;
@@ -174,7 +174,8 @@ class SignUp extends React.Component {
         email: '',
         username: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        redirect: false
     }
 
     onChange = (e) => {
@@ -193,6 +194,7 @@ class SignUp extends React.Component {
         .then((result) => {
             console.log(result);
             console.log('성공');
+            this.setState({ redirect: true })
         })
         .catch((result) => {
             console.log(result);
@@ -201,7 +203,11 @@ class SignUp extends React.Component {
     }
 
     render(){
-        const { email, username, password, confirmPassword } = this.state;
+        const { email, username, password, confirmPassword, redirect } = this.state;
+
+        if(redirect){
+            return <Redirect to='/'/>; 
+        }
 
         return(
             <SignUpCard>
