@@ -5,6 +5,8 @@ import oc from 'open-color';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
+import * as authApi from 'lib/api/auth';
+import { Redirect } from 'react-router'
 
 const SignInCard = styled.div`
     background-color: white;
@@ -61,9 +63,13 @@ const StyledButton = styled.button`
     border: none;
     height: 2.5rem;
     background-color: ${oc.gray[7]}
+    &:hover{
+        background-color: ${oc.gray[8]}
+    }
     color: white;
     border-radius: 3px;
     font-size: 1.5rem;
+    cursor: pointer;
 `
 
 const Spacer = styled.div`
@@ -162,14 +168,49 @@ const H3 = styled.h3`
 `
 
 class SignIn extends React.Component {
+    state = {
+        email: '',
+        password: '',
+        redirect: false
+    }
+
+    onChange = (e) => {
+        const { name, value } = e.target; 
+        this.setState({
+            [name]: value
+        });
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+
+        const {email, password} = this.state;
+
+        authApi.localLogin({email, password})
+        .then((result) => {
+            console.log(result);
+            console.log('성공');
+            this.setState({ redirect: true })
+        })
+        .catch((result) => {
+            console.log(result);
+            console.log('실패');
+        });
+    }
     render(){
+        const { email, password, redirect } = this.state;
+
+        if(redirect){
+            return <Redirect to='/'/>; 
+        }
+
         return(
             <SignInCard>
                 <FormWrapper>
                     <H1>로그인</H1>
-                    <SignInForm >
-                        <StyledInput type="text" name="email" placeholder="Email"/>
-                        <StyledInput type="password" name="password" placeholder="Password"/>
+                    <SignInForm onSubmit={this.onSubmit}>
+                        <StyledInput type="text" name="email" value={email} placeholder="Email" onChange={this.onChange} />
+                        <StyledInput type="password" name="password" value={password} placeholder="Password" onChange={this.onChange} />
                         <StyledButton>로그인</StyledButton>
                     </SignInForm>
                     <ToSignUp to='/auth/signup'>회원이 아니신가요?가입하기</ToSignUp>

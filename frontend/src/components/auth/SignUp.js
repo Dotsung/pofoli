@@ -73,6 +73,9 @@ const StyledButton = styled.button`
     border-radius: 3px;
     font-size: 1.5rem;
     cursor: pointer;
+    &:hover{
+        background-color: ${oc.gray[8]}
+    }
 `
 
 const Spacer = styled.div`
