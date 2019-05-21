@@ -1,6 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const localRegister = ({email, username, password}) => axios.post('http://localhost:4000/api/auth/register/local', { email, username, password });
-export const localLogin = ({email, password}) => axios.post('http://localhost:4000/api/auth/login/local', { email, password });
+export const localRegister = ({ email, username, password }) =>
+  axios.post("http://localhost:4000/api/auth/register/local", {
+    email,
+    username,
+    password
+  });
+export const localLogin = ({ email, password }) =>
+  axios.post("http://localhost:4000/api/auth/login/local", { email, password });
 
-export const checkStatus = () => axios.get('http://localhost:4000/api/auth/check');
+export const checkStatus = ({ token }) =>
+  axios.get("http://localhost:4000/api/auth/check",
+  {
+      headers: {
+          'token': token
+      }
+  });

@@ -37,8 +37,7 @@ const Href = styled(Link)`
 class HeaderContainer extends Component {
     render() {
         const { token } = this.props.userStore;
-        console.log(token);
-        
+
         return (
             <Header>
                 <Href to="/auth/signin"><StyledButton>Login</StyledButton></Href>
