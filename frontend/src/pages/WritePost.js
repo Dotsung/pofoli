@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import HeaderContainer from 'containers/base/HeaderContainer' 
-import WritePostContainer from 'containers/writePost/writePostContainer'
+import WritePostContainer from 'containers/WritePostContainer'
 import styled from 'styled-components';
 
 const Content = styled.div`
