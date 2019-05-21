@@ -42,10 +42,24 @@ const ProfileThumbnail = styled.img`
 const Href = styled(Link)`
 `
 
+const PostButton = styled.button`
+    margin-left: 1rem;
+    color: white;
+    border: none;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 2px;
+    font-size: 1rem;
+    background: linear-gradient(${oc.blue[4]}, ${oc.indigo[5]})
+`
+
 const User = ({thumbnail}) => {
     if(thumbnail){
         return (
-            <ProfileThumbnail src={thumbnail}/>
+            <>
+                <ProfileThumbnail src={thumbnail}/>
+                <Href to="/write"><PostButton>write post</PostButton></Href>
+            </>
         )
     } else {
         return (
