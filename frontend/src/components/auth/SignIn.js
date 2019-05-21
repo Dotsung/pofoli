@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { observable, action } from 'mobx'
+import { observer, inject } from 'mobx-react'
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -167,6 +169,8 @@ const H3 = styled.h3`
     font-size: 1.5rem;
 `
 
+@inject('userStore')
+@observer
 class SignIn extends React.Component {
     state = {
         email: '',
@@ -191,6 +195,7 @@ class SignIn extends React.Component {
             console.log(result);
             console.log('성공');
             localStorage.setItem('dotia-token', result.data.token);
+            this.props.userStore.Login();
             this.setState({ redirect: true })
         })
         .catch((result) => {
