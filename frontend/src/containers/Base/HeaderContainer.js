@@ -30,17 +30,39 @@ const StyledButton = styled.button`
     }
 `
 
+const ProfileThumbnail = styled.img`
+    // display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    border: 1px solid ${oc.gray[5]};
+    border-radius: 50%;
+`
+
 const Href = styled(Link)`
 `
+
+const User = ({thumbnail}) => {
+    if(thumbnail){
+        return (
+            <ProfileThumbnail src={thumbnail}/>
+        )
+    } else {
+        return (
+            <Href to="/auth/signin"><StyledButton>Login</StyledButton></Href>
+        )
+    }
+}
+
 @inject('userStore')
 @observer
 class HeaderContainer extends Component {
     render() {
-        const { token } = this.props.userStore;
+        const { token, thumbnail } = this.props.userStore;
 
         return (
             <Header>
-                <Href to="/auth/signin"><StyledButton>Login</StyledButton></Href>
+                { User({thumbnail}) }
             </Header>
         );
     }
