@@ -198,6 +198,7 @@ class SignUp extends React.Component {
         .then((result) => {
             console.log(result);
             console.log('성공');
+            localStorage.setItem("dotia", result.data.token);
             this.setState({ redirect: true })
         })
         .catch((result) => {
