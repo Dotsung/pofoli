@@ -58,7 +58,7 @@ const User = ({thumbnail}) => {
         return (
             <>
                 <ProfileThumbnail src={thumbnail}/>
-                <Href to="/write"><PostButton>write post</PostButton></Href>
+                <Href to="/writepost"><PostButton>write post</PostButton></Href>
             </>
         )
     } else {
