@@ -33,8 +33,8 @@ class WritePostContainer extends React.Component {
         const { modal, ModalOff } = this.props;
         return (
             <Wrapper modal={modal}>
-                <Background onClick={ModalOff}/>
-                <WritePost />
+                <Background />
+                <WritePost ModalOff={ModalOff}/>
             </Wrapper>
         )
     }
