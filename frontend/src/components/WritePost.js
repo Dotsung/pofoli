@@ -62,11 +62,31 @@ const Input = styled.input`
 const InputLabel = styled.h3`
     margin: 0;
 `
+
 const SubmitButton = styled.button`
 
 `
 
 class WritePost extends React.Component{
+    state = {
+        title: '',
+        body: '',
+        file: null
+    }
+
+    onChange = (e) => {
+        const { name, value } = e.target; 
+        this.setState({
+            [name]: value
+        });
+    }
+
+    onChangeFile = (e) => {
+        this.setState({
+            file: e.target.files[0]
+        });
+    }
+
     render(){
         const { ModalOff } = this.props;
 

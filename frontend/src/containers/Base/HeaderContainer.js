@@ -52,7 +52,7 @@ const PostButton = styled.button`
     height: 2rem;
     border-radius: 2px;
     font-size: 1rem;
-    background: linear-gradient(${oc.blue[4]}, ${oc.indigo[5]})
+    background: ${oc.indigo[4]}
 `
 
 
