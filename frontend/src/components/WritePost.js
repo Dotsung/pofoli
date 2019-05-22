@@ -1,7 +1,10 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import { observable, action } from 'mobx'
+import { observer, inject } from 'mobx-react'
 import oc from 'open-color';
+import * as postApi from 'lib/api/post';
 
 const WhiteBox = styled.div`
     position: fixed;
@@ -67,11 +70,13 @@ const SubmitButton = styled.button`
 
 `
 
+@inject('userStore')
+@observer
 class WritePost extends React.Component{
     state = {
         title: '',
         body: '',
-        file: null
+        image: null
     }
 
     onChange = (e) => {
@@ -83,12 +88,37 @@ class WritePost extends React.Component{
 
     onChangeFile = (e) => {
         this.setState({
-            file: e.target.files[0]
+            image: e.target.files[0]
         });
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+
+        formData.append('title', this.state.title);
+        formData.append('body', this.state.body);
+        formData.append('image', this.state.image);
+        
+        postApi.write({ 
+            token: this.props.userStore.token, 
+            formData: formData
+        })
+        .then((result) => {
+            console.log(result);
+            console.log('성공');
+        })
+        .catch((result) => {
+            console.log(result);
+            console.log('실패');
+        });
+
     }
 
     render(){
         const { ModalOff } = this.props;
+        const { title, body, image } = this.state;
 
         return(
             <WhiteBox>
@@ -102,13 +132,13 @@ class WritePost extends React.Component{
                     <Form>
                         <InputBox>
                             <InputLabel>title</InputLabel>
-                            <Input type="text"/>
+                            <Input type="text" name="title" value={title} onChange={this.onChange}/>
                         </InputBox>
                         <InputBox>
-                            <InputLabel>desc</InputLabel>
-                            <Input type="text"/>
+                            <InputLabel>body</InputLabel>
+                            <Input type="text" name="body" value={body} onChange={this.onChange} />
                         </InputBox>
-                        <input type="file" />
+                        <input type="file" onChange={this.onChangeFile}/>
                         <SubmitButton>Post</SubmitButton>
                     </Form>
                 </Wrapper>
