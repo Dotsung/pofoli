@@ -6,6 +6,8 @@ import Header from 'components/base/Header';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import WritePostContainer from 'containers/WritePostContainer';
+
 const StyledButton = styled.button`
     border: 0px;
     color: black;
@@ -53,30 +55,49 @@ const PostButton = styled.button`
     background: linear-gradient(${oc.blue[4]}, ${oc.indigo[5]})
 `
 
-const User = ({thumbnail}) => {
-    if(thumbnail){
-        return (
-            <>
-                <ProfileThumbnail src={thumbnail}/>
-                <Href to="/writepost"><PostButton>write post</PostButton></Href>
-            </>
-        )
-    } else {
-        return (
-            <Href to="/auth/signin"><StyledButton>Login</StyledButton></Href>
-        )
-    }
-}
 
 @inject('userStore')
 @observer
 class HeaderContainer extends Component {
+    state = {
+        modal: false
+    }
+
+    ModalOn = () => {
+        this.setState({
+            modal: true
+        })
+    }
+
+    ModalOff = () => {
+        this.setState({
+            modal: false
+        })
+    }
+
+    User({thumbnail}){
+        if(thumbnail){
+            return (
+                <>
+                    <ProfileThumbnail src={thumbnail}/>
+                    <PostButton onClick={this.ModalOn}>write post</PostButton>
+                </>
+            )
+        } else {
+            return (
+                <Href to="/auth/signin"><StyledButton>Login</StyledButton></Href>
+            )
+        }
+    }
+
     render() {
         const { token, thumbnail } = this.props.userStore;
+        const { modal } = this.state;
 
         return (
             <Header>
-                { User({thumbnail}) }
+                { this.User({thumbnail}) }
+                <WritePostContainer modal={modal} ModalOff={this.ModalOff} />
             </Header>
         );
     }
