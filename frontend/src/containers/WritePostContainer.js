@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import Post from 'components/common/Post';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
+import WritePost from 'components/WritePost';
 
 const Wrapper = styled.div`
     ${ props => {
         return props.modal?`display:block`:`display: none;`
     }}
+    position: fixed;
     z-index: 20;
     left: 0;
     top: 0;
@@ -23,7 +25,7 @@ const Background = styled.div`
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
 `
 
 class WritePostContainer extends React.Component {
@@ -32,7 +34,7 @@ class WritePostContainer extends React.Component {
         return (
             <Wrapper modal={modal}>
                 <Background onClick={ModalOff}/>
-                <Post {...this.props}/>
+                <WritePost />
             </Wrapper>
         )
     }
