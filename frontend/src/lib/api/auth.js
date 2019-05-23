@@ -16,3 +16,6 @@ export const checkStatus = ({ token }) =>
           'token': token
       }
   });
+
+export const findUserById = ({ id }) => 
+  axios.get("http://localhost:4000/api/auth/findUser/"+id);

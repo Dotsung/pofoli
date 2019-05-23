@@ -145,5 +145,8 @@ export const findUser = async (ctx) => {
     ctx.throw(500, e);
   }
 
-  ctx.body = user;
+  ctx.body = {
+    thumbnail: user.profile.thumbnail,
+    username: user.profile.username
+  }
 };

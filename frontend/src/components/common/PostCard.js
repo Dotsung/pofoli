@@ -10,6 +10,7 @@ import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
 import PostContainer from 'containers/common/PostContainer';
+import * as authApi from 'lib/api/auth';
 
 const CardWrapper = styled.div`
     display: flex;
@@ -236,6 +237,17 @@ class PostCard extends React.Component{
     componentDidMount(){
         console.log(this.props.userStore.hearted)
 
+        authApi.findUserById({id: this.props.author})
+        .then((result) => {
+            this.setState({
+                authorThumbnail: result.data.thumbnail,
+                authorUsername: result.data.username
+            });
+        })
+        .catch((result) => {
+            console.log(result);
+        })
+
         if(this.props.userStore.token){
             this.props.userStore.hearted.forEach((id) => {
                 if(id === this.props.id){
@@ -253,7 +265,7 @@ class PostCard extends React.Component{
             })
         }
 
-        
+
 
 
     }
@@ -277,8 +289,8 @@ class PostCard extends React.Component{
     }
 
     render(){
-        const { title, date, author, img, hearts, views, comments, stars} = this.props;
-        const { hearted, stared } = this.state;
+        const { title, date, img, hearts, views, comments, stars} = this.props;
+        const { hearted, stared, authorThumbnail } = this.state;
         const { ToggleHeart, ToggleStar } = this;
         return(
             <CardWrapper>
@@ -289,7 +301,7 @@ class PostCard extends React.Component{
                 </ThumbnailWrapper>
                 <CardContents>
                     <UserThumbnailWrapper href="a">
-                        <UserThumbnail src={img}/>
+                        <UserThumbnail src={authorThumbnail}/>
                     </UserThumbnailWrapper>
                     <CardTitle>
                         {title}
