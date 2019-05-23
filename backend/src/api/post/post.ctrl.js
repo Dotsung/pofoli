@@ -1,6 +1,7 @@
 import Post from 'models/Post'
 import User from 'models/User'
 import Joi from 'joi'
+import uploadFile from 's3/uploadFile';
 
 import { decodeToken } from "jwt/jwt_token";
 
@@ -9,6 +10,23 @@ export const write = async (ctx) => {
   // 사용자 로그인 상태 확인
   const { token } = ctx.header;
   const user = await decodeToken(token);
+
+  console.log(ctx.request.files)
+  console.log(ctx.request.body)
+
+  const file = ctx.request.files.image
+
+  const { key, url } = await uploadFile({
+      fileName: file.name,
+      filePath: file.path,
+      fileType: file.type
+  });
+
+  const req = {
+    title: ctx.request.body.title,
+    body: ctx.request.body.body,
+    image: url
+  }
 
   let currentUser = null
   try {
@@ -30,16 +48,17 @@ export const write = async (ctx) => {
     image: Joi.string().required()
   })
 
-  const result = Joi.validate(ctx.request.body, data)
+  const result = Joi.validate(req, data)
 
   if (result.error) {
+    console.log('joi err')
     ctx.status = 400
     ctx.body = result.error
     return
   }
 
   // 데이터베이스에 저장할 정보
-  const { title, body, image } = ctx.request.body
+  const { title, body, image } = req;
 
   // 새 글 작성
   const post = new Post({

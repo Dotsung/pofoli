@@ -92,8 +92,10 @@ class WritePost extends React.Component{
         });
     }
 
-    handleSubmit = (e) => {
+    onSubmit = (e) => {
         e.preventDefault();
+
+        console.log(this.state)
 
         const formData = new FormData();
 
@@ -129,7 +131,7 @@ class WritePost extends React.Component{
                         <H1 onClick={ModalOff}>X</H1>
                     </Head>
                     <Slicer />
-                    <Form>
+                    <Form onSubmit={this.onSubmit}>
                         <InputBox>
                             <InputLabel>title</InputLabel>
                             <Input type="text" name="title" value={title} onChange={this.onChange}/>
