@@ -6,6 +6,8 @@ import { shadow, media } from 'lib/styleUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
+import { observable, action } from 'mobx'
+import { observer, inject } from 'mobx-react'
 
 import PostContainer from 'containers/common/PostContainer';
 
@@ -220,12 +222,35 @@ const Spacer = styled.div`
     flex: 1;
 `
 
+@inject('userStore')
+@observer
 class PostCard extends React.Component{
     state = {
         modal: false,
         hearted: this.props.hearted,
         stared: this.props.stared
     };
+
+    componentDidMount(){
+        console.log(this.props.userStore.hearted)
+
+        if(this.props.userStore.token){
+            this.props.userStore.hearted.forEach((id) => {
+                if(id === this.props.id){
+                    this.setState({
+                        hearted: true
+                    });
+                }
+            })
+            this.props.userStore.stared.forEach((id) => {
+                if(id === this.props.id){
+                    this.setState({
+                        stared: true
+                    });
+                }
+            })
+        }
+    }
     
     ModalOnOff = () => {
         this.setState({

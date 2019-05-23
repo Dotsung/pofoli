@@ -4,8 +4,8 @@ import * as authApi from 'lib/api/auth';
 class userStore {
   @observable token
   @observable thumbnail
-  @observable hearts
-  @observable stars
+  @observable hearted
+  @observable stared
   @observable following
   @observable follower
   @observable username
@@ -31,8 +31,8 @@ class userStore {
       const profile = result.data.profile;
 
       this.thumbnail = profile.thumbnail;
-      this.hearts = profile.hearts;
-      this.stars = profile.stars;
+      this.hearted = profile.hearts;
+      this.stared = profile.stars;
       this.following = profile.following;
       this.follower = profile.follower;
       this.username = profile.username;
@@ -41,8 +41,8 @@ class userStore {
         console.log(result);
         console.log('store 인증 실패');
         this.thumbnail = null;
-        this.hearts = null;
-        this.stars = null;
+        this.hearted = null;
+        this.stared = null;
         this.following = null;
         this.follower = null;
         this.username = null;

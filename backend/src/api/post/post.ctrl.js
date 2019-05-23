@@ -77,11 +77,7 @@ export const write = async (ctx) => {
 // 게시글 리스트 (GET) APi '/api/post/list'
 exports.list = async (ctx) => {
   // 파라미터 값으로 페이지값이 없을 시 page = 1, 10진법
-  console.log(ctx.params)
-
   const page = parseInt(ctx.params.page || 1, 10)
-
-  console.log(page)
 
   if (page < 1) {
     // page가 1보다 작을 시 잘못된 요청 반환
