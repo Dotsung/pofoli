@@ -2,6 +2,8 @@
 import React from "react";
 import styled from "styled-components";
 import oc from "open-color";
+import dateFormat from 'dateformat';
+
 import PostCard from "./PostCard";
 
 import * as postApi from 'lib/api/post';
@@ -256,6 +258,7 @@ class PostCardList extends React.Component {
       this.setState({
         data: result.data
       })
+      console.log(this.state.data)
     })
     .catch((result) => {
       console.log('list err');
@@ -264,16 +267,17 @@ class PostCardList extends React.Component {
   }
   
   render() {
+    const CardList = this.state.data;
     return (
       <Wrapper>
         {CardList.map((card, index) => (
           <PostCard
-            id={card.id}
+            id={card._id}
             title={card.title}
-            date={card.date}
+            date={dateFormat(new Date(card.updatedAt),"isoDate")}
             author={card.author}
             body={card.body}
-            img={card.img}
+            img={card.image}
             hearted={card.hearted}
             stared={card.stared}
             hearts={card.hearts}
