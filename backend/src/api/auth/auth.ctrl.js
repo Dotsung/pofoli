@@ -134,3 +134,16 @@ export const check = async (ctx) => {
 
   ctx.body = user;
 };
+
+export const findUser = async (ctx) => {
+  const { id } = ctx.params;
+  let user = null;
+
+  try{
+    user = await User.findById(id);
+  } catch(e) {
+    ctx.throw(500, e);
+  }
+
+  ctx.body = user;
+};

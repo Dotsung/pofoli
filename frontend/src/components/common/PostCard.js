@@ -228,7 +228,9 @@ class PostCard extends React.Component{
     state = {
         modal: false,
         hearted: this.props.hearted,
-        stared: this.props.stared
+        stared: this.props.stared,
+        authorThumbnail: null,
+        authorUsername: null
     };
 
     componentDidMount(){
@@ -250,6 +252,10 @@ class PostCard extends React.Component{
                 }
             })
         }
+
+        
+
+
     }
     
     ModalOnOff = () => {

@@ -43,7 +43,7 @@ const User = new mongoose.Schema({
   }
 });
 
-User.statics.findByEmail = function(_id) {
+User.statics.findById = function(_id) {
   return this.findOne({ _id }).exec();
 };
 
