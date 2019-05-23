@@ -43,6 +43,10 @@ const User = new mongoose.Schema({
   }
 });
 
+User.statics.findByEmail = function(_id) {
+  return this.findOne({ _id }).exec();
+};
+
 User.statics.findByUsername = function(username) {
   // 객체에 내장되어있는 값을 사용 할 때는 객체명.키 이런식으로 쿼리하면 됩니다
   return this.findOne({ "profile.username": username }).exec();

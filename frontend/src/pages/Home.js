@@ -1,8 +1,9 @@
 // @flow
 import React from 'react';
-import HeaderContainer from 'containers/base/HeaderContainer' 
-import Trending from './Trending';
 import styled from 'styled-components';
+
+import HeaderContainer from 'containers/base/HeaderContainer'
+import PostCardList from 'components/common/PostCardList'
 
 const Content = styled.div`
     margin-top: 55px;
@@ -14,7 +15,7 @@ class Home extends React.Component{
             <>
                 <HeaderContainer/>
                 <Content>
-                    <Trending />
+                    <PostCardList />
                 </Content>
             </>
         )

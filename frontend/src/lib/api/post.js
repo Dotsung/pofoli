@@ -10,13 +10,5 @@ export const write = ({ token, formData }) =>
     }
   });
 
-export const list = ({ email, password }) =>
-  axios.post("http://localhost:4000/api/auth/login/local", { email, password });
-
-export const checkStatus = ({ token }) =>
-  axios.get("http://localhost:4000/api/auth/check",
-  {
-      headers: {
-          'token': token
-      }
-  });
+export const list = ({page}) => 
+  axios.get("http://localhost:4000/api/post/list/"+page);

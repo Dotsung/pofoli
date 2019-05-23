@@ -68,8 +68,7 @@ export const write = async (ctx) => {
 
   try {
     await post.save()
-
-    ctx.body = post
+    ctx.body = 'ok'
   } catch (err) {
     ctx.throw(500, err)
   }
@@ -78,6 +77,8 @@ export const write = async (ctx) => {
 // 게시글 리스트 (GET) APi '/api/post/list'
 exports.list = async (ctx) => {
   // 파라미터 값으로 페이지값이 없을 시 page = 1, 10진법
+  console.log(ctx.params)
+
   const page = parseInt(ctx.params.page || 1, 10)
 
   if (page < 1) {
@@ -90,8 +91,8 @@ exports.list = async (ctx) => {
     // sort: _id 값 역순으로 정렬
     const postlist = await Post.find()
                               .sort({_id: -1})
-                              .limit(5)
-                              .skip((page - 1) * 5).exec()
+                              .limit(15)
+                              .skip((page - 1) * 15).exec()
     const lastpage = await Post.countDocuments().exec
 
     ctx.set('last-page', Math.ceil(lastpage / 10))

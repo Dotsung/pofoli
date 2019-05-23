@@ -2,8 +2,9 @@
 import React from "react";
 import styled from "styled-components";
 import oc from "open-color";
-import { shadow, media } from "lib/styleUtils";
 import PostCard from "./PostCard";
+
+import * as postApi from 'lib/api/post';
 
 import Img1 from "testimg/img1.gif";
 import Img2 from "testimg/img2.jpg";
@@ -243,7 +244,24 @@ const Wrapper = styled.div`
 `;
 
 class PostCardList extends React.Component {
+
+  state = {
+    data: []
+  }
   
+  componentDidMount() {
+    postApi.list({page: 1})
+    .then((result) => {
+      console.log('list불러오기 성공');
+      this.setState({
+        data: result.data
+      })
+    })
+    .catch((result) => {
+      console.log('list err');
+      console.log(result);
+    })
+  }
   
   render() {
     return (
