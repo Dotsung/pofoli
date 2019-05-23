@@ -222,7 +222,7 @@ const CardList = [
   }
 ];
 
-const Wrapper = styled.div`
+const CardListWrapper = styled.div`
   column-count: 6;
   width: 100%;
   padding: 10px;
@@ -245,14 +245,22 @@ const Wrapper = styled.div`
   }
 `;
 
-class PostCardList extends React.Component {
+const LoadMoreButton = styled.button`
+  display: block;
+  width: 80%;
+  margin: 2rem auto;
+  border: 1px solid #000000;
+  height: 2rem;
+`
 
+class PostCardList extends React.Component {
   state = {
-    data: []
+    data: [],
+    page: 1
   }
   
   componentDidMount() {
-    postApi.list({page: 1})
+    postApi.list({page: this.state.page})
     .then((result) => {
       console.log('list불러오기 성공');
       this.setState({
@@ -265,29 +273,52 @@ class PostCardList extends React.Component {
       console.log(result);
     })
   }
+
+  loadMore = () => {
+      this.setState({
+        page: this.state.page + 1
+      },
+      () =>
+        postApi.list({page: this.state.page})
+        .then((result) => {
+          console.log('list추가 성공');
+          console.log(this.state.page);
+          console.log(result);
+          this.setState({
+            data: this.state.data.concat(result.data)
+          })
+          console.log(this.state.data)
+        })
+        .catch((result) => {
+          console.log('list추가 에러');
+          console.log(result);
+        })
+      )
+  }
   
   render() {
     const CardList = this.state.data;
     return (
-      <Wrapper>
-        {CardList.map((card, index) => (
-          <PostCard
-            id={card._id}
-            title={card.title}
-            date={dateFormat(new Date(card.updatedAt),"isoDate")}
-            author={card.author}
-            body={card.body}
-            img={card.image}
-            hearted={card.hearted}
-            stared={card.stared}
-            hearts={card.hearts}
-            views={card.views}
-            comments={card.comments}
-            stars={card.stars}
-            key={index}
-          />
-        ))}
-      </Wrapper>
+      <>
+        <CardListWrapper>
+          {CardList.map((card, index) => (
+            <PostCard
+              id={card._id}
+              title={card.title}
+              date={dateFormat(new Date(card.updatedAt),"isoDate")}
+              author={card.author}
+              body={card.body}
+              img={card.image}
+              hearts={card.hearts}
+              views={card.views}
+              comments={card.comments}
+              stars={card.stars}
+              key={index}
+            />
+          ))}
+        </CardListWrapper>
+        <LoadMoreButton onClick={this.loadMore}>Load More</LoadMoreButton>
+      </>
     );
   }
 }

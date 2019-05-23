@@ -81,6 +81,8 @@ exports.list = async (ctx) => {
 
   const page = parseInt(ctx.params.page || 1, 10)
 
+  console.log(page)
+
   if (page < 1) {
     // page가 1보다 작을 시 잘못된 요청 반환
     ctx.status = 400
