@@ -16,8 +16,9 @@ const User = new mongoose.Schema({
     username: String,
     Introduction: String,
     thumbnail: { type: String, default: "https://dotia-files.s3.ap-northeast-2.amazonaws.com/defaultThumbnail.png" },
-    hearts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }],
-    stars: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }],
+    writed: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+    hearted: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+    stared: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     follower: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
   },

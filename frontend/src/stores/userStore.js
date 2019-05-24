@@ -31,8 +31,8 @@ class userStore {
       const profile = result.data.profile;
 
       this.thumbnail = profile.thumbnail;
-      this.hearted = profile.hearts;
-      this.stared = profile.stars;
+      this.hearted = profile.hearted;
+      this.stared = profile.stared;
       this.following = profile.following;
       this.follower = profile.follower;
       this.username = profile.username;

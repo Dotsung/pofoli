@@ -11,9 +11,6 @@ export const write = async (ctx) => {
   const { token } = ctx.header;
   const user = await decodeToken(token);
 
-  console.log(ctx.request.files)
-  console.log(ctx.request.body)
-
   const file = ctx.request.files.image
 
   const { key, url } = await uploadFile({
@@ -30,7 +27,7 @@ export const write = async (ctx) => {
 
   let currentUser = null
   try {
-    currentUser = await User.findById(user).exec()
+    currentUser = await User.findById(user)
   } catch (err) {
     ctx.throw(500, err)
   }
@@ -60,10 +57,13 @@ export const write = async (ctx) => {
   // 데이터베이스에 저장할 정보
   const { title, body, image } = req;
 
+  console.log(currentUser);
+
   // 새 글 작성
   const post = new Post({
     title, body, image, 
-    author: currentUser
+    authorThumbnail: currentUser.profile.thumbnail,
+    authorUsername: currentUser.profile.username
   })
 
   try {

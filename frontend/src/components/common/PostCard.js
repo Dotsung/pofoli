@@ -229,24 +229,11 @@ class PostCard extends React.Component{
     state = {
         modal: false,
         hearted: this.props.hearted,
-        stared: this.props.stared,
-        authorThumbnail: null,
-        authorUsername: null
+        stared: this.props.stared
     };
 
     componentDidMount(){
         console.log(this.props.userStore.hearted)
-
-        authApi.findUserById({id: this.props.author})
-        .then((result) => {
-            this.setState({
-                authorThumbnail: result.data.thumbnail,
-                authorUsername: result.data.username
-            });
-        })
-        .catch((result) => {
-            console.log(result);
-        })
 
         if(this.props.userStore.token){
             this.props.userStore.hearted.forEach((id) => {
@@ -289,8 +276,8 @@ class PostCard extends React.Component{
     }
 
     render(){
-        const { title, date, img, hearts, views, comments, stars} = this.props;
-        const { hearted, stared, authorThumbnail } = this.state;
+        const { title, date, img, hearts, views, comments, stars, authorThumbnail } = this.props;
+        const { hearted, stared } = this.state;
         const { ToggleHeart, ToggleStar } = this;
         return(
             <CardWrapper>
