@@ -198,6 +198,8 @@ class Post extends React.Component{
 
     render(){
         const { title, date, author, body, img, hearts, views, comments, stars, hearted, ToggleHeart, stared, ToggleStar } = this.props;
+
+        console.log(this.props.match)
         return(
             <ContentArea>
                 <WhiteBox>

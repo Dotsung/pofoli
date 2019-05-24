@@ -6,9 +6,7 @@ import oc from 'open-color';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
-    ${ props => {
-        return props.modal?`display:block`:`display: none;`
-    }}
+    position: fixed;
     z-index: 20;
     left: 0;
     top: 0;
@@ -28,11 +26,12 @@ const Background = styled.div`
 
 class PostContainer extends React.Component {
     render(){
-        const { modal, ModalOnOff } = this.props;
         return (
-            <Wrapper modal={modal}>
-                <Background onClick={ModalOnOff}/>
-                <Post {...this.props}/>
+            <Wrapper>
+                <Link to="/post">
+                    <Background />
+                </Link>
+                <Post/>
             </Wrapper>
         )
     }

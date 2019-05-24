@@ -6,10 +6,10 @@ import { shadow, media } from 'lib/styleUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
-import { observable, action } from 'mobx'
-import { observer, inject } from 'mobx-react'
+import { observable, action } from 'mobx';
+import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
-import PostContainer from 'containers/common/PostContainer';
 import * as authApi from 'lib/api/auth';
 
 const CardWrapper = styled.div`
@@ -227,13 +227,12 @@ const Spacer = styled.div`
 @observer
 class PostCard extends React.Component{
     state = {
-        modal: false,
         hearted: this.props.hearted,
         stared: this.props.stared
     };
 
     componentDidMount(){
-        console.log(this.props.userStore.hearted)
+        //console.log(this.props.userStore.hearted)
 
         if(this.props.userStore.hearted && this.props.userStore.stared){
             this.props.userStore.hearted.forEach((id) => {
@@ -253,12 +252,6 @@ class PostCard extends React.Component{
         }
     }
     
-    ModalOnOff = () => {
-        this.setState({
-            modal: !this.state.modal
-        })
-    }
-    
     ToggleHeart = () => {
         this.setState({
             hearted: !this.state.hearted
@@ -272,16 +265,17 @@ class PostCard extends React.Component{
     }
 
     render(){
-        const { title, date, img, hearts, views, comments, stars, authorThumbnail } = this.props;
+        const { id, title, date, img, hearts, views, comments, stars, authorThumbnail, authorUsername } = this.props;
         const { hearted, stared } = this.state;
         const { ToggleHeart, ToggleStar } = this;
         return(
             <CardWrapper>
-                <PostContainer modal={this.state.modal} ModalOnOff={this.ModalOnOff} hearted={hearted} stared={stared} ToggleHeart={ToggleHeart} ToggleStar={ToggleStar} {...this.props} />
-                <ThumbnailWrapper onClick={this.ModalOnOff}>
-                    <CardThumbnail src={img}/>
-                    <Mask />
-                </ThumbnailWrapper>
+                <Link to={"/post/"+id}>
+                    <ThumbnailWrapper>
+                        <CardThumbnail src={img}/>
+                        <Mask />
+                    </ThumbnailWrapper>
+                </Link>
                 <CardContents>
                     <UserThumbnailWrapper href="a">
                         <UserThumbnail src={authorThumbnail}/>

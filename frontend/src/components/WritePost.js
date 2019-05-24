@@ -140,7 +140,7 @@ class WritePost extends React.Component{
                             <InputLabel>body</InputLabel>
                             <Input type="text" name="body" value={body} onChange={this.onChange} />
                         </InputBox>
-                        <input type="file" onChange={this.onChangeFile}/>
+                        <input type="file" onChange={this.onChangeFile} accept="image/*" />
                         <SubmitButton>Post</SubmitButton>
                     </Form>
                 </Wrapper>

@@ -2,10 +2,12 @@
 import React from "react";
 import styled from "styled-components";
 import oc from "open-color";
+import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import dateFormat from 'dateformat';
 
 import PostCard from "./PostCard";
-
+import PostContainer from "containers/common/PostContainer";
 import * as postApi from 'lib/api/post';
 
 import Img1 from "testimg/img1.gif";
@@ -300,6 +302,7 @@ class PostCardList extends React.Component {
     const CardList = this.state.data;
     return (
       <>
+      <Route path='/post/:postid' component={PostContainer}/>
         <CardListWrapper>
           {CardList.map((card, index) => (
             <PostCard
@@ -309,6 +312,8 @@ class PostCardList extends React.Component {
               author={card.author}
               body={card.body}
               img={card.image}
+              authorThumbnail={card.authorThumbnail}
+              authorUsername={card.authorUsername}
               hearts={card.hearts}
               views={card.views}
               comments={card.comments}
