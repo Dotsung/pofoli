@@ -235,7 +235,7 @@ class PostCard extends React.Component{
     componentDidMount(){
         console.log(this.props.userStore.hearted)
 
-        if(this.props.userStore.token){
+        if(this.props.userStore.hearted && this.props.userStore.stared){
             this.props.userStore.hearted.forEach((id) => {
                 if(id === this.props.id){
                     this.setState({
@@ -251,10 +251,6 @@ class PostCard extends React.Component{
                 }
             })
         }
-
-
-
-
     }
     
     ModalOnOff = () => {

@@ -132,7 +132,19 @@ export const check = async (ctx) => {
     return;
   }
 
-  ctx.body = user;
+  let currentUser = null
+  try {
+    currentUser = await User.findById(user)
+  } catch (err) {
+    ctx.throw(500, err)
+  }
+
+  if (!currentUser) {
+    ctx.status = 403  // 권한 없음
+    return;
+  }
+
+  ctx.body = currentUser;
 };
 
 export const findUser = async (ctx) => {
