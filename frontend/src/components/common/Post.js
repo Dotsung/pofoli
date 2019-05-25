@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
 
+import * as postApi from 'lib/api/post';
+
 import CommentList from './CommentList';
 
 const ContentArea = styled.div`
@@ -187,7 +189,43 @@ const Spacer = styled.div`
 
 class Post extends React.Component{
     state = {
-        watchComment: Boolean(false)
+        watchComment: Boolean(false),
+        title: '',
+        body: '',
+        image: '',
+        hearts: 0,
+        views: 0,
+        comments: [],
+        stars: 0,
+        authorThumbnail: '',
+        authorUsername: '',
+        createdAt: '',
+        updatedAt: '',
+        hearted: false,
+        stared: false
+    }
+
+    componentDidMount(){
+        postApi.read({ 
+            id: this.props.postid 
+        }).then((result) => {
+            const post = result.data;
+            this.setState({
+                title: post.title,
+                body: post.body,
+                image: post.image,
+                hearts: post.hearts,
+                views: post.views,
+                stars: post.stars,
+                authorThumbnail: post.authorThumbnail,
+                authorUsername: post.authorUsername,
+                createdAt: post.createdAt,
+                updatedAt: post.updatedAt
+            })
+            console.log(this.state)
+        }).catch((result) => {
+            console.log(result)
+        });
     }
 
     ToggleComment = () => {
@@ -196,19 +234,25 @@ class Post extends React.Component{
         });
     }
 
-    render(){
-        const { title, date, author, body, img, hearts, views, comments, stars, hearted, ToggleHeart, stared, ToggleStar } = this.props;
+    ToggleHeart = () => {
+    }
 
-        console.log(this.props.match)
+    ToggleStar = () => {
+    }
+
+    render(){
+        
+        const {title, body, image, hearts, views, stars, comments, authorThumbnail, authorUsername, createdAt, updatedAt, hearted, stared } = this.state;
+
         return(
             <ContentArea>
                 <WhiteBox>
                     <Content>
                         <Title>{title}</Title>
-                        <Img src={img} />
+                        <Img src={image} />
                         <Desc>{body}</Desc>
                         <Icons>
-                            { HeartIcon({hearted, hearts, ToggleHeart}) }
+                            { HeartIcon({hearted, hearts, ToggleHeart:this.ToggleHeart}) }
                             <Spacer />
                             <Views>
                                 <Icon icon={faEye} />
@@ -225,10 +269,10 @@ class Post extends React.Component{
                                 <CommentsLine watchComment={this.state.watchComment} />
                             </CommentNav>
                             <Spacer />
-                            { StarIcon({stared, stars, ToggleStar}) }
+                            { StarIcon({stared, stars, ToggleStar: this.ToggleStar}) }
                         </Icons>
                     </Content>
-                    <CommentList img={img} watchComment={this.state.watchComment}/>
+                    <CommentList img={image} watchComment={this.state.watchComment}/>
                 </WhiteBox>
             </ContentArea>
         )

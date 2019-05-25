@@ -264,11 +264,11 @@ class PostCardList extends React.Component {
   componentDidMount() {
     postApi.list({page: this.state.page})
     .then((result) => {
-      console.log('list불러오기 성공');
+      //console.log('list불러오기 성공');
       this.setState({
         data: result.data
       })
-      console.log(this.state.data)
+      //console.log(this.state.data)
     })
     .catch((result) => {
       console.log('list err');

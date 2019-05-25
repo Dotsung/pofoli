@@ -12,3 +12,7 @@ export const write = ({ token, formData }) =>
 
 export const list = ({page}) => 
   axios.get("http://localhost:4000/api/post/list/"+page);
+
+
+  export const read = ({id}) => 
+  axios.get("http://localhost:4000/api/post/read/"+id);
