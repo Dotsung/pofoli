@@ -6,7 +6,11 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
 import * as authApi from 'lib/api/auth';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
+
+import { Formik } from 'formik';
+import * as EmailValidator from 'email-validator';
+import * as Yup from 'yup';
 
 const SignUpCard = styled.div`
     background-color: white;
@@ -49,13 +53,18 @@ const StyledInput = styled.input`
 `
 
 const LabelWrapper = styled.div`
+    margin-top: 25px;
+    position: relative;
     display: flex;
     text-align: left;
 `
 
 const Label = styled.h3`
+    position: absolute;
     margin-right: 1rem;
-    width: 30%;
+    bottom: 25px;
+    left:0;
+    //width: 30%;
 `
 
 const H1 = styled.h1`

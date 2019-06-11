@@ -16,9 +16,9 @@ class App extends React.Component {
         <Provider {...stores}>
           <Router history={history}>
             <Switch>
-              <Route path='/post' component={Home} />
               <Route path='/auth' component={Auth} />
               <Route path='/test' component={Test} />
+              <Route path='/' component={Home} />
             </Switch>
           </Router>
         </Provider>
