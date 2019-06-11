@@ -53,7 +53,7 @@ const StyledInput = styled.input`
 `
 
 const LabelWrapper = styled.div`
-    margin-top: 25px;
+    margin-bottom: 35px;
     position: relative;
     display: flex;
     text-align: left;
@@ -74,7 +74,6 @@ const H1 = styled.h1`
 `
 
 const StyledButton = styled.button`
-    margin-top: 1rem;
     border: none;
     height: 2.5rem;
     background-color: ${oc.gray[7]}
@@ -94,7 +93,7 @@ const Spacer = styled.div`
 const ToSignIn = styled(Link)`
     margin-top: 0.7rem;
     font-size: 1rem;
-    color: ${oc.gray[6]}
+    color: ${oc.gray[6]};
 
     &:visited{
         color: ${oc.gray[6]}
@@ -182,26 +181,69 @@ const H3 = styled.h3`
     font-size: 1.5rem;
 `
 
+const ErrMsg = styled.h5`
+    position: absolute;
+    margin: 0;
+    top: 50px;
+    left: 0;
+    color: ${oc.red[8]};
+`
+
 class SignUp extends React.Component {
     state = {
         email: '',
         username: '',
         password: '',
         confirmPassword: '',
+        emailErrMsg: '', 
+        usernameErrMsg: '', 
+        passwordErrMsg: '', 
+        confirmPasswordErrMsg: '',
         redirect: false
     }
 
     onChange = (e) => {
         const { name, value } = e.target; 
         this.setState({
-            [name]: value
+            [name]: value,
+            [name+'ErrMsg']: ''
         });
     }
 
     onSubmit = (e) => {
         e.preventDefault();
 
-        const {email, username, password} = this.state;
+        const {email, username, password, confirmPassword } = this.state;
+
+        if(email === ''){
+            this.setState({
+                emailErrMsg: '이메일을 입력해 주세요.'
+            });
+            return;
+        }
+
+        if(username === ''){
+            this.setState({
+                usernameErrMsg: '닉네임을 입력해 주세요.'
+            });
+            return;
+        }
+
+        if(password === ''){
+            this.setState({
+                passwordErrMsg: '비밀번호를 입력해 주세요.'
+            });
+            return;
+        }
+
+        if(confirmPassword === ''){
+            this.setState({
+                confirmPasswordErrMsg: '비밀번호를 한번 더 입력해 주세요.'
+            });
+            return;
+        }
+
+        console.log('통과')
 
         authApi.localRegister({email, username, password})
         .then((result) => {
@@ -216,7 +258,7 @@ class SignUp extends React.Component {
     }
 
     render(){
-        const { email, username, password, confirmPassword, redirect } = this.state;
+        const { email, username, password, confirmPassword, redirect, emailErrMsg, usernameErrMsg, passwordErrMsg, confirmPasswordErrMsg } = this.state;
 
         if(redirect){
             return <Redirect to='/'/>; 
@@ -230,18 +272,22 @@ class SignUp extends React.Component {
                         <LabelWrapper>
                             <Label>Email</Label>
                             <StyledInput type="text" name="email" value={email} placeholder="Email" onChange={this.onChange} />
+                            <ErrMsg>{emailErrMsg}</ErrMsg>
                         </LabelWrapper>
                         <LabelWrapper>
                             <Label>닉네임</Label>
                             <StyledInput type="text" name="username" value={username} placeholder="Username" onChange={this.onChange} />
+                            <ErrMsg>{usernameErrMsg}</ErrMsg>
                         </LabelWrapper>
                         <LabelWrapper>
                             <Label>비밀번호</Label>
                             <StyledInput type="password" name="password" value={password} placeholder="Password" onChange={this.onChange} />
+                            <ErrMsg>{passwordErrMsg}</ErrMsg>
                         </LabelWrapper>
                         <LabelWrapper>
                             <Label>비밀번호 확인</Label>
                             <StyledInput type="password" name="confirmPassword" value={confirmPassword} placeholder="Confirm Password" onChange={this.onChange} />
+                            <ErrMsg>{confirmPasswordErrMsg}</ErrMsg>
                         </LabelWrapper>
                         <StyledButton>가입하기</StyledButton>
                     </SignUpForm>
