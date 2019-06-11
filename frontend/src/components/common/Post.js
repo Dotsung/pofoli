@@ -86,7 +86,7 @@ const Hearts = styled.div`
     &:hover{
         color:  ${oc.red[6]};
     }
-    color: ${oc.gray[7]}
+    color: ${oc.gray[7]};
     cursor: pointer;
 
     ${
@@ -98,7 +98,7 @@ const Hearts = styled.div`
 
 const Views = styled.div`
     display: flex;
-    color: ${oc.gray[7]}
+    color: ${oc.gray[7]};
 `
 
 const CommentNav = styled.div`
@@ -252,7 +252,7 @@ class Post extends React.Component{
                         <Img src={image} />
                         <Desc>{body}</Desc>
                         <Icons>
-                            { HeartIcon({hearted, hearts, ToggleHeart:this.ToggleHeart}) }
+                            { HeartIcon({hearted:hearted?1:0, hearts, ToggleHeart:this.ToggleHeart}) }
                             <Spacer />
                             <Views>
                                 <Icon icon={faEye} />
@@ -269,7 +269,7 @@ class Post extends React.Component{
                                 <CommentsLine watchComment={this.state.watchComment} />
                             </CommentNav>
                             <Spacer />
-                            { StarIcon({stared, stars, ToggleStar: this.ToggleStar}) }
+                            { StarIcon({stared:stared?1:0, stars, ToggleStar: this.ToggleStar}) }
                         </Icons>
                     </Content>
                     <CommentList img={image} watchComment={this.state.watchComment}/>

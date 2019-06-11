@@ -52,7 +52,7 @@ const PostButton = styled.button`
     height: 2rem;
     border-radius: 2px;
     font-size: 1rem;
-    background: ${oc.indigo[4]}
+    background: ${oc.indigo[4]};
 `
 
 

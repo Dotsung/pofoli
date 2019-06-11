@@ -39,7 +39,7 @@ const IntroSection = styled.div`
     height: 100%;
     background-image: url(${Img1});
     background-repeat: no-repeat;
-    background-size: 1920px 1080px;
+    background-size: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;

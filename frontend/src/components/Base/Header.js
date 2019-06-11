@@ -35,10 +35,9 @@ const HeaderContents = styled.div`
 `;
 
 // 로고
-const Logo = styled.div`
-    font-size: 1.4rem;
+const Logo = styled.h1`
+    font-size: 1.5rem;
     letter-spacing: 1px;
-    font-family: 'Rajdhani';
 `;
 
 // 중간 여백
@@ -51,7 +50,7 @@ const Header = ({children}) => {
             <Positioner>
                 <WhiteBackground>
                     <HeaderContents>
-                        <Logo>Dotia</Logo>
+                        <Logo>DOTIA</Logo>
                         <Spacer/>
                         {children}
                     </HeaderContents>

@@ -59,7 +59,7 @@ const InputBox = styled.div`
 const Input = styled.input`
     width: 100%
     border: none;
-    border-bottom: 1px solid ${oc.gray[6]}
+    border-bottom: 1px solid ${oc.gray[6]};
 `
 
 const InputLabel = styled.h3`
