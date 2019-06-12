@@ -7,6 +7,8 @@ profile.get('/', (ctx) => {
   ctx.body = 'Profile 분기점'
 });
 
+profile.post('/heart', profileCtrl.heart);
+
 // auth.post('/register/local', authCtrl.localRegister);
 // auth.post('/login/local', authCtrl.localLogin);
 // auth.post('/heart', authCtrl.heart);

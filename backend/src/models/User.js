@@ -80,16 +80,23 @@ User.statics.localRegister = function({ username, email, password }) {
 
 
 User.methods.heart = function(id){
-  if(this.hearted.indexOf(id) === -1){
-    this.hearted.push(id);
+  if(this.profile.hearted.indexOf(id) === -1){
+    try{
+      this.profile.hearted.push(id);
+    } catch (err){
+      console.log(err);
+    }
+
+  } else {
+    return 'exists';
   }
 
-  return this.save;
+  return this.save();
 }
 
 User.methods.unheart = function(id){
-  this.hearted.remove(id);
-  return this.save;
+  this.profile.hearted.remove(id);
+  return this.save();
 }
 
 // 비밀번호 비교 메소드

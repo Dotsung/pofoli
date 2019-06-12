@@ -2,20 +2,26 @@ import User from 'models/User';
 
 export const heart = async (ctx) => {
     const { _id, post } = ctx.request.body;
-  
+    let user, newuser = null;
+
     try{
-      const user = await User.update({ _id: _id }, {$push: { profile: { hearted: post }}});
-  
+        user = await User.findById(_id);
+
       if (!user) {
+        console.log('not found');
         ctx.status = 404
         return
       }
-  
-      console.log(user);
-  
     } catch (err) {
       ctx.throw(500, err)
     }
+
+    try {
+        newuser = await user.heart(post);
+        console.log(newuser);
+    } catch (err) {
+        ctx.throw(500, err)
+    } 
   
-    ctx.body='aa';
+    ctx.body = newuser;
 }
