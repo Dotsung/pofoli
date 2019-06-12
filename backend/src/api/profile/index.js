@@ -8,6 +8,7 @@ profile.get('/', (ctx) => {
 });
 
 profile.post('/heart', profileCtrl.heart);
+profile.post('/unheart', profileCtrl.unheart);
 
 // auth.post('/register/local', authCtrl.localRegister);
 // auth.post('/login/local', authCtrl.localLogin);
