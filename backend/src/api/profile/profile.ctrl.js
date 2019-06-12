@@ -1,7 +1,7 @@
 import User from 'models/User';
 
 export const heart = async (ctx) => {
-    const { _id, post } = ctx.request.body;
+    const { _id, postid } = ctx.request.body;
     let user, newuser = null;
 
     try{
@@ -17,7 +17,7 @@ export const heart = async (ctx) => {
     }
 
     try {
-        newuser = await user.heart(post);
+        newuser = await user.heart(postid);
     } catch (err) {
         ctx.throw(500, err)
     } 
@@ -26,7 +26,7 @@ export const heart = async (ctx) => {
 }
 
 export const unheart = async (ctx) => {
-    const { _id, post } = ctx.request.body;
+    const { _id, postid } = ctx.request.body;
     let user, newuser = null;
 
     try{
@@ -42,7 +42,7 @@ export const unheart = async (ctx) => {
     }
 
     try {
-        newuser = await user.unheart(post);
+        newuser = await user.unheart(postid);
     } catch (err) {
         ctx.throw(500, err)
     } 
