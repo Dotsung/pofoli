@@ -78,6 +78,20 @@ User.statics.localRegister = function({ username, email, password }) {
   return account.save();
 };
 
+
+User.methods.heart = function(id){
+  if(this.hearted.indexOf(id) === -1){
+    this.hearted.push(id);
+  }
+
+  return this.save;
+}
+
+User.methods.unheart = function(id){
+  this.hearted.remove(id);
+  return this.save;
+}
+
 // 비밀번호 비교 메소드
 User.methods.validatePassword = function(password) {
   const contrast = hash(password);
