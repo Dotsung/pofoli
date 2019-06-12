@@ -8,10 +8,6 @@ import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-ic
 import * as authApi from 'lib/api/auth';
 import { Redirect } from 'react-router';
 
-import { Formik } from 'formik';
-import * as EmailValidator from 'email-validator';
-import * as Yup from 'yup';
-
 const SignUpCard = styled.div`
     background-color: white;
     margin: auto;

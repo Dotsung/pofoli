@@ -14,7 +14,7 @@ const hash = password => {
 const User = new mongoose.Schema({
   profile: {
     username: String,
-    Introduction: String,
+    introduction: String,
     thumbnail: { type: String, default: "https://dotia-files.s3.ap-northeast-2.amazonaws.com/defaultThumbnail.png" },
     writed: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
     hearted: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
