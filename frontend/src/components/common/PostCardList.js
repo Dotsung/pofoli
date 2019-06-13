@@ -5,6 +5,7 @@ import oc from "open-color";
 import { Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import dateFormat from 'dateformat';
+import { observer, inject } from 'mobx-react';
 
 import PostCard from "./PostCard";
 import PostContainer from "containers/common/PostContainer";
@@ -41,6 +42,8 @@ const LoadMoreButton = styled.button`
   height: 2rem;
 `
 
+@inject('userStore')
+@observer
 class PostCardList extends React.Component {
   state = {
     data: [],
@@ -59,7 +62,7 @@ class PostCardList extends React.Component {
     .catch((result) => {
       console.log('list err');
       console.log(result);
-    })
+    });
   }
 
   loadMore = () => {
@@ -83,9 +86,10 @@ class PostCardList extends React.Component {
         })
       )
   }
-  
+
   render() {
     const CardList = this.state.data;
+  
     return (
       <>
       <Route path='/post/:postid' component={PostContainer}/>
@@ -105,8 +109,8 @@ class PostCardList extends React.Component {
               comments={card.comments}
               stars={card.stars}
               key={index}
-            />
-          ))}
+            />)
+          )}
         </CardListWrapper>
         <LoadMoreButton onClick={this.loadMore}>Load More</LoadMoreButton>
       </>

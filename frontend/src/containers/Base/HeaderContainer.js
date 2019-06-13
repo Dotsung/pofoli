@@ -91,6 +91,7 @@ class HeaderContainer extends Component {
     }
 
     render() {
+        //console.log(this.props.userStore);
         const { token, thumbnail } = this.props.userStore;
         const { modal } = this.state;
 

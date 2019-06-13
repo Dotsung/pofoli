@@ -6,11 +6,12 @@ import { shadow, media } from 'lib/styleUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
+import { Link } from 'react-router-dom';
 import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
-import { Link } from 'react-router-dom';
 
 import * as authApi from 'lib/api/auth';
+import * as ProfileApi from 'lib/api/profile';
 
 const CardWrapper = styled.div`
     display: flex;
@@ -127,7 +128,7 @@ const CardTitle = styled.h3`
 
 const CardDate = styled.span`
     font-size: 1.2rem;
-    color: ${oc.gray[6]}
+    color: ${oc.gray[6]};
 `
 
 const Icons = styled.div`
@@ -139,8 +140,8 @@ const Icons = styled.div`
 
 const HeartIcon = ({hearted, hearts, ToggleHeart}) => {
     return (
-        <Hearts hearted={hearted} onClick={ToggleHeart}>
-            <Icon icon={hearted?sheart:rheart} hearted={hearted}/>
+        <Hearts hearted={hearted?1:0} onClick={ToggleHeart}>
+            <Icon icon={hearted?sheart:rheart} />
             <H5>{hearts}</H5>
         </Hearts>
     )
@@ -148,8 +149,8 @@ const HeartIcon = ({hearted, hearts, ToggleHeart}) => {
 
 const StarIcon = ({stared, stars, ToggleStar}) => {
     return (
-        <Stars stared={stared} onClick={ToggleStar}>
-            <Icon icon={stared?sstar:rstar} stared={stared}/>
+        <Stars stared={stared?1:0} onClick={ToggleStar}>
+            <Icon icon={stared?sstar:rstar} />
             <H5>{stars}</H5>
         </Stars>
     )
@@ -160,7 +161,7 @@ const Hearts = styled.div`
     &:hover{
         color:  ${oc.red[6]};
     }
-    color: ${oc.gray[7]}
+    color: ${oc.gray[7]};
     cursor: pointer;
 
     ${
@@ -172,7 +173,7 @@ const Hearts = styled.div`
 
 const Views = styled.div`
     display: flex;
-    color: ${oc.gray[7]}
+    color: ${oc.gray[7]};
 `
 
 const Comments = styled.div`
@@ -227,31 +228,15 @@ const Spacer = styled.div`
 @observer
 class PostCard extends React.Component{
     state = {
-        hearted: this.props.hearted,
-        stared: this.props.stared
+        hearted: false,
+        stared: false,
+        hearts: this.props.hearts,
+        views: this.props.views,
+        comments: this.props.comments,
+        stars: this.props.stars,
+        heartedList: []
     };
 
-    componentDidMount(){
-        //console.log(this.props.userStore.hearted)
-
-        if(this.props.userStore.hearted && this.props.userStore.stared){
-            this.props.userStore.hearted.forEach((id) => {
-                if(id === this.props.id){
-                    this.setState({
-                        hearted: true
-                    });
-                }
-            })
-            this.props.userStore.stared.forEach((id) => {
-                if(id === this.props.id){
-                    this.setState({
-                        stared: true
-                    });
-                }
-            })
-        }
-    }
-    
     ToggleHeart = () => {
         this.setState({
             hearted: !this.state.hearted
@@ -264,10 +249,25 @@ class PostCard extends React.Component{
         });
     }
 
+    getHearted = (postid) => {
+        this.props.userStore.hearted.forEach((id) => {
+            if(postid === id){
+                if(this.state.hearted === false){
+                    this.setState({
+                        hearted: true
+                    });
+                }
+            }
+        });
+    }
+
     render(){
-        const { id, title, date, img, hearts, views, comments, stars, authorThumbnail, authorUsername } = this.props;
-        const { hearted, stared } = this.state;
-        const { ToggleHeart, ToggleStar } = this;
+        // console.log(this.props.userStore.hearted);
+        // console.log(this.props.userStore.state);
+        const { id, title, date, img, authorThumbnail, authorUsername } = this.props;
+        const { hearted, stared, hearts, views, comments, stars } = this.state;
+        const { ToggleHeart, ToggleStar } = this;  
+        this.getHearted(id);
         return(
             <CardWrapper>
                 <Link to={"/post/"+id}>
@@ -277,7 +277,7 @@ class PostCard extends React.Component{
                     </ThumbnailWrapper>
                 </Link>
                 <CardContents>
-                    <UserThumbnailWrapper href="a">
+                    <UserThumbnailWrapper href="/">
                         <UserThumbnail src={authorThumbnail}/>
                     </UserThumbnailWrapper>
                     <CardTitle>
