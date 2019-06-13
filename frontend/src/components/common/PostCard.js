@@ -234,13 +234,42 @@ class PostCard extends React.Component{
         views: this.props.views,
         comments: this.props.comments,
         stars: this.props.stars,
-        heartedList: []
+        heartedList: [],
+        load: true
     };
 
     ToggleHeart = () => {
-        this.setState({
-            hearted: !this.state.hearted
-        });
+        if(this.state.hearted){
+            this.setState({
+                hearted: false,
+                hearts: this.state.hearts - 1
+            });
+            ProfileApi.unheart({
+                _id: this.props.userStore._id,
+                postid: this.props.id
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+        }else {
+            this.setState({
+                hearted: true,
+                hearts: this.state.hearts + 1
+            });
+            ProfileApi.heart({
+                _id: this.props.userStore._id,
+                postid: this.props.id
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+        }
     }
 
     ToggleStar = () => {
@@ -250,19 +279,22 @@ class PostCard extends React.Component{
     }
 
     getHearted = (postid) => {
-        this.props.userStore.hearted.forEach((id) => {
-            if(postid === id){
-                if(this.state.hearted === false){
-                    this.setState({
-                        hearted: true
-                    });
+        if(this.state.load){
+            this.props.userStore.hearted.forEach((id) => {
+                if(postid === id){
+                    if(this.state.hearted === false){
+                        this.setState({
+                            hearted: true,
+                            load: false
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     render(){
-        // console.log(this.props.userStore.hearted);
+        console.log(this.props.userStore.hearted);
         // console.log(this.props.userStore.state);
         const { id, title, date, img, authorThumbnail, authorUsername } = this.props;
         const { hearted, stared, hearts, views, comments, stars } = this.state;
