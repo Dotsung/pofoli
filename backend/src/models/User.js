@@ -99,6 +99,26 @@ User.methods.unheart = function(id){
   return this.save();
 }
 
+User.methods.star = function(id){
+  if(this.profile.stared.indexOf(id) === -1){
+    try{
+      this.profile.stared.push(id);
+    } catch (err){
+      console.log(err);
+    }
+
+  } else {
+    return 'exists';
+  }
+
+  return this.save();
+}
+
+User.methods.unstar = function(id){
+  this.profile.stared.remove(id);
+  return this.save();
+}
+
 // 비밀번호 비교 메소드
 User.methods.validatePassword = function(password) {
   const contrast = hash(password);

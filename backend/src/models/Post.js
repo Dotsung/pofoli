@@ -31,4 +31,13 @@ Post.methods.updateHearts = function() {
   });
 };
 
+Post.methods.updateStars = function() {
+  var post = this;
+  return User.countDocuments({ 'profile.stared': { $in: [post._id] } }).then(function(count){
+    post.stars = count;
+
+    return post.save();
+  });
+};
+
 export default mongoose.model('Post', Post)

@@ -294,7 +294,7 @@ class PostCard extends React.Component{
     }
 
     render(){
-        console.log(this.props.userStore.hearted);
+        // console.log(this.props.userStore.hearted);
         // console.log(this.props.userStore.state);
         const { id, title, date, img, authorThumbnail, authorUsername } = this.props;
         const { hearted, stared, hearts, views, comments, stars } = this.state;
