@@ -235,7 +235,8 @@ class PostCard extends React.Component{
         comments: this.props.comments,
         stars: this.props.stars,
         heartedList: [],
-        load: true
+        heartload: true,
+        starload: true
     };
 
     ToggleHeart = () => {
@@ -273,19 +274,62 @@ class PostCard extends React.Component{
     }
 
     ToggleStar = () => {
-        this.setState({
-            stared: !this.state.stared
-        });
+        if(this.state.stared){
+            this.setState({
+                stared: false,
+                stars: this.state.stars - 1
+            });
+            ProfileApi.unstar({
+                _id: this.props.userStore._id,
+                postid: this.props.id
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+        }else {
+            this.setState({
+                stared: true,
+                stars: this.state.stars + 1
+            });
+            ProfileApi.star({
+                _id: this.props.userStore._id,
+                postid: this.props.id
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+        }
     }
 
     getHearted = (postid) => {
-        if(this.state.load){
+        if(this.state.heartload){
             this.props.userStore.hearted.forEach((id) => {
                 if(postid === id){
                     if(this.state.hearted === false){
                         this.setState({
                             hearted: true,
-                            load: false
+                            heartload: false
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    getStared = (postid) => {
+        if(this.state.starload){
+            this.props.userStore.stared.forEach((id) => {
+                if(postid === id){
+                    if(this.state.stared === false){
+                        this.setState({
+                            stared: true,
+                            starload: false
                         });
                     }
                 }
@@ -299,7 +343,8 @@ class PostCard extends React.Component{
         const { id, title, date, img, authorThumbnail, authorUsername } = this.props;
         const { hearted, stared, hearts, views, comments, stars } = this.state;
         const { ToggleHeart, ToggleStar } = this;  
-        this.getHearted(id);
+        this.getHearted(id); 
+        this.getStared(id);
         return(
             <CardWrapper>
                 <Link to={"/post/"+id}>
