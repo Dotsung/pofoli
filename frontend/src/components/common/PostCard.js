@@ -347,7 +347,15 @@ class PostCard extends React.Component{
         this.getStared(id);
         return(
             <CardWrapper>
-                <Link to={"/post/"+id}>
+                <Link to={{
+                    pathname: `/post/${id}`,
+                    state: {
+                        hearted: hearted,
+                        stared: stared,
+                        ToggleHeart: ToggleHeart,
+                        ToggleStar: ToggleStar
+                    }
+                }}>
                     <ThumbnailWrapper>
                         <CardThumbnail src={img}/>
                         <Mask />
