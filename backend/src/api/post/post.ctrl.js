@@ -13,8 +13,10 @@ export const write = async (ctx) => {
 
   const file = ctx.request.files.image
 
+  const post = new Post();
+
   const { key, url } = await uploadFile({
-      fileName: file.name,
+      fileName: post._id+file.name,
       filePath: file.path,
       fileType: file.type
   });
@@ -60,11 +62,17 @@ export const write = async (ctx) => {
   console.log(currentUser);
 
   // 새 글 작성
-  const post = new Post({
-    title, body, image, 
-    authorThumbnail: currentUser.profile.thumbnail,
-    authorUsername: currentUser.profile.username
-  })
+  // const post = new Post({
+  //   title, body, image, 
+  //   authorThumbnail: currentUser.profile.thumbnail,
+  //   authorUsername: currentUser.profile.username
+  // })
+
+  post.title = title;
+  post.body = body;
+  post.image = image;
+  post.authorThumbnail = currentUser.profile.thumbnail;
+  post.authorUsername = currentUser.profile.username;
 
   try {
     await post.save()

@@ -28,7 +28,7 @@ class PostContainer extends React.Component {
     render(){
         return (
             <Wrapper>
-                <Link to="/post">
+                <Link to="/">
                     <Background />
                 </Link>
                 <Post postid={this.props.match.params.postid}/>
