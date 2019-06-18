@@ -131,7 +131,7 @@ const CommentsLine = styled.div`
         }
     }
     position: absolute;
-    top: 2rem;
+    top: 1.8rem;
     width: 100%;
     margin: 0;
     height: 0.2rem;
@@ -194,13 +194,13 @@ const Spacer = styled.div`
 @observer
 class Post extends React.Component{
     state = {
-        watchComment: Boolean(false),
+        watchComment: true,
         title: '',
         body: '',
         image: '',
         hearts: 0,
         views: 0,
-        comments: [],
+        comments: 4,
         stars: 0,
         authorThumbnail: '',
         authorUsername: '',

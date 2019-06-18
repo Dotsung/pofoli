@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import oc from 'open-color';
 
 import Comment from './Comment';
+import CommentInput from './CommentInput';
 
 import Img1 from "testimg/img1.gif";
 import Img2 from "testimg/img13.gif";
@@ -12,7 +13,7 @@ import Img4 from "testimg/img8.gif";
 
 const Wrapper = styled.div`
     ${ props => {
-        return props.watchComment?`display: block`:`display: none`
+        return props.watchComment?`display: block`:`display: none`;
     }}
     padding: 5px 30px;
 `
@@ -34,6 +35,7 @@ class CommentList extends React.Component{
                 <Comment img={Img2} author={`Haya`} desc={`Ut enim ad minim veniam`}/>
                 <Comment img={Img3} author={`choicyle`} desc={`quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`}/>
                 <Comment img={Img4} author={`DMB`} desc={`Excepteur sint occaecat cupidatat non proident`}/>
+                <CommentInput />
             </Wrapper>
         )
     }
