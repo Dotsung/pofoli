@@ -31,7 +31,7 @@ class PostContainer extends React.Component {
                 <Link to="/">
                     <Background />
                 </Link>
-                <Post postid={this.props.match.params.postid}/>
+                <Post postid={this.props.match.params.postid} index={this.props.location.state.index}/>
             </Wrapper>
         )
     }

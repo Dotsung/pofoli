@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
 import { observer, inject } from 'mobx-react';
+import * as ProfileApi from 'lib/api/profile';
 
 import * as postApi from 'lib/api/post';
 
@@ -189,6 +190,7 @@ const Spacer = styled.div`
 `
 
 @inject('userStore')
+@inject('postListStore')
 @observer
 class Post extends React.Component{
     state = {
@@ -269,9 +271,69 @@ class Post extends React.Component{
         }
     }
 
+    ToggleHeart = () => {
+        if(this.props.postListStore.postList[this.props.index].hearted){
+            this.props.postListStore.unheart({index:this.props.index});
+            this.props.postListStore.deheart({index:this.props.index});
+            ProfileApi.unheart({
+                _id: this.props.userStore._id,
+                postid: this.props.postid
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+        }else {
+            this.props.postListStore.heart({index:this.props.index});
+            this.props.postListStore.inheart({index:this.props.index});
+            ProfileApi.heart({
+                _id: this.props.userStore._id,
+                postid: this.props.postid
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+        }
+    }
+
+    ToggleStar = () => {
+        if(this.props.postListStore.postList[this.props.index].stared){
+            this.props.postListStore.unstar({index:this.props.index});
+            this.props.postListStore.destar({index:this.props.index});
+            ProfileApi.unstar({
+                _id: this.props.userStore._id,
+                postid: this.props.postid
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+        } else {
+            this.props.postListStore.star({index:this.props.index});
+            this.props.postListStore.instar({index:this.props.index});
+            ProfileApi.star({
+                _id: this.props.userStore._id,
+                postid: this.props.postid
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+        }
+    }
+
     render(){
         
-        const {title, body, image, hearts, views, stars, comments, authorThumbnail, authorUsername, createdAt, updatedAt, hearted, stared } = this.state;
+        const {title, body, image, hearts, views, stars, comments, hearted, stared } = this.state;
 
         this.getHearted(this.props.postid); 
         this.getStared(this.props.postid);
