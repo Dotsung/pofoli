@@ -96,6 +96,7 @@ class PostCardList extends React.Component {
           {this.props.postListStore.postList.map((card, index) => (
             <PostCard
               id={card._id}
+              index={index}
               title={card.title}
               date={dateFormat(new Date(card.updatedAt),"isoDate")}
               author={card.author}

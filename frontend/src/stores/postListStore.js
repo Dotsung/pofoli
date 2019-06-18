@@ -11,7 +11,7 @@ class postListStore {
 
 
   @action.bound
-  getList() {
+  getList = () => {
     postApi.list({page: this.page})
     .then((result) => {
       //console.log('list불러오기 성공');
@@ -25,7 +25,7 @@ class postListStore {
   }
 
   @action.bound
-  loadMore(){
+  loadMore = () => {
     this.page = this.page + 1;
     postApi.list({page: this.page})
     .then((result) => {
@@ -38,6 +38,31 @@ class postListStore {
         console.log(result);
     });
   }
+
+  @action.bound
+  heart = ({ index }) => {
+      this.postList[index].hearted = true;
+      this.postList[index].hearts += 1;
+  }
+
+  @action.bound
+  unheart = ({ index }) => {
+      this.postList[index].hearted = false;
+      this.postList[index].hearts -= 1;
+  }
+
+  @action.bound
+  star = ({ index }) => {
+      this.postList[index].stared = true;
+      this.postList[index].stars += 1;
+  }
+
+  @action.bound
+  unstar = ({ index }) => {
+      this.postList[index].stared = false;
+      this.postList[index].stars -= 1;
+  }
+  
 }
 
 export default postListStore

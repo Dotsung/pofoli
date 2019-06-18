@@ -6,6 +6,7 @@ import { shadow, media } from 'lib/styleUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
+import { observer, inject } from 'mobx-react';
 
 import * as postApi from 'lib/api/post';
 
@@ -187,6 +188,8 @@ const Spacer = styled.div`
     flex: 1;
 `
 
+@inject('userStore')
+@observer
 class Post extends React.Component{
     state = {
         watchComment: Boolean(false),
@@ -202,7 +205,9 @@ class Post extends React.Component{
         createdAt: '',
         updatedAt: '',
         hearted: false,
-        stared: false
+        stared: false,
+        heartload: true,
+        starload: true
     }
 
     componentDidMount(){
@@ -233,17 +238,43 @@ class Post extends React.Component{
             watchComment: !this.state.watchComment
         });
     }
-
-    ToggleHeart = () => {
+    
+    getHearted = (postid) => {
+        if(this.state.heartload){
+            this.props.userStore.hearted.forEach((id) => {
+                if(postid === id){
+                    if(this.state.hearted === false){
+                        this.setState({
+                            hearted: true,
+                            heartload: false
+                        });
+                    }
+                }
+            });
+        }
     }
 
-    ToggleStar = () => {
+    getStared = (postid) => {
+        if(this.state.starload){
+            this.props.userStore.stared.forEach((id) => {
+                if(postid === id){
+                    if(this.state.stared === false){
+                        this.setState({
+                            stared: true,
+                            starload: false
+                        });
+                    }
+                }
+            });
+        }
     }
 
     render(){
         
         const {title, body, image, hearts, views, stars, comments, authorThumbnail, authorUsername, createdAt, updatedAt, hearted, stared } = this.state;
 
+        this.getHearted(this.props.postid); 
+        this.getStared(this.props.postid);
         return(
             <ContentArea>
                 <WhiteBox>

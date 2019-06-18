@@ -307,10 +307,6 @@ class PostCard extends React.Component{
         }
     }
 
-    StateTest = function(){
-        
-    }
-
     getHearted = (postid) => {
         if(this.state.heartload){
             this.props.userStore.hearted.forEach((id) => {
@@ -344,7 +340,7 @@ class PostCard extends React.Component{
     render(){
         // console.log(this.props.userStore.hearted);
         // console.log(this.props.userStore.state);
-        const { id, title, date, img, authorThumbnail, authorUsername } = this.props;
+        const { id, title, date, img, authorThumbnail, authorUsername, index } = this.props;
         const { hearted, stared, hearts, views, comments, stars } = this.state;
         const { ToggleHeart, ToggleStar, StateTest } = this;  
         this.getHearted(id); 
@@ -354,9 +350,7 @@ class PostCard extends React.Component{
                 <Link to={{
                     pathname: "/post/"+id,
                     state: {
-                        hearted: hearted,
-                        stared: stared,
-                        StateTest: StateTest
+                        index: index
                     }
                 }}>
                     <ThumbnailWrapper>
