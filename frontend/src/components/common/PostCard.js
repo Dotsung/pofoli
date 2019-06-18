@@ -22,7 +22,7 @@ const CardWrapper = styled.div`
     break-inside: avoid;
 `
 
-const ThumbnailWrapper = styled.a`
+const ThumbnailWrapper = styled.div`
     position: relative;
     background-color: ${oc.red[1]};
     width: 100%;
@@ -289,7 +289,7 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-        }else {
+        } else {
             this.setState({
                 stared: true,
                 stars: this.state.stars + 1
@@ -305,6 +305,10 @@ class PostCard extends React.Component{
                 console.log(result);
             })
         }
+    }
+
+    StateTest = function(){
+        
     }
 
     getHearted = (postid) => {
@@ -342,18 +346,17 @@ class PostCard extends React.Component{
         // console.log(this.props.userStore.state);
         const { id, title, date, img, authorThumbnail, authorUsername } = this.props;
         const { hearted, stared, hearts, views, comments, stars } = this.state;
-        const { ToggleHeart, ToggleStar } = this;  
+        const { ToggleHeart, ToggleStar, StateTest } = this;  
         this.getHearted(id); 
         this.getStared(id);
         return(
             <CardWrapper>
                 <Link to={{
-                    pathname: `/post/${id}`,
+                    pathname: "/post/"+id,
                     state: {
                         hearted: hearted,
                         stared: stared,
-                        ToggleHeart: ToggleHeart,
-                        ToggleStar: ToggleStar
+                        StateTest: StateTest
                     }
                 }}>
                     <ThumbnailWrapper>
