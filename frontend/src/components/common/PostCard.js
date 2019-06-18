@@ -244,6 +244,7 @@ class PostCard extends React.Component{
         if(this.props.postListStore.postList[this.props.index].hearted){
             this.props.postListStore.unheart({index:this.props.index});
             this.props.postListStore.deheart({index:this.props.index});
+            this.props.userStore.unheart(this.props.id);
             ProfileApi.unheart({
                 _id: this.props.userStore._id,
                 postid: this.props.id
@@ -257,6 +258,7 @@ class PostCard extends React.Component{
         }else {
             this.props.postListStore.heart({index:this.props.index});
             this.props.postListStore.inheart({index:this.props.index});
+            this.props.userStore.heart(this.props.id);
             ProfileApi.heart({
                 _id: this.props.userStore._id,
                 postid: this.props.id
@@ -274,6 +276,7 @@ class PostCard extends React.Component{
         if(this.props.postListStore.postList[this.props.index].stared){
             this.props.postListStore.unstar({index:this.props.index});
             this.props.postListStore.destar({index:this.props.index});
+            this.props.userStore.unstar(this.props.id);
             ProfileApi.unstar({
                 _id: this.props.userStore._id,
                 postid: this.props.id
@@ -287,6 +290,7 @@ class PostCard extends React.Component{
         } else {            
             this.props.postListStore.star({index:this.props.index});
             this.props.postListStore.instar({index:this.props.index});
+            this.props.userStore.star(this.props.id);
             ProfileApi.star({
                 _id: this.props.userStore._id,
                 postid: this.props.id
