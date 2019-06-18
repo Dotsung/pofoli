@@ -6,7 +6,7 @@ class postListStore {
     @observable page = 1;
 
   constructor() {
-    this.getUserProfile();
+      this.getList();
   }
 
 
