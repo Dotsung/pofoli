@@ -225,13 +225,14 @@ const Spacer = styled.div`
 `
 
 @inject('userStore')
+@inject('postListStore')
 @observer
 class PostCard extends React.Component{
     state = {
-        hearted: false,
-        stared: false,
-        hearts: this.props.hearts,
-        views: this.props.views,
+        // hearted: false,
+        // stared: false,
+        // hearts: this.props.hearts,
+        // views: this.props.views,
         comments: this.props.comments,
         stars: this.props.stars,
         heartedList: [],
@@ -240,7 +241,7 @@ class PostCard extends React.Component{
     };
 
     ToggleHeart = () => {
-        if(this.state.hearted){
+        if(this.props.postListStore.stared){
             this.setState({
                 hearted: false,
                 hearts: this.state.hearts - 1
@@ -311,9 +312,9 @@ class PostCard extends React.Component{
         if(this.state.heartload){
             this.props.userStore.hearted.forEach((id) => {
                 if(postid === id){
-                    if(this.state.hearted === false){
+                    if(this.props.postListStore.hearted === false){
+                        this.props.postListStore.heart(this.props.index)
                         this.setState({
-                            hearted: true,
                             heartload: false
                         });
                     }
@@ -341,7 +342,7 @@ class PostCard extends React.Component{
         // console.log(this.props.userStore.hearted);
         // console.log(this.props.userStore.state);
         const { id, title, date, img, authorThumbnail, authorUsername, index } = this.props;
-        const { hearted, stared, hearts, views, comments, stars } = this.state;
+        const { hearted, stared, hearts, views, comments, stars } = this.props.postListStore;
         const { ToggleHeart, ToggleStar, StateTest } = this;  
         this.getHearted(id); 
         this.getStared(id);

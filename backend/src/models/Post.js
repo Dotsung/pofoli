@@ -12,6 +12,8 @@ const Post = new mongoose.Schema({
   views:{ type:Number, default:0 },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   stars:{ type:Number, default:0 },
+  hearted:{ type:Boolean, default:false },
+  stared:{ type:Boolean, default:false },
   createdAt: {
     type: Date,
     default: Date.now
