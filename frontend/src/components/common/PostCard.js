@@ -241,11 +241,9 @@ class PostCard extends React.Component{
     };
 
     ToggleHeart = () => {
-        if(this.props.postListStore.stared){
-            this.setState({
-                hearted: false,
-                hearts: this.state.hearts - 1
-            });
+        if(this.props.postListStore.postList[this.props.index].hearted){
+            this.props.postListStore.unheart({index:this.props.index});
+            this.props.postListStore.deheart({index:this.props.index});
             ProfileApi.unheart({
                 _id: this.props.userStore._id,
                 postid: this.props.id
@@ -257,10 +255,8 @@ class PostCard extends React.Component{
                 console.log(result);
             })
         }else {
-            this.setState({
-                hearted: true,
-                hearts: this.state.hearts + 1
-            });
+            this.props.postListStore.heart({index:this.props.index});
+            this.props.postListStore.inheart({index:this.props.index});
             ProfileApi.heart({
                 _id: this.props.userStore._id,
                 postid: this.props.id
@@ -275,11 +271,9 @@ class PostCard extends React.Component{
     }
 
     ToggleStar = () => {
-        if(this.state.stared){
-            this.setState({
-                stared: false,
-                stars: this.state.stars - 1
-            });
+        if(this.props.postListStore.postList[this.props.index].stared){
+            this.props.postListStore.unstar({index:this.props.index});
+            this.props.postListStore.destar({index:this.props.index});
             ProfileApi.unstar({
                 _id: this.props.userStore._id,
                 postid: this.props.id
@@ -290,11 +284,9 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-        } else {
-            this.setState({
-                stared: true,
-                stars: this.state.stars + 1
-            });
+        } else {            
+            this.props.postListStore.star({index:this.props.index});
+            this.props.postListStore.instar({index:this.props.index});
             ProfileApi.star({
                 _id: this.props.userStore._id,
                 postid: this.props.id
@@ -312,8 +304,8 @@ class PostCard extends React.Component{
         if(this.state.heartload){
             this.props.userStore.hearted.forEach((id) => {
                 if(postid === id){
-                    if(this.props.postListStore.hearted === false){
-                        this.props.postListStore.heart(this.props.index)
+                    if(this.props.postListStore.postList[this.props.index].hearted === false){
+                        this.props.postListStore.heart({index:this.props.index});
                         this.setState({
                             heartload: false
                         });
@@ -327,9 +319,9 @@ class PostCard extends React.Component{
         if(this.state.starload){
             this.props.userStore.stared.forEach((id) => {
                 if(postid === id){
-                    if(this.state.stared === false){
+                    if(this.props.postListStore.postList[this.props.index].stared === false){
+                        this.props.postListStore.star({index:this.props.index});
                         this.setState({
-                            stared: true,
                             starload: false
                         });
                     }
@@ -342,7 +334,7 @@ class PostCard extends React.Component{
         // console.log(this.props.userStore.hearted);
         // console.log(this.props.userStore.state);
         const { id, title, date, img, authorThumbnail, authorUsername, index } = this.props;
-        const { hearted, stared, hearts, views, comments, stars } = this.props.postListStore;
+        const { hearted, stared, hearts, views, comments, stars } = this.props.postListStore.postList[this.props.index];
         const { ToggleHeart, ToggleStar, StateTest } = this;  
         this.getHearted(id); 
         this.getStared(id);
