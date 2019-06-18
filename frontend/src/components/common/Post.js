@@ -272,9 +272,11 @@ class Post extends React.Component{
     }
 
     ToggleHeart = () => {
-        if(this.props.postListStore.postList[this.props.index].hearted){
-            this.props.postListStore.unheart({index:this.props.index});
-            this.props.postListStore.deheart({index:this.props.index});
+        if(this.state.hearted){
+            this.setState({
+                hearted: false,
+                hearts: this.state.hearts-1
+            });
             ProfileApi.unheart({
                 _id: this.props.userStore._id,
                 postid: this.props.postid
@@ -285,9 +287,11 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-        }else {
-            this.props.postListStore.heart({index:this.props.index});
-            this.props.postListStore.inheart({index:this.props.index});
+        } else {
+            this.setState({
+                hearted: true,
+                hearts: this.state.hearts+1
+            });
             ProfileApi.heart({
                 _id: this.props.userStore._id,
                 postid: this.props.postid
@@ -297,14 +301,28 @@ class Post extends React.Component{
             })
             .catch((result) => {
                 console.log(result);
-            })
+            });
+        }
+
+        if(this.props.index === null){
+            return;
+        }
+
+        if(this.props.postListStore.postList[this.props.index].hearted){
+            this.props.postListStore.unheart({index:this.props.index});
+            this.props.postListStore.deheart({index:this.props.index});
+        }else {
+            this.props.postListStore.heart({index:this.props.index});
+            this.props.postListStore.inheart({index:this.props.index});
         }
     }
 
     ToggleStar = () => {
-        if(this.props.postListStore.postList[this.props.index].stared){
-            this.props.postListStore.unstar({index:this.props.index});
-            this.props.postListStore.destar({index:this.props.index});
+        if(this.state.stared){
+            this.setState({
+                stared: false,
+                stars: this.state.stars-1
+            });
             ProfileApi.unstar({
                 _id: this.props.userStore._id,
                 postid: this.props.postid
@@ -316,8 +334,10 @@ class Post extends React.Component{
                 console.log(result);
             })
         } else {
-            this.props.postListStore.star({index:this.props.index});
-            this.props.postListStore.instar({index:this.props.index});
+            this.setState({
+                stared: true,
+                stars: this.state.stars+1
+            });
             ProfileApi.star({
                 _id: this.props.userStore._id,
                 postid: this.props.postid
@@ -328,6 +348,20 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
+        }
+
+        if(this.props.index === null){
+            return;
+        }
+
+        if(this.props.postListStore.postList[this.props.index].stared){
+            this.props.postListStore.unstar({index:this.props.index});
+            this.props.postListStore.destar({index:this.props.index});
+            
+        } else {
+            this.props.postListStore.star({index:this.props.index});
+            this.props.postListStore.instar({index:this.props.index});
+            
         }
     }
 
