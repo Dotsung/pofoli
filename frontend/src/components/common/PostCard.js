@@ -225,14 +225,13 @@ const Spacer = styled.div`
 `
 
 @inject('userStore')
-@inject('postListStore')
 @observer
 class PostCard extends React.Component{
     state = {
-        // hearted: false,
-        // stared: false,
-        // hearts: this.props.hearts,
-        // views: this.props.views,
+        hearted: false,
+        stared: false,
+        hearts: this.props.hearts,
+        views: this.props.views,
         comments: this.props.comments,
         stars: this.props.stars,
         heartedList: [],
@@ -240,10 +239,72 @@ class PostCard extends React.Component{
         starload: true
     };
 
+    // ToggleHeart = () => {
+    //     if(this.props.postListStore.postList[this.props.index].hearted){
+    //         this.props.postListStore.unheart({index:this.props.index});
+    //         this.props.postListStore.deheart({index:this.props.index});
+    //         this.props.userStore.unheart(this.props.id);
+    //         ProfileApi.unheart({
+    //             _id: this.props.userStore._id,
+    //             postid: this.props.id
+    //         })
+    //         .then((result) => {
+    //             console.log(result);
+    //         })
+    //         .catch((result) => {
+    //             console.log(result);
+    //         })
+    //     }else {
+    //         this.props.postListStore.heart({index:this.props.index});
+    //         this.props.postListStore.inheart({index:this.props.index});
+    //         this.props.userStore.heart(this.props.id);
+    //         ProfileApi.heart({
+    //             _id: this.props.userStore._id,
+    //             postid: this.props.id
+    //         })
+    //         .then((result) => {
+    //             console.log(result);
+    //         })
+    //         .catch((result) => {
+    //             console.log(result);
+    //         })
+    //     }
+    // }
+
+    // ToggleStar = () => {
+    //     if(this.props.postListStore.postList[this.props.index].stared){
+    //         this.props.postListStore.unstar({index:this.props.index});
+    //         this.props.postListStore.destar({index:this.props.index});
+    //         this.props.userStore.unstar(this.props.id);
+    //         ProfileApi.unstar({
+    //             _id: this.props.userStore._id,
+    //             postid: this.props.id
+    //         })
+    //         .then((result) => {
+    //             console.log(result);
+    //         })
+    //         .catch((result) => {
+    //             console.log(result);
+    //         })
+    //     } else {            
+    //         this.props.postListStore.star({index:this.props.index});
+    //         this.props.postListStore.instar({index:this.props.index});
+    //         this.props.userStore.star(this.props.id);
+    //         ProfileApi.star({
+    //             _id: this.props.userStore._id,
+    //             postid: this.props.id
+    //         })
+    //         .then((result) => {
+    //             console.log(result);
+    //         })
+    //         .catch((result) => {
+    //             console.log(result);
+    //         })
+    //     }
+    // }
+
     ToggleHeart = () => {
-        if(this.props.postListStore.postList[this.props.index].hearted){
-            this.props.postListStore.unheart({index:this.props.index});
-            this.props.postListStore.deheart({index:this.props.index});
+        if(this.state.hearted){
             this.props.userStore.unheart(this.props.id);
             ProfileApi.unheart({
                 _id: this.props.userStore._id,
@@ -255,9 +316,11 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
+            this.setState({
+                hearted: false,
+                hearts: this.state.hearts-1
+            })
         }else {
-            this.props.postListStore.heart({index:this.props.index});
-            this.props.postListStore.inheart({index:this.props.index});
             this.props.userStore.heart(this.props.id);
             ProfileApi.heart({
                 _id: this.props.userStore._id,
@@ -269,13 +332,15 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
+            this.setState({
+                hearted: true,
+                hearts: this.state.hearts+1
+            })
         }
     }
 
     ToggleStar = () => {
-        if(this.props.postListStore.postList[this.props.index].stared){
-            this.props.postListStore.unstar({index:this.props.index});
-            this.props.postListStore.destar({index:this.props.index});
+        if(this.state.stared){
             this.props.userStore.unstar(this.props.id);
             ProfileApi.unstar({
                 _id: this.props.userStore._id,
@@ -287,9 +352,11 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-        } else {            
-            this.props.postListStore.star({index:this.props.index});
-            this.props.postListStore.instar({index:this.props.index});
+            this.setState({
+                stared: false,
+                stars: this.state.stars-1
+            })
+        } else {
             this.props.userStore.star(this.props.id);
             ProfileApi.star({
                 _id: this.props.userStore._id,
@@ -301,6 +368,10 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
+            this.setState({
+                stared: true,
+                stars: this.state.stars+1
+            })
         }
     }
 
@@ -308,9 +379,9 @@ class PostCard extends React.Component{
         if(this.state.heartload){
             this.props.userStore.hearted.forEach((id) => {
                 if(postid === id){
-                    if(this.props.postListStore.postList[this.props.index].hearted === false){
-                        this.props.postListStore.heart({index:this.props.index});
+                    if(this.state.hearted === false){
                         this.setState({
+                            hearted: true,
                             heartload: false
                         });
                     }
@@ -323,9 +394,9 @@ class PostCard extends React.Component{
         if(this.state.starload){
             this.props.userStore.stared.forEach((id) => {
                 if(postid === id){
-                    if(this.props.postListStore.postList[this.props.index].stared === false){
-                        this.props.postListStore.star({index:this.props.index});
+                    if(this.state.stared === false){
                         this.setState({
+                            stared: true,
                             starload: false
                         });
                     }
@@ -338,7 +409,7 @@ class PostCard extends React.Component{
         // console.log(this.props.userStore.hearted);
         // console.log(this.props.userStore.state);
         const { id, title, date, img, authorThumbnail, authorUsername, index } = this.props;
-        const { hearted, stared, hearts, views, comments, stars } = this.props.postListStore.postList[this.props.index];
+        const { hearted, stared, hearts, views, comments, stars } = this.state;
         const { ToggleHeart, ToggleStar, StateTest } = this;  
         this.getHearted(id); 
         this.getStared(id);
