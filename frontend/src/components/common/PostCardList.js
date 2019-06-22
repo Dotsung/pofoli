@@ -43,7 +43,6 @@ const LoadMoreButton = styled.button`
 `
 
 @inject('userStore')
-@inject('postListStore')
 @observer
 class PostCardList extends React.Component {
   state = {
@@ -51,49 +50,48 @@ class PostCardList extends React.Component {
     page: 1
   }
   
-  // componentDidMount() {
-  //   postApi.list({page: this.state.page})
-  //   .then((result) => {
-  //     this.setState({
-  //       data: result.data
-  //     })
-  //   })
-  //   .catch((result) => {
-  //     console.log('list err');
-  //     console.log(result);
-  //   });
-  // }
+  componentDidMount() {
+    postApi.list({page: this.state.page})
+    .then((result) => {
+      this.setState({
+        data: result.data
+      })
+    })
+    .catch((result) => {
+      console.log('list err');
+      console.log(result);
+    });
+  }
 
-  // loadMore = () => {
-  //     this.setState({
-  //       page: this.state.page + 1
-  //     },
-  //     () =>
-  //       postApi.list({page: this.state.page})
-  //       .then((result) => {
-  //         console.log('list추가 성공');
-  //         console.log(this.state.page);
-  //         console.log(result);
-  //         this.setState({
-  //           data: this.state.data.concat(result.data)
-  //         })
-  //         console.log(this.state.data)
-  //       })
-  //       .catch((result) => {
-  //         console.log('list추가 에러');
-  //         console.log(result);
-  //       })
-  //     )
-  // }
+  loadMore = () => {
+      this.setState({
+        page: this.state.page + 1
+      },
+      () =>
+        postApi.list({page: this.state.page})
+        .then((result) => {
+          console.log('list추가 성공');
+          console.log(this.state.page);
+          console.log(result);
+          this.setState({
+            data: this.state.data.concat(result.data)
+          })
+          console.log(this.state.data)
+        })
+        .catch((result) => {
+          console.log('list추가 에러');
+          console.log(result);
+        })
+      )
+  }
 
   render() {
-    //const CardList = this.state.data;
   
     return (
       <>
       <Route path='/post/:postid' component={PostContainer}/>
         <CardListWrapper>
-          {this.props.postListStore.postList.map((card, index) => (
+          {this.state.data.map((card, index) => (
             <PostCard
               id={card._id}
               index={index}

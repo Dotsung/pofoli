@@ -81,6 +81,7 @@ class userStore {
 
   @action.bound
   unheart(id){
+    console.log('tes')
     var index = this.hearted.indexOf(id);
     if (index > -1) {
       this.hearted.splice(index, 1);
