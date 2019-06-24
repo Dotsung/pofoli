@@ -99,8 +99,9 @@ exports.list = async (ctx) => {
   const { token } = ctx.header;
   let user = null;
 
-  if(token){
+  try{
     user = await decodeToken(token);
+  } catch (err) {
   }
 
 
