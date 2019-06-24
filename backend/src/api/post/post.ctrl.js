@@ -153,6 +153,25 @@ exports.heart = async (ctx) => {
   }
 }
 
+exports.unheart = async (ctx) => {
+  const { userid, postid } = ctx.request.body;
+
+  const existHeart = await Heart.findOne({ userid: userid, postid:postid });
+
+  if(existHeart){
+    try {
+      await existHeart.remove()
+
+      ctx.status = 204
+      ctx.body = '삭제됨';
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  } else {
+    ctx.body = '존재하지않음'
+  }
+}
+
 // 특정 게시글 수정하기 (PUT) API '/api/post/update/:id'
 exports.update = async (ctx) => {
   // 게시글 사용자 비교를 위한 user
