@@ -1,5 +1,7 @@
 import Post from 'models/Post'
 import User from 'models/User'
+import Heart from 'models/Heart'
+import Star from 'models/Star'
 import Joi from 'joi'
 import uploadFile from 's3/uploadFile';
 
@@ -127,6 +129,30 @@ exports.read = async (ctx) => {
   }
 }
 
+
+exports.heart = async (ctx) => {
+  const { userid, postid } = ctx.request.body;
+
+  const existHeart = await Heart.findOne({ userid: userid, postid:postid });
+
+  if(existHeart === null){
+    const heart = new Heart({
+      userid, postid
+    });
+
+    try {
+      const newHeart = await heart.save()
+      ctx.body = newHeart;
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  } else {
+    {
+      ctx.body = '이미 존재함';
+    }
+  }
+}
+
 // 특정 게시글 수정하기 (PUT) API '/api/post/update/:id'
 exports.update = async (ctx) => {
   // 게시글 사용자 비교를 위한 user
@@ -180,4 +206,4 @@ exports.remove = async (ctx) => {
   } catch (err) {
     ctx.throw(500, err)
   }
-} 
+}

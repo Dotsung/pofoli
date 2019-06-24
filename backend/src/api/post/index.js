@@ -11,6 +11,9 @@ post.get('/', (ctx) => {
 post.post('/write', postCtrl.write)
 post.get('/list/:page', postCtrl.list)
 post.get('/read/:id', postCtrl.read)
+
+post.post('/heart', postCtrl.heart);
+
 post.put('/update/:id', postCtrl.update)
 post.delete('/remove/:id', postCtrl.remove)
 

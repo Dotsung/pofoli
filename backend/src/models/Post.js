@@ -10,7 +10,7 @@ const Post = new mongoose.Schema({
   image: String,
   hearts:{ type:Number, default:0 },
   views:{ type:Number, default:0 },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+  comments: { type:Number, default:0 },
   stars:{ type:Number, default:0 },
   hearted:{ type:Boolean, default:false },
   stared:{ type:Boolean, default:false },
