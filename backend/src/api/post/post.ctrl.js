@@ -160,15 +160,34 @@ exports.read = async (ctx) => {
   // 파라미터로 id 값 가져오기
   const { id } = ctx.params
 
+  const { token } = ctx.header;
+  let user = null;
+
+  try{
+    user = await decodeToken(token);
+  } catch (err) {
+  }
+
   try {
-    const post = await Post.findById(id).exec()
+    let post = await Post.findById(id).exec()
 
     if (!post) {
       ctx.status = 404
       return
     }
 
-    ctx.body = post
+    if(user){
+        const existHeart = await Heart.findOne({ userid: user._id, postid: id });
+        if(existHeart){
+          post.hearted = true;
+        }
+        const existStar = await Star.findOne({ userid: user._id, postid: id });
+        if(existStar){
+          post.stared = true;
+        }
+    }
+
+    ctx.body = post;
   } catch (err) {
     ctx.throw(500, err)
   }
