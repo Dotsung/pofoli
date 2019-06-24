@@ -4,8 +4,6 @@ import * as authApi from 'lib/api/auth';
 class userStore {
   @observable token = null;
   @observable thumbnail = null;
-  @observable hearted = [];
-  @observable stared = [];
   @observable following =[];
   @observable follower = [];
   @observable username = null;
@@ -48,44 +46,43 @@ class userStore {
 
       this._id = result.data._id;
       this.thumbnail = profile.thumbnail;
-      this.hearted = profile.hearted;
-      this.stared = profile.stared;
       this.following = profile.following;
       this.follower = profile.follower;
       this.username = profile.username;
+      console.log(this);
       this.state = "done";
   }
 
-  @action.bound
-  star(id){
-    if(this.stared.indexOf(id) === -1){
-      this.stared.push(id)
-    }
-  }
+  // @action.bound
+  // star(id){
+  //   if(this.stared.indexOf(id) === -1){
+  //     this.stared.push(id)
+  //   }
+  // }
 
-  @action.bound
-  unstar(id){
-    var index = this.stared.indexOf(id);
-    if (index > -1) {
-      this.stared.splice(index, 1);
-    }
-    console.log(this.stared)
-  }
+  // @action.bound
+  // unstar(id){
+  //   var index = this.stared.indexOf(id);
+  //   if (index > -1) {
+  //     this.stared.splice(index, 1);
+  //   }
+  //   console.log(this.stared)
+  // }
 
-  @action.bound
-  heart(id){
-    if(this.hearted.indexOf(id) === -1){
-      this.hearted.push(id)
-    }
-  }
+  // @action.bound
+  // heart(id){
+  //   if(this.hearted.indexOf(id) === -1){
+  //     this.hearted.push(id)
+  //   }
+  // }
 
-  @action.bound
-  unheart(id){
-    var index = this.hearted.indexOf(id);
-    if (index > -1) {
-      this.hearted.splice(index, 1);
-    }
-  }
+  // @action.bound
+  // unheart(id){
+  //   var index = this.hearted.indexOf(id);
+  //   if (index > -1) {
+  //     this.hearted.splice(index, 1);
+  //   }
+  // }
 }
 
 export default userStore

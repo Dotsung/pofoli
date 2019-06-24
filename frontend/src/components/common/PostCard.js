@@ -234,9 +234,6 @@ class PostCard extends React.Component{
         views: this.props.views,
         comments: this.props.comments,
         stars: this.props.stars,
-        heartedList: [],
-        heartload: true,
-        starload: true
     };
 
     // ToggleHeart = () => {

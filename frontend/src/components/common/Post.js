@@ -206,9 +206,7 @@ class Post extends React.Component{
         createdAt: '',
         updatedAt: '',
         hearted: false,
-        stared: false,
-        heartload: true,
-        starload: true
+        stared: false
     }
 
     componentDidMount(){
