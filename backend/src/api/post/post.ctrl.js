@@ -172,6 +172,48 @@ exports.unheart = async (ctx) => {
   }
 }
 
+exports.star = async (ctx) => {
+  const { userid, postid } = ctx.request.body;
+
+  const existStar = await Star.findOne({ userid: userid, postid:postid });
+
+  if(existStar === null){
+    const star = new Star({
+      userid, postid
+    });
+
+    try {
+      const newStar = await star.save()
+      ctx.body = newStar;
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  } else {
+    {
+      ctx.body = '이미 존재함';
+    }
+  }
+}
+
+exports.unstar = async (ctx) => {
+  const { userid, postid } = ctx.request.body;
+
+  const existStar = await Star.findOne({ userid: userid, postid:postid });
+
+  if(existStar){
+    try {
+      await existStar.remove()
+
+      ctx.status = 204
+      ctx.body = '삭제됨';
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  } else {
+    ctx.body = '존재하지않음'
+  }
+}
+
 // 특정 게시글 수정하기 (PUT) API '/api/post/update/:id'
 exports.update = async (ctx) => {
   // 게시글 사용자 비교를 위한 user

@@ -14,6 +14,8 @@ post.get('/read/:id', postCtrl.read)
 
 post.post('/heart', postCtrl.heart);
 post.post('/unheart', postCtrl.unheart);
+post.post('/star', postCtrl.star);
+post.post('/unstar', postCtrl.unstar);
 
 post.put('/update/:id', postCtrl.update)
 post.delete('/remove/:id', postCtrl.remove)
