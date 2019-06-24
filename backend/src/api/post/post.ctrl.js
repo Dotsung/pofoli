@@ -185,16 +185,25 @@ exports.heart = async (ctx) => {
 
   const { postid } = ctx.request.body;
 
+  const currentPost = await Post.findById(postid);
+
+  if(!currentPost){
+    ctx.throw(404);
+  }
+
+  console.log(currentPost);
+
   const existHeart = await Heart.findOne({ userid: user._id, postid:postid });
 
   if(existHeart === null){
     const heart = new Heart({
-      userid:user._id, 
+      userid:user._id,
       postid
     });
 
     try {
-      const newHeart = await heart.save()
+      const newHeart = await heart.save();
+      const newPost = await currentPost.updateHearts();
       ctx.body = newHeart;
     } catch (err) {
       ctx.throw(500, err)
@@ -217,11 +226,18 @@ exports.unheart = async (ctx) => {
 
   const { postid } = ctx.request.body;
 
+  const currentPost = await Post.findById(postid);
+
+  if(!currentPost){
+    ctx.throw(404);
+  }
+
   const existHeart = await Heart.findOne({ userid: user._id, postid:postid });
 
   if(existHeart){
     try {
       await existHeart.remove()
+      const newPost = await currentPost.updateHearts();
 
       ctx.status = 204
     } catch (err) {
@@ -243,6 +259,12 @@ exports.star = async (ctx) => {
 
   const { postid } = ctx.request.body;
 
+  const currentPost = await Post.findById(postid);
+
+  if(!currentPost){
+    ctx.throw(404);
+  }
+
   const existStar = await Star.findOne({ userid: user._id, postid:postid });
 
   if(existStar === null){
@@ -253,6 +275,7 @@ exports.star = async (ctx) => {
 
     try {
       const newStar = await star.save()
+      const newPost = await currentPost.updateStars();
       ctx.body = newStar;
     } catch (err) {
       ctx.throw(500, err)
@@ -275,12 +298,19 @@ exports.unstar = async (ctx) => {
 
   const { postid } = ctx.request.body;
 
+  const currentPost = await Post.findById(postid);
+
+  if(!currentPost){
+    ctx.throw(404);
+  }
+
   const existStar = await Star.findOne({ userid: user._id, postid:postid });
 
   if(existStar){
     try {
       await existStar.remove()
 
+      const newPost = await currentPost.updateStars();
       ctx.status = 204
       ctx.body = '삭제됨';
     } catch (err) {

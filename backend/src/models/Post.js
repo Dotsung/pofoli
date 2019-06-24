@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 import User from './User';
+import Heart from './Heart';
+import Star from './Star';
 
 const Post = new mongoose.Schema({
   id: Number,
@@ -22,7 +24,7 @@ const Post = new mongoose.Schema({
 
 Post.methods.updateHearts = function() {
   var post = this;
-  return User.countDocuments({ 'profile.hearted': { $in: [post._id] } }).then(function(count){
+  return Heart.countDocuments({ postid: post._id }).then(function(count){
     post.hearts = count;
 
     return post.save();
@@ -31,7 +33,7 @@ Post.methods.updateHearts = function() {
 
 Post.methods.updateStars = function() {
   var post = this;
-  return User.countDocuments({ 'profile.stared': { $in: [post._id] } }).then(function(count){
+  return Star.countDocuments({ postid: post._id }).then(function(count){
     post.stars = count;
 
     return post.save();
