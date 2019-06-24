@@ -96,12 +96,14 @@ class PostCardList extends React.Component {
               id={card._id}
               index={index}
               title={card.title}
-              date={dateFormat(new Date(card.updatedAt),"isoDate")}
+              date={dateFormat(new Date(card.createdAt),"isoDate")}
               author={card.author}
               body={card.body}
               img={card.image}
               authorThumbnail={card.authorThumbnail}
               authorUsername={card.authorUsername}
+              hearted={card.hearted}
+              stared={card.stared}
               hearts={card.hearts}
               views={card.views}
               comments={card.comments}
