@@ -225,8 +225,9 @@ class Post extends React.Component{
                 stars: post.stars,
                 authorThumbnail: post.authorThumbnail,
                 authorUsername: post.authorUsername,
-                createdAt: post.createdAt,
-                updatedAt: post.updatedAt
+                hearted: post.hearted,
+                stared: post.stared,
+                createdAt: post.createdAt
             })
             console.log(this.state)
         }).catch((result) => {
@@ -240,35 +241,35 @@ class Post extends React.Component{
         });
     }
     
-    getHearted = (postid) => {
-        if(this.state.heartload){
-            this.props.userStore.hearted.forEach((id) => {
-                if(postid === id){
-                    if(this.state.hearted === false){
-                        this.setState({
-                            hearted: true,
-                            heartload: false
-                        });
-                    }
-                }
-            });
-        }
-    }
+    // getHearted = (postid) => {
+    //     if(this.state.heartload){
+    //         this.props.userStore.hearted.forEach((id) => {
+    //             if(postid === id){
+    //                 if(this.state.hearted === false){
+    //                     this.setState({
+    //                         hearted: true,
+    //                         heartload: false
+    //                     });
+    //                 }
+    //             }
+    //         });
+    //     }
+    // }
 
-    getStared = (postid) => {
-        if(this.state.starload){
-            this.props.userStore.stared.forEach((id) => {
-                if(postid === id){
-                    if(this.state.stared === false){
-                        this.setState({
-                            stared: true,
-                            starload: false
-                        });
-                    }
-                }
-            });
-        }
-    }
+    // getStared = (postid) => {
+    //     if(this.state.starload){
+    //         this.props.userStore.stared.forEach((id) => {
+    //             if(postid === id){
+    //                 if(this.state.stared === false){
+    //                     this.setState({
+    //                         stared: true,
+    //                         starload: false
+    //                     });
+    //                 }
+    //             }
+    //         });
+    //     }
+    // }
 
     ToggleHeart = () => {
         if(this.state.hearted){
@@ -346,13 +347,7 @@ class Post extends React.Component{
         }
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.getHearted(this.props.postid); 
-        this.getStared(this.props.postid);
-    }
-
     render(){
-        
         const {title, body, image, hearts, views, stars, comments, hearted, stared } = this.state;
 
         return(
