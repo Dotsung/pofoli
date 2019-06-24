@@ -190,7 +190,6 @@ const Spacer = styled.div`
 `
 
 @inject('userStore')
-@inject('postListStore')
 @observer
 class Post extends React.Component{
     state = {
@@ -277,6 +276,7 @@ class Post extends React.Component{
                 hearted: false,
                 hearts: this.state.hearts-1
             });
+            this.props.userStore.unheart(this.props.id);
             ProfileApi.unheart({
                 _id: this.props.userStore._id,
                 postid: this.props.postid
@@ -292,6 +292,7 @@ class Post extends React.Component{
                 hearted: true,
                 hearts: this.state.hearts+1
             });
+            this.props.userStore.heart(this.props.id);
             ProfileApi.heart({
                 _id: this.props.userStore._id,
                 postid: this.props.postid
@@ -307,14 +308,6 @@ class Post extends React.Component{
         if(this.props.index === null){
             return;
         }
-
-        if(this.props.postListStore.postList[this.props.index].hearted){
-            this.props.postListStore.unheart({index:this.props.index});
-            this.props.postListStore.deheart({index:this.props.index});
-        }else {
-            this.props.postListStore.heart({index:this.props.index});
-            this.props.postListStore.inheart({index:this.props.index});
-        }
     }
 
     ToggleStar = () => {
@@ -323,6 +316,7 @@ class Post extends React.Component{
                 stared: false,
                 stars: this.state.stars-1
             });
+            this.props.userStore.unstar(this.props.id);
             ProfileApi.unstar({
                 _id: this.props.userStore._id,
                 postid: this.props.postid
@@ -338,6 +332,7 @@ class Post extends React.Component{
                 stared: true,
                 stars: this.state.stars+1
             });
+            this.props.userStore.star(this.props.id);
             ProfileApi.star({
                 _id: this.props.userStore._id,
                 postid: this.props.postid
@@ -349,28 +344,17 @@ class Post extends React.Component{
                 console.log(result);
             })
         }
+    }
 
-        if(this.props.index === null){
-            return;
-        }
-
-        if(this.props.postListStore.postList[this.props.index].stared){
-            this.props.postListStore.unstar({index:this.props.index});
-            this.props.postListStore.destar({index:this.props.index});
-            
-        } else {
-            this.props.postListStore.star({index:this.props.index});
-            this.props.postListStore.instar({index:this.props.index});
-            
-        }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.getHearted(this.props.postid); 
+        this.getStared(this.props.postid);
     }
 
     render(){
         
         const {title, body, image, hearts, views, stars, comments, hearted, stared } = this.state;
 
-        this.getHearted(this.props.postid); 
-        this.getStared(this.props.postid);
         return(
             <ContentArea>
                 <WhiteBox>

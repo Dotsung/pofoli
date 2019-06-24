@@ -410,9 +410,12 @@ class PostCard extends React.Component{
         // console.log(this.props.userStore.state);
         const { id, title, date, img, authorThumbnail, authorUsername, index } = this.props;
         const { hearted, stared, hearts, views, comments, stars } = this.state;
-        const { ToggleHeart, ToggleStar, StateTest } = this;  
+        const { ToggleHeart, ToggleStar, StateTest } = this;
+        console.log(this.props.userStore.hearted);
+        
         this.getHearted(id); 
         this.getStared(id);
+
         return(
             <CardWrapper>
                 <Link to={{
