@@ -86,6 +86,7 @@ export const write = async (ctx) => {
 
 // 게시글 리스트 (GET) APi '/api/post/list'
 exports.list = async (ctx) => {
+
   // 파라미터 값으로 페이지값이 없을 시 page = 1, 10진법
   const page = parseInt(ctx.params.page || 1, 10)
 
@@ -95,19 +96,62 @@ exports.list = async (ctx) => {
     return
   }
 
-  try {
-    // sort: _id 값 역순으로 정렬
-    const postlist = await Post.find()
-                              .sort({_id: -1})
-                              .limit(15)
-                              .skip((page - 1) * 15).exec()
-    const lastpage = await Post.countDocuments().exec
+  const { token } = ctx.header;
+  let user = null;
 
-    ctx.set('last-page', Math.ceil(lastpage / 10))
-    ctx.body = postlist
-  } catch (err) {
-    ctx.throw(500, err)
+  if(token){
+    user = await decodeToken(token);
   }
+
+
+  if(user){
+    try {
+      // sort: _id 값 역순으로 정렬
+      const Hearts = await Heart.find({ userid: user._id });
+      const Stars = await Star.find({ userid: user._id });
+
+      console.log(Hearts);
+      console.log(Stars);
+
+      const postlist = await Post.find()
+                                .sort({_id: -1})
+                                .limit(15)
+                                .skip((page - 1) * 15).exec();
+      
+      const newP = await Promise.all( postlist.map(async (post, index) => {
+        let existHeart = Hearts.find(heart => heart.postid.toString() === post._id.toString());
+        console.log(existHeart);
+          if(existHeart){
+            post.hearted = true;
+        }
+        let existStar = Stars.find(star => star.postid.toString() === post._id.toString());
+        console.log(existStar)
+        if(existStar){
+          post.stared = true;
+        }
+        return post;
+      }));
+
+      ctx.body = newP;
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  } else {
+    try {
+      // sort: _id 값 역순으로 정렬
+      const postlist = await Post.find()
+                                .sort({_id: -1})
+                                .limit(15)
+                                .skip((page - 1) * 15).exec()
+      const lastpage = await Post.countDocuments().exec
+  
+      ctx.set('last-page', Math.ceil(lastpage / 10))
+      ctx.body = postlist
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  }
+  
 }
 
 // 특정 포스트 글 읽기 (GET) API '/api/post/read/:id'
@@ -128,7 +172,6 @@ exports.read = async (ctx) => {
     ctx.throw(500, err)
   }
 }
-
 
 exports.heart = async (ctx) => {
   const { token } = ctx.header;
