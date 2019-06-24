@@ -2,17 +2,19 @@ import { observable, action } from 'mobx';
 import * as postApi from 'lib/api/post';
 
 class postListStore {
+    @observable token = null;
     @observable postList = [];
     @observable page = 1;
 
   constructor() {
+      this.token = localStorage['dotia-token'];
       this.getList();
   }
 
 
   @action.bound
   getList = () => {
-    postApi.list({page: this.page})
+    postApi.list({token: this.token, page: this.page})
     .then((result) => {
       //console.log('list불러오기 성공');
       this.postList = result.data;
@@ -28,7 +30,7 @@ class postListStore {
   @action.bound
   loadMore = () => {
     this.page = this.page + 1;
-    postApi.list({page: this.page})
+    postApi.list({token: this.token, page: this.page})
     .then((result) => {
         //console.log('list불러오기 성공');
         this.postList = this.postList.concat(result.data);

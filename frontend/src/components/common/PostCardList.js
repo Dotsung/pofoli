@@ -41,7 +41,7 @@ const LoadMoreButton = styled.button`
   border: 1px solid #000000;
   height: 2rem;
 `
-
+@inject('postListStore')
 @inject('userStore')
 @observer
 class PostCardList extends React.Component {
@@ -51,16 +51,16 @@ class PostCardList extends React.Component {
   }
   
   componentDidMount() {
-    postApi.list({page: this.state.page})
-    .then((result) => {
-      this.setState({
-        data: result.data
-      })
-    })
-    .catch((result) => {
-      console.log('list err');
-      console.log(result);
-    });
+    // postApi.list({page: this.state.page})
+    // .then((result) => {
+    //   this.setState({
+    //     data: result.data
+    //   })
+    // })
+    // .catch((result) => {
+    //   console.log('list err');
+    //   console.log(result);
+    // });
   }
 
   loadMore = () => {
@@ -91,7 +91,7 @@ class PostCardList extends React.Component {
       <>
       <Route path='/post/:postid' component={PostContainer}/>
         <CardListWrapper>
-          {this.state.data.map((card, index) => (
+          {this.props.postListStore.postList.map((card, index) => (
             <PostCard
               id={card._id}
               index={index}
