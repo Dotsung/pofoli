@@ -131,13 +131,22 @@ exports.read = async (ctx) => {
 
 
 exports.heart = async (ctx) => {
-  const { userid, postid } = ctx.request.body;
+  const { token } = ctx.header;
+  const user = await decodeToken(token);
 
-  const existHeart = await Heart.findOne({ userid: userid, postid:postid });
+  if(!user){
+    ctx.body = '유저 없음';
+    ctx.throw(404);
+  }
+
+  const { postid } = ctx.request.body;
+
+  const existHeart = await Heart.findOne({ userid: user._id, postid:postid });
 
   if(existHeart === null){
     const heart = new Heart({
-      userid, postid
+      userid:user._id, 
+      postid
     });
 
     try {
@@ -154,16 +163,23 @@ exports.heart = async (ctx) => {
 }
 
 exports.unheart = async (ctx) => {
-  const { userid, postid } = ctx.request.body;
+  const { token } = ctx.header;
+  const user = await decodeToken(token);
 
-  const existHeart = await Heart.findOne({ userid: userid, postid:postid });
+  if(!user){
+    ctx.body = '유저 없음';
+    ctx.throw(404);
+  }
+
+  const { postid } = ctx.request.body;
+
+  const existHeart = await Heart.findOne({ userid: user._id, postid:postid });
 
   if(existHeart){
     try {
       await existHeart.remove()
 
       ctx.status = 204
-      ctx.body = '삭제됨';
     } catch (err) {
       ctx.throw(500, err)
     }
@@ -173,13 +189,22 @@ exports.unheart = async (ctx) => {
 }
 
 exports.star = async (ctx) => {
-  const { userid, postid } = ctx.request.body;
+  const { token } = ctx.header;
+  const user = await decodeToken(token);
 
-  const existStar = await Star.findOne({ userid: userid, postid:postid });
+  if(!user){
+    ctx.body = '유저 없음';
+    ctx.throw(404);
+  }
+
+  const { postid } = ctx.request.body;
+
+  const existStar = await Star.findOne({ userid: user._id, postid:postid });
 
   if(existStar === null){
     const star = new Star({
-      userid, postid
+      userid: user._id,
+      postid
     });
 
     try {
@@ -196,9 +221,17 @@ exports.star = async (ctx) => {
 }
 
 exports.unstar = async (ctx) => {
-  const { userid, postid } = ctx.request.body;
+  const { token } = ctx.header;
+  const user = await decodeToken(token);
 
-  const existStar = await Star.findOne({ userid: userid, postid:postid });
+  if(!user){
+    ctx.body = '유저 없음';
+    ctx.throw(404);
+  }
+
+  const { postid } = ctx.request.body;
+
+  const existStar = await Star.findOne({ userid: user._id, postid:postid });
 
   if(existStar){
     try {
