@@ -10,8 +10,7 @@ import { Link } from 'react-router-dom';
 import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
-import * as authApi from 'lib/api/auth';
-import * as ProfileApi from 'lib/api/profile';
+import * as PostApi from 'lib/api/post';
 
 const CardWrapper = styled.div`
     display: flex;
@@ -302,9 +301,8 @@ class PostCard extends React.Component{
 
     ToggleHeart = () => {
         if(this.state.hearted){
-            this.props.userStore.unheart(this.props.id);
-            ProfileApi.unheart({
-                _id: this.props.userStore._id,
+            PostApi.unheart({
+                token: this.props.userStore.token,
                 postid: this.props.id
             })
             .then((result) => {
@@ -318,9 +316,8 @@ class PostCard extends React.Component{
                 hearts: this.state.hearts-1
             })
         }else {
-            this.props.userStore.heart(this.props.id);
-            ProfileApi.heart({
-                _id: this.props.userStore._id,
+            PostApi.heart({
+                token: this.props.userStore.token,
                 postid: this.props.id
             })
             .then((result) => {
@@ -338,9 +335,8 @@ class PostCard extends React.Component{
 
     ToggleStar = () => {
         if(this.state.stared){
-            this.props.userStore.unstar(this.props.id);
-            ProfileApi.unstar({
-                _id: this.props.userStore._id,
+            PostApi.unstar({
+                token: this.props.userStore.token,
                 postid: this.props.id
             })
             .then((result) => {
@@ -354,9 +350,8 @@ class PostCard extends React.Component{
                 stars: this.state.stars-1
             })
         } else {
-            this.props.userStore.star(this.props.id);
-            ProfileApi.star({
-                _id: this.props.userStore._id,
+            PostApi.star({
+                token: this.props.userStore.token,
                 postid: this.props.id
             })
             .then((result) => {

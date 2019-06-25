@@ -20,7 +20,9 @@ export const list = ({token, page}) =>
 
 export const heart = ({token, postid}) =>
   axios.post("http://localhost:4000/api/post/heart",
-  postid,
+  {
+    postid: postid
+  },
   {
     headers: {
       'token': token
@@ -29,7 +31,9 @@ export const heart = ({token, postid}) =>
 
 export const unheart = ({token, postid}) =>
   axios.post("http://localhost:4000/api/post/unheart",
-  postid,
+  {
+    postid: postid
+  },
   {
     headers: {
       'token': token
@@ -38,7 +42,9 @@ export const unheart = ({token, postid}) =>
 
 export const star = ({token, postid}) =>
   axios.post("http://localhost:4000/api/post/star",
-  postid,
+  {
+    postid: postid
+  },
   {
     headers: {
       'token': token
@@ -47,7 +53,9 @@ export const star = ({token, postid}) =>
 
 export const unstar = ({token, postid}) =>
   axios.post("http://localhost:4000/api/post/unstar",
-  postid,
+  {
+    postid: postid
+  },
   {
     headers: {
       'token': token
