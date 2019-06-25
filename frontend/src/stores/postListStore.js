@@ -55,42 +55,46 @@ class postListStore {
   @action.bound
   heart = ({ index }) => {
       this.postList[index].hearted = true;
-  }
-
-  @action.bound
-  inheart = ({ index }) => {
       this.postList[index].hearts += 1;
   }
+
+  // @action.bound
+  // inheart = ({ index }) => {
+  //     this.postList[index].hearts += 1;
+  // }
 
   @action.bound
   unheart = ({ index }) => {
       this.postList[index].hearted = false;
-  }
-
-  @action.bound
-  deheart = ({ index }) => {
       this.postList[index].hearts -= 1;
   }
+
+  // @action.bound
+  // deheart = ({ index }) => {
+  //     this.postList[index].hearts -= 1;
+  // }
 
   @action.bound
   star = ({ index }) => {
       this.postList[index].stared = true;
-  }
-
-  @action.bound
-  instar = ({ index }) => {
       this.postList[index].stars += 1;
   }
+
+  // @action.bound
+  // instar = ({ index }) => {
+  //     this.postList[index].stars += 1;
+  // }
 
   @action.bound
   unstar = ({ index }) => {
       this.postList[index].stared = false;
-  }
-
-  @action.bound
-  destar = ({ index }) => {
       this.postList[index].stars -= 1;
   }
+
+  // @action.bound
+  // destar = ({ index }) => {
+  //     this.postList[index].stars -= 1;
+  // }
   
 }
 

@@ -211,6 +211,7 @@ class Post extends React.Component{
 
     componentDidMount(){
         postApi.read({ 
+            token: this.props.userStore.token,
             id: this.props.postid 
         }).then((result) => {
             const post = result.data;

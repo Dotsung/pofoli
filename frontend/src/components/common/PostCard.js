@@ -224,16 +224,17 @@ const Spacer = styled.div`
 `
 
 @inject('userStore')
+@inject('postListStore')
 @observer
 class PostCard extends React.Component{
-    state = {
-        hearted: this.props.hearted,
-        stared: this.props.stared,
-        hearts: this.props.hearts,
-        views: this.props.views,
-        comments: this.props.comments,
-        stars: this.props.stars,
-    };
+    // state = {
+    //     hearted: this.props.hearted,
+    //     stared: this.props.stared,
+    //     hearts: this.props.hearts,
+    //     views: this.props.views,
+    //     comments: this.props.comments,
+    //     stars: this.props.stars,
+    // };
 
     // ToggleHeart = () => {
     //     if(this.props.postListStore.postList[this.props.index].hearted){
@@ -300,7 +301,7 @@ class PostCard extends React.Component{
     // }
 
     ToggleHeart = () => {
-        if(this.state.hearted){
+        if(this.props.postListStore.postList[this.props.index].hearted){    
             PostApi.unheart({
                 token: this.props.userStore.token,
                 postid: this.props.id
@@ -311,10 +312,7 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            this.setState({
-                hearted: false,
-                hearts: this.state.hearts-1
-            })
+            this.props.postListStore.unheart({index: this.props.index});
         }else {
             PostApi.heart({
                 token: this.props.userStore.token,
@@ -326,15 +324,12 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            this.setState({
-                hearted: true,
-                hearts: this.state.hearts+1
-            })
+            this.props.postListStore.heart({index: this.props.index});
         }
     }
 
     ToggleStar = () => {
-        if(this.state.stared){
+        if(this.props.postListStore.postList[this.props.index].stared){
             PostApi.unstar({
                 token: this.props.userStore.token,
                 postid: this.props.id
@@ -345,10 +340,7 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            this.setState({
-                stared: false,
-                stars: this.state.stars-1
-            })
+            this.props.postListStore.unstar({index: this.props.index});
         } else {
             PostApi.star({
                 token: this.props.userStore.token,
@@ -360,10 +352,7 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            this.setState({
-                stared: true,
-                stars: this.state.stars+1
-            })
+            this.props.postListStore.star({index: this.props.index});
         }
     }
 
@@ -401,7 +390,7 @@ class PostCard extends React.Component{
         // console.log(this.props.userStore.hearted);
         // console.log(this.props.userStore.state);
         const { id, title, date, img, authorThumbnail, authorUsername, index } = this.props;
-        const { hearted, stared, hearts, views, comments, stars } = this.state;
+        const { hearted, stared, hearts, views, comments, stars } = this.props.postListStore.postList[index];
         const { ToggleHeart, ToggleStar, StateTest } = this;
 
         return(
