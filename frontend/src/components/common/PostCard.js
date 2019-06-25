@@ -28,13 +28,13 @@ const ThumbnailWrapper = styled.div`
     overflow: hidden;
     display: block;
     height:100%;
-    max-height: 300px;
+    max-height: 400px;
     z-index: 1;
     cursor: pointer;
 `
 
 const CardThumbnail = styled.img`
-    // object-fit: cover;
+    object-fit: cover;
     width: 100%;
     height: 100%;
     display: block;

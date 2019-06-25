@@ -29,7 +29,7 @@ export const write = async (ctx) => {
     image: url
   }
 
-  let currentUser = null
+  let currentUser = null;
   try {
     currentUser = await User.findById(user)
   } catch (err) {
