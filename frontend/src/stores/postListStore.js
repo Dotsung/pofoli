@@ -5,20 +5,28 @@ class postListStore {
     @observable token = null;
     @observable postList = [];
     @observable page = 1;
+    @observable state = "pending";
 
   constructor() {
       this.token = localStorage['dotia-token'];
       this.getList();
   }
 
+  @action.bound
+  Login = () => {
+    this.token = localStorage['dotia-token'];
+    this.getList();
+  }
 
   @action.bound
   getList = () => {
     postApi.list({token: this.token, page: this.page})
     .then((result) => {
       //console.log('list불러오기 성공');
+      this.postList = [];
       this.postList = result.data;
-      console.log(this.postList)
+      this.state = "done";
+      this.state = "update";
       //console.log(this.state.data)
     })
     .catch((result) => {
@@ -34,6 +42,8 @@ class postListStore {
     .then((result) => {
         //console.log('list불러오기 성공');
         this.postList = this.postList.concat(result.data);
+        this.state = "done";
+        this.state = "update";
         //console.log(this.state.data)
     })
     .catch((result) => {

@@ -170,6 +170,7 @@ const H3 = styled.h3`
 `
 
 @inject('userStore')
+@inject('postListStore')
 @observer
 class SignIn extends React.Component {
     state = {
@@ -196,6 +197,7 @@ class SignIn extends React.Component {
             console.log('성공');
             localStorage.setItem('dotia-token', result.data.token);
             this.props.userStore.Login();
+            this.props.postListStore.Login();
             this.setState({ redirect: true })
         })
         .catch((result) => {
