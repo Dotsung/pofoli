@@ -190,6 +190,7 @@ const Spacer = styled.div`
 `
 
 @inject('userStore')
+@inject('postListStore')
 @observer
 class Post extends React.Component{
     state = {
@@ -286,6 +287,9 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
+            if(this.props.index){
+                this.props.postListStore.unheart({ index: this.props.index });
+            }
         } else {
             this.setState({
                 hearted: true,
@@ -301,10 +305,9 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             });
-        }
-
-        if(this.props.index === null){
-            return;
+            if(this.props.index){
+                this.props.postListStore.heart({ index: this.props.index });
+            }
         }
     }
 
@@ -324,6 +327,9 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
+            if(this.props.index){
+                this.props.postListStore.unstar({ index: this.props.index });
+            }
         } else {
             this.setState({
                 stared: true,
@@ -339,6 +345,9 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
+            if(this.props.index){
+                this.props.postListStore.star({ index: this.props.index });
+            }
         }
     }
 
