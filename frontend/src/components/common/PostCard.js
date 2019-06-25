@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
-import * as PostApi from 'lib/api/post';
+import * as postApi from 'lib/api/post';
 
 const CardWrapper = styled.div`
     display: flex;
@@ -302,7 +302,7 @@ class PostCard extends React.Component{
 
     ToggleHeart = () => {
         if(this.props.postListStore.postList[this.props.index].hearted){    
-            PostApi.unheart({
+            postApi.unheart({
                 token: this.props.userStore.token,
                 postid: this.props.id
             })
@@ -314,7 +314,7 @@ class PostCard extends React.Component{
             })
             this.props.postListStore.unheart({index: this.props.index});
         }else {
-            PostApi.heart({
+            postApi.heart({
                 token: this.props.userStore.token,
                 postid: this.props.id
             })
@@ -330,7 +330,7 @@ class PostCard extends React.Component{
 
     ToggleStar = () => {
         if(this.props.postListStore.postList[this.props.index].stared){
-            PostApi.unstar({
+            postApi.unstar({
                 token: this.props.userStore.token,
                 postid: this.props.id
             })
@@ -342,7 +342,7 @@ class PostCard extends React.Component{
             })
             this.props.postListStore.unstar({index: this.props.index});
         } else {
-            PostApi.star({
+            postApi.star({
                 token: this.props.userStore.token,
                 postid: this.props.id
             })

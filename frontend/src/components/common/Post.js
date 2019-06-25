@@ -276,9 +276,8 @@ class Post extends React.Component{
                 hearted: false,
                 hearts: this.state.hearts-1
             });
-            this.props.userStore.unheart(this.props.id);
-            ProfileApi.unheart({
-                _id: this.props.userStore._id,
+            postApi.unheart({
+                token: this.props.userStore.token,
                 postid: this.props.postid
             })
             .then((result) => {
@@ -292,9 +291,8 @@ class Post extends React.Component{
                 hearted: true,
                 hearts: this.state.hearts+1
             });
-            this.props.userStore.heart(this.props.id);
-            ProfileApi.heart({
-                _id: this.props.userStore._id,
+            postApi.heart({
+                token: this.props.userStore.token,
                 postid: this.props.postid
             })
             .then((result) => {
@@ -316,9 +314,8 @@ class Post extends React.Component{
                 stared: false,
                 stars: this.state.stars-1
             });
-            this.props.userStore.unstar(this.props.id);
-            ProfileApi.unstar({
-                _id: this.props.userStore._id,
+            postApi.unstar({
+                token: this.props.userStore.token,
                 postid: this.props.postid
             })
             .then((result) => {
@@ -332,9 +329,8 @@ class Post extends React.Component{
                 stared: true,
                 stars: this.state.stars+1
             });
-            this.props.userStore.star(this.props.id);
-            ProfileApi.star({
-                _id: this.props.userStore._id,
+            postApi.star({
+                token: this.props.userStore.token,
                 postid: this.props.postid
             })
             .then((result) => {
