@@ -53,12 +53,14 @@ class CommentList extends React.Component{
             <Wrapper watchComment={watchComment}>
                 {this.state.commentList.map((comment, index) => 
                     <Comment 
-                        img={comment.authorThumbnail}
-                        desc={comment.body}
-                        author={comment.authorUsername}
+                        authorThumbnail={comment.authorThumbnail}
+                        authorUsername={comment.authorUsername}
+                        body={comment.body}
+                        writed={comment.writed}
+                        key={index}
                     />
                 )}
-                <CommentInput />
+                <CommentInput postid={this.props.postid}/>
             </Wrapper>
         )
     }

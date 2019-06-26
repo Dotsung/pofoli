@@ -5,7 +5,7 @@ import oc from 'open-color';
 
 const Wrapper = styled.div`
     display: flex;
-    padding-bottom: 1rem;
+    padding-top: 1rem;
     // border-top: 1px solid ${oc.gray[5]};
 `
 
@@ -37,13 +37,14 @@ const CommentText = styled.span`
 
 class Comment extends React.Component{
     render(){
-        const { img, desc, author } = this.props;
+        const { authorThumbnail, authorUsername, body, writed } = this.props;
         return(
             <Wrapper>
-                <UserThumbnail src={img} />
+                <UserThumbnail src={authorThumbnail} />
                 <CommentBox>
-                    <Username>{author}</Username>
-                    <CommentText>{desc}</CommentText>
+                    <Username>{authorUsername}</Username>
+                    <CommentText>{body}</CommentText>
+                    {console.log({writed})}
                 </CommentBox>
             </Wrapper>
         )

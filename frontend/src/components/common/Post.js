@@ -40,7 +40,7 @@ const WhiteBox = styled.div`
 const Content = styled.div`
     box-sizing: border-box;
     padding: 30px;
-    padding-bottom: 20px;
+    padding-bottom: ${props => props.watchComment?`10px`:`20px`};
 `
 
 const Img = styled.img`
@@ -231,7 +231,6 @@ class Post extends React.Component{
                 stared: post.stared,
                 createdAt: post.createdAt
             })
-            console.log(this.props.index);
         }).catch((result) => {
             console.log(result)
         });
@@ -324,12 +323,12 @@ class Post extends React.Component{
     }
 
     render(){
-        const {title, body, image, hearts, views, stars, comments, hearted, stared } = this.state;
+        const { watchComment, title, body, image, hearts, views, stars, comments, hearted, stared } = this.state;
 
         return(
             <ContentArea>
                 <WhiteBox>
-                    <Content>
+                    <Content watchComment={watchComment?1:0}>
                         <Title>{title}</Title>
                         <Img src={image} />
                         <Desc>{body}</Desc>
@@ -343,18 +342,20 @@ class Post extends React.Component{
                             </Views>
                             <Spacer />
                             <CommentNav>
-                                <Comments onClick={this.ToggleComment} watchComment={this.state.watchComment}>
+                                <Comments onClick={this.ToggleComment} watchComment={watchComment}>
                                     <Icon icon={faComment} />
                                     <IconName>Commnets</IconName>
                                     <H5>{comments}</H5>
                                 </Comments>
-                                <CommentsLine watchComment={this.state.watchComment} />
+                                {
+                                    // <CommentsLine watchComment={watchComment} />
+                                }
                             </CommentNav>
                             <Spacer />
                             { StarIcon({stared:stared?1:0, stars, ToggleStar: this.ToggleStar}) }
                         </Icons>
                     </Content>
-                    <CommentList watchComment={this.state.watchComment} postid={this.props.postid}/>
+                    <CommentList watchComment={watchComment} postid={this.props.postid}/>
                 </WhiteBox>
             </ContentArea>
         )
