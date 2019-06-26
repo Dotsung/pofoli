@@ -3,13 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Post from 'components/common/Post';
 import oc from 'open-color';
-import { Link } from 'react-router-dom';
 import WritePost from 'components/WritePost';
 
 const Wrapper = styled.div`
-    ${ props => {
-        return props.modal?`display:block`:`display: none;`
-    }}
     position: fixed;
     z-index: 30;
     left: 0;
@@ -31,11 +27,10 @@ const Background = styled.div`
 
 class WritePostContainer extends React.Component {
     render(){
-        const { modal, ModalOff } = this.props;
         return (
-            <Wrapper modal={modal}>
-                <Background />
-                <WritePost ModalOff={ModalOff}/>
+            <Wrapper>
+                <Background/>
+                <WritePost/>
             </Wrapper>
         )
     }

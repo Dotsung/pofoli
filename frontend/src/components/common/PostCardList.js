@@ -90,20 +90,7 @@ const NewPostButtonText = styled.p`
 class PostCardList extends React.Component {
   state = {
     data: [],
-    page: 1,
-    newPostModal: false
-  }
-
-  ModalOn = () => {
-    this.setState({
-        newPostModal: true
-    })
-  }
-
-  ModalOff = () => {
-      this.setState({
-          newPostModal: false
-      })
+    page: 1
   }
 
   loadMore = () => {
@@ -133,6 +120,7 @@ class PostCardList extends React.Component {
     return (
       <>
       <Route path='/post/:postid' component={PostContainer}/>
+      <Route path='/write' component={WritePostContainer}/>
         <CardListWrapper>
           {this.props.postListStore.postList.map((card, index) => (
             <PostCard
@@ -155,12 +143,13 @@ class PostCardList extends React.Component {
             />)
           )}
         </CardListWrapper>
+        <Link to="/write">
           <NewPostButton onClick={this.ModalOn}>
-            <NewPostButtonTextWrapper> 
+            <NewPostButtonTextWrapper>
               <NewPostButtonText>+</NewPostButtonText>
             </NewPostButtonTextWrapper>
           </NewPostButton>
-          <WritePostContainer modal={this.state.newPostModal} ModalOff={this.ModalOff} />
+        </Link>
         <LoadMoreButton onClick={this.loadMore}>Load More</LoadMoreButton>
       </>
     );

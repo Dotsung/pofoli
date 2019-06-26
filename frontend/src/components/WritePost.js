@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import oc from 'open-color';
+import { Link } from 'react-router-dom';
 import * as postApi from 'lib/api/post';
 
 const WhiteBox = styled.div`
@@ -119,7 +120,6 @@ class WritePost extends React.Component{
     }
 
     render(){
-        const { ModalOff } = this.props;
         const { title, body, image } = this.state;
 
         return(
@@ -128,7 +128,9 @@ class WritePost extends React.Component{
                     <Head>
                         <H1>Write New Post</H1>
                         <Spacer />
-                        <H1 onClick={ModalOff}>X</H1>
+                        <Link to="/">
+                            <H1>X</H1>
+                        </Link>
                     </Head>
                     <Slicer />
                     <Form onSubmit={this.onSubmit}>
