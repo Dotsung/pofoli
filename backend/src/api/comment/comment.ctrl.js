@@ -44,7 +44,9 @@ export const write = async (ctx) => {
     });
 
     try {
-      ctx.body = await comment.save();
+      const newComment = await comment.save();
+      const newPost = await currentPost.updateComments();
+      ctx.body = newComment;
     } catch (err) {
       ctx.throw(500, err)
     }
