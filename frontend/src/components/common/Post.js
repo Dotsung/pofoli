@@ -1,5 +1,6 @@
 // @flow
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'lib/styleUtils';
@@ -229,7 +230,7 @@ class Post extends React.Component{
                 stared: post.stared,
                 createdAt: post.createdAt
             })
-            console.log(this.state)
+            console.log(this.props.index);
         }).catch((result) => {
             console.log(result)
         });
@@ -240,36 +241,6 @@ class Post extends React.Component{
             watchComment: !this.state.watchComment
         });
     }
-    
-    // getHearted = (postid) => {
-    //     if(this.state.heartload){
-    //         this.props.userStore.hearted.forEach((id) => {
-    //             if(postid === id){
-    //                 if(this.state.hearted === false){
-    //                     this.setState({
-    //                         hearted: true,
-    //                         heartload: false
-    //                     });
-    //                 }
-    //             }
-    //         });
-    //     }
-    // }
-
-    // getStared = (postid) => {
-    //     if(this.state.starload){
-    //         this.props.userStore.stared.forEach((id) => {
-    //             if(postid === id){
-    //                 if(this.state.stared === false){
-    //                     this.setState({
-    //                         stared: true,
-    //                         starload: false
-    //                     });
-    //                 }
-    //             }
-    //         });
-    //     }
-    // }
 
     ToggleHeart = () => {
         if(this.state.hearted){
@@ -287,7 +258,7 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            if(this.props.index){
+            if(this.props.index !== null){
                 this.props.postListStore.unheart({ index: this.props.index });
             }
         } else {
@@ -305,7 +276,7 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             });
-            if(this.props.index){
+            if(this.props.index !== null){
                 this.props.postListStore.heart({ index: this.props.index });
             }
         }
@@ -327,7 +298,7 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            if(this.props.index){
+            if(this.props.index !== null){
                 this.props.postListStore.unstar({ index: this.props.index });
             }
         } else {
@@ -345,7 +316,7 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            if(this.props.index){
+            if(this.props.index !== null){
                 this.props.postListStore.star({ index: this.props.index });
             }
         }
