@@ -35,11 +35,12 @@ export const write = async (ctx) => {
       ctx.status = 404
       return
     }
-  
+    
     const comment = new Comment({
         body,
-        postid: currentPost._id,
-        author: currentUser._id
+        authorThumbnail: currentUser.profile.thumbnail,
+        authorUsername: currentUser.profile.username,
+        post: currentPost._id,
     });
 
     try {
