@@ -41,6 +41,48 @@ const LoadMoreButton = styled.button`
   border: 1px solid #000000;
   height: 2rem;
 `
+
+const NewPostButton = styled.button`
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  font-size: 3rem;
+  z-index: 15;
+  display: block;
+  background-color: ${oc.indigo[6]};
+  color: white;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+
+  &:hover{
+    background-color: ${oc.indigo[8]};
+    color: ${oc.gray[3]};
+  }
+  &:focus{
+    outline: 0;
+  }
+`
+
+const NewPostButtonTextWrapper = styled.div`
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+`
+
+const NewPostButtonText = styled.p`
+  display: block;
+  position: absolute;
+  margin: 0;
+  top: -2px;
+  left: 5px;
+`
+
 @inject('postListStore')
 @inject('userStore')
 @observer
@@ -112,6 +154,11 @@ class PostCardList extends React.Component {
             />)
           )}
         </CardListWrapper>
+          <NewPostButton>
+            <NewPostButtonTextWrapper> 
+              <NewPostButtonText>+</NewPostButtonText>
+            </NewPostButtonTextWrapper>
+          </NewPostButton>
         <LoadMoreButton onClick={this.loadMore}>Load More</LoadMoreButton>
       </>
     );

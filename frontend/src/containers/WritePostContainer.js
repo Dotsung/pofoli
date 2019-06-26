@@ -11,7 +11,7 @@ const Wrapper = styled.div`
         return props.modal?`display:block`:`display: none;`
     }}
     position: fixed;
-    z-index: 20;
+    z-index: 30;
     left: 0;
     top: 0;
     width: 100%;
@@ -20,6 +20,7 @@ const Wrapper = styled.div`
 
 const Background = styled.div`
     position: fixed; /* Stay in place */
+    z-index: 25;
     top: 0;
     left: 0;
     width: 100%; /* Full width */

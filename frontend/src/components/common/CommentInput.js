@@ -112,6 +112,10 @@ class CommentInput extends React.Component{
     onSubmit = (e) => {
         e.preventDefault();
 
+        if(this.state.body === ''){
+            return;
+        }
+                          
         const body = this.state.body;
 
         this.props.appendComment({
