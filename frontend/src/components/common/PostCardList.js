@@ -9,6 +9,7 @@ import { observer, inject } from 'mobx-react';
 
 import PostCard from "./PostCard";
 import PostContainer from "containers/common/PostContainer";
+import WritePostContainer from 'containers/WritePostContainer';
 import * as postApi from 'lib/api/post';
 
 const CardListWrapper = styled.div`
@@ -89,20 +90,20 @@ const NewPostButtonText = styled.p`
 class PostCardList extends React.Component {
   state = {
     data: [],
-    page: 1
+    page: 1,
+    newPostModal: false
   }
-  
-  componentDidMount() {
-    // postApi.list({page: this.state.page})
-    // .then((result) => {
-    //   this.setState({
-    //     data: result.data
-    //   })
-    // })
-    // .catch((result) => {
-    //   console.log('list err');
-    //   console.log(result);
-    // });
+
+  ModalOn = () => {
+    this.setState({
+        newPostModal: true
+    })
+  }
+
+  ModalOff = () => {
+      this.setState({
+          newPostModal: false
+      })
   }
 
   loadMore = () => {
@@ -154,11 +155,12 @@ class PostCardList extends React.Component {
             />)
           )}
         </CardListWrapper>
-          <NewPostButton>
+          <NewPostButton onClick={this.ModalOn}>
             <NewPostButtonTextWrapper> 
               <NewPostButtonText>+</NewPostButtonText>
             </NewPostButtonTextWrapper>
           </NewPostButton>
+          <WritePostContainer modal={this.state.newPostModal} ModalOff={this.ModalOff} />
         <LoadMoreButton onClick={this.loadMore}>Load More</LoadMoreButton>
       </>
     );

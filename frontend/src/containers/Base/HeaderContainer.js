@@ -6,8 +6,6 @@ import Header from 'components/base/Header';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import WritePostContainer from 'containers/WritePostContainer';
-
 const StyledButton = styled.button`
     border: 0px;
     color: black;
@@ -44,43 +42,15 @@ const ProfileThumbnail = styled.img`
 const Href = styled(Link)`
 `
 
-const PostButton = styled.button`
-    margin-left: 1rem;
-    color: white;
-    border: none;
-    width: 6rem;
-    height: 2rem;
-    border-radius: 2px;
-    font-size: 1rem;
-    background: ${oc.indigo[4]};
-`
-
 
 @inject('userStore')
 @observer
 class HeaderContainer extends Component {
-    state = {
-        modal: false
-    }
-
-    ModalOn = () => {
-        this.setState({
-            modal: true
-        })
-    }
-
-    ModalOff = () => {
-        this.setState({
-            modal: false
-        })
-    }
-
     User({thumbnail}){
         if(thumbnail){
             return (
                 <>
                     <ProfileThumbnail src={thumbnail}/>
-                    <PostButton onClick={this.ModalOn}>write post</PostButton>
                 </>
             )
         } else {
@@ -93,12 +63,10 @@ class HeaderContainer extends Component {
     render() {
         //console.log(this.props.userStore);
         const { token, thumbnail } = this.props.userStore;
-        const { modal } = this.state;
 
         return (
             <Header>
                 { this.User({thumbnail}) }
-                <WritePostContainer modal={modal} ModalOff={this.ModalOff} />
             </Header>
         );
     }
