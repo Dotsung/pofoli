@@ -112,11 +112,21 @@ class CommentInput extends React.Component{
     onSubmit = (e) => {
         e.preventDefault();
 
-        console.log(this.state)
+        const body = this.state.body;
+
+        this.props.appendComment({
+            authorThumbnail: this.props.userStore.thumbnail,
+            authorUsername: this.props.userStore.username,
+            body: body
+        });
+
+        this.setState({
+            body: ''
+        });
 
         commentApi.write({ 
             token: this.props.userStore.token,
-            body: this.state.body,
+            body: body,
             postid: this.props.postid
         })
         .then((result) => {

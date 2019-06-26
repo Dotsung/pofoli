@@ -28,6 +28,19 @@ class CommentList extends React.Component{
         commentList: []
     }
 
+    appendComment = ({ authorThumbnail, authorUsername, body }) => {
+        this.setState({
+            commentList: [
+                ...this.state.commentList, 
+                {
+                    authorThumbnail,
+                    authorUsername,
+                    body,
+                    writed: true
+            }]
+        })
+    }
+
     componentDidMount(){
         commentApi.list({postid: this.props.postid})
         .then((result) => {
@@ -55,7 +68,7 @@ class CommentList extends React.Component{
                         key={index}
                     />
                 )}
-                <CommentInput postid={this.props.postid}/>
+                <CommentInput postid={this.props.postid} appendComment={this.appendComment}/>
             </Wrapper>
         )
     }
