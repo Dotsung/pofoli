@@ -6,6 +6,8 @@ import oc from 'open-color';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
 
+import * as commentApi from 'lib/api/comment';
+
 import Img1 from "testimg/img1.gif";
 import Img2 from "testimg/img13.gif";
 import Img3 from "testimg/img14.png";
@@ -27,14 +29,35 @@ const Slicer = styled.div`
 `
 
 class CommentList extends React.Component{
+    state = {
+        commentList: []
+    }
+
+    componentDidMount(){
+        commentApi.list({postid: this.props.postid})
+        .then((result) => {
+            this.setState({
+                commentList: result.data
+            });
+        })
+        .catch((result) => {
+            console.log(result);
+        })
+    }
+
+
     render(){
-        const { img, watchComment } = this.props;
+        const { watchComment } = this.props;
+
         return(
             <Wrapper watchComment={watchComment}>
-                <Comment img={Img1} author={`Dosung`} desc={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`}/>
-                <Comment img={Img2} author={`Haya`} desc={`Ut enim ad minim veniam`}/>
-                <Comment img={Img3} author={`choicyle`} desc={`quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`}/>
-                <Comment img={Img4} author={`DMB`} desc={`Excepteur sint occaecat cupidatat non proident`}/>
+                {this.state.commentList.map((comment, index) => 
+                    <Comment 
+                        img={comment.authorThumbnail}
+                        desc={comment.body}
+                        author={comment.authorUsername}
+                    />
+                )}
                 <CommentInput />
             </Wrapper>
         )

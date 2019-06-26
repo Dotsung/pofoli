@@ -83,7 +83,7 @@ exports.list = async (ctx) => {
     }
   } else {
     try {
-      const commentlist = await Comment.find().exec();
+      const commentlist = await Comment.find({ post: postid }).exec();
       ctx.body = commentlist;
     } catch (err) {
       ctx.throw(500, err)

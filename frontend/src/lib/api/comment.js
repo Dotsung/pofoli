@@ -11,7 +11,7 @@ export const write = ({ token, body, postid }) =>
           'token': token,
           'Content-Type': 'multipart/form-data'
     }
-  });
+});
 
 export const list = ({token, postid}) => 
   axios.get("http://localhost:4000/api/comment/list/"+postid,

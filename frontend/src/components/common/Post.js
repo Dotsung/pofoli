@@ -354,7 +354,7 @@ class Post extends React.Component{
                             { StarIcon({stared:stared?1:0, stars, ToggleStar: this.ToggleStar}) }
                         </Icons>
                     </Content>
-                    <CommentList img={image} watchComment={this.state.watchComment}/>
+                    <CommentList watchComment={this.state.watchComment} postid={this.props.postid}/>
                 </WhiteBox>
             </ContentArea>
         )
