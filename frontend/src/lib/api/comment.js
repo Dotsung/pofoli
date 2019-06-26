@@ -4,12 +4,11 @@ export const write = ({ token, body, postid }) =>
   axios.post("http://localhost:4000/api/comment/write",
     {
         body: body,
-        post: postid
+        postid: postid
     },
     {
       headers: {
-          'token': token,
-          'Content-Type': 'multipart/form-data'
+          'token': token
     }
 });
 

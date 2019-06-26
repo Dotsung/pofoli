@@ -8,11 +8,6 @@ import CommentInput from './CommentInput';
 
 import * as commentApi from 'lib/api/comment';
 
-import Img1 from "testimg/img1.gif";
-import Img2 from "testimg/img13.gif";
-import Img3 from "testimg/img14.png";
-import Img4 from "testimg/img8.gif";
-
 const Wrapper = styled.div`
     ${ props => {
         return props.watchComment?`display: block`:`display: none`;

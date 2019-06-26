@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { observer, inject } from 'mobx-react';
 
+import * as commentApi from 'lib/api/comment';
 
 const Wrapper = styled.div`
     display: flex;
@@ -36,10 +37,25 @@ const Border = styled.span`
     left: 0;
     height: 2px;
     width: 83%;
-    background: ${oc.indigo[4]};
+    background: ${oc.indigo[6]};
     transform: scaleX(0);
     transform-origin: 0 0;
     transition: all .15s ease;
+`
+const SubmitButton = styled.button`
+    margin-top: 2px;
+    border: 1px solid ${oc.indigo[3]};
+    background-color: ${oc.indigo[3]};
+    font-size: 1rem;
+    width: 4rem;
+    height: 2rem;
+    color: white;
+
+    ${
+        props => props.on?
+            `border: 1px solid ${oc.indigo[7]};
+            background-color: ${oc.indigo[7]};`:``
+    }
 `
 
 const Input = styled.input`
@@ -49,7 +65,7 @@ const Input = styled.input`
     border: 0;
     padding: 0;
     font-size: 1rem;
-    border-bottom: 2px solid ${oc.indigo[1]};
+    border-bottom: 1px solid ${oc.indigo[2]};
     background: none;
     border-radius: 0;
     color: black;
@@ -78,27 +94,49 @@ const ButtonWrapper = styled.div`
     display: flex;
 `
 
-const SubmitButton = styled.button`
-    margin-top: 2px;
-    border: 1px solid ${oc.indigo[4]};
-    background-color: ${oc.indigo[4]};
-    font-size: 1rem;
-    width: 4rem;
-    height: 2rem;
-    color: white;
-`
-
 @inject('userStore')
 @observer
 class CommentInput extends React.Component{
+    
+    state = {
+        body: ''
+    }
+
+    onChange = (e) => {
+        const { name, value } = e.target; 
+        this.setState({
+            [name]: value
+        });
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+
+        console.log(this.state)
+
+        commentApi.write({ 
+            token: this.props.userStore.token,
+            body: this.state.body,
+            postid: this.props.postid
+        })
+        .then((result) => {
+            console.log(result);
+            console.log('성공');
+        })
+        .catch((result) => {
+            console.log(result);
+            console.log('실패');
+        });
+    }
+
     render(){
         return(
             <Wrapper>
                 <UserThumbnail src={this.props.userStore.thumbnail} />
-                <Form>
-                    <Input/>
+                <Form onSubmit={this.onSubmit}>
+                    <Input name="body" value={this.state.body} onChange={this.onChange} autoComplete="off"/>
                     <Spacer />
-                    <SubmitButton>댓글</SubmitButton>
+                    <SubmitButton on={this.state.body === '' ?0:1} >댓글</SubmitButton>
                     <Border />
                 </Form>
             </Wrapper>
