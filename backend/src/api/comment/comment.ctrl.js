@@ -49,3 +49,40 @@ export const write = async (ctx) => {
       ctx.throw(500, err)
     }
 }
+
+exports.list = async (ctx) => {
+  const { token } = ctx.header;
+  let user = null;
+  let currentUser = null;
+
+  try{
+    user = await decodeToken(token);
+    currentUser = await User.findById(user);
+    } catch (err) {
+  }
+
+
+  if(currentUser){
+    try {
+      const commentlist = await Comment.find().exec();
+      
+      const newList = await Promise.all( commentlist.map(async (comment, index) => {
+        if(currentUser.username === comment.authorUsername){
+          comment.writed = true;
+        }
+        return comment;
+      }));
+
+      ctx.body = newList;
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  } else {
+    try {
+      const commentlist = await Comment.find().exec();
+      ctx.body = commentlist;
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  }
+}

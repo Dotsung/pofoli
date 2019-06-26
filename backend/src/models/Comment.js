@@ -5,6 +5,7 @@ const Comment = new mongoose.Schema({
   authorThumbnail: String,
   authorUsername: String,
   post: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
+  writed: false,
   createdAt: {
     type: Date,
     default: Date.now
