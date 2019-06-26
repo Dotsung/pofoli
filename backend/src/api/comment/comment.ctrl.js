@@ -54,6 +54,8 @@ export const write = async (ctx) => {
 
 exports.list = async (ctx) => {
   const { token } = ctx.header;
+  const { postid } = ctx.params;
+
   let user = null;
   let currentUser = null;
 
@@ -66,7 +68,7 @@ exports.list = async (ctx) => {
 
   if(currentUser){
     try {
-      const commentlist = await Comment.find().exec();
+      const commentlist = await Comment.find({ post: postid }).exec();
       
       const newList = await Promise.all( commentlist.map(async (comment, index) => {
         if(currentUser.username === comment.authorUsername){

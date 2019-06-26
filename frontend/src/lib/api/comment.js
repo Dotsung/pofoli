@@ -13,8 +13,8 @@ export const write = ({ token, body, postid }) =>
     }
   });
 
-export const list = ({token}) => 
-  axios.get("http://localhost:4000/api/comment/list",
+export const list = ({token, postid}) => 
+  axios.get("http://localhost:4000/api/comment/list/"+postid,
   {
     headers: {
       'token': token

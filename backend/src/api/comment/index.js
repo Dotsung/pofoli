@@ -8,6 +8,6 @@ comment.get('/', (ctx) => {
 })
 
 comment.post('/write', commentCtrl.write)
-comment.get('/list', commentCtrl.list)
+comment.get('/list/:postid', commentCtrl.list)
 
 export default comment
