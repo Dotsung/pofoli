@@ -3,12 +3,11 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 import oc from 'open-color';
-import { shadow, media } from 'lib/styleUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
-import { observer, inject } from 'mobx-react';
-import * as ProfileApi from 'lib/api/profile';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 import * as postApi from 'lib/api/post';
 
@@ -190,67 +189,54 @@ const Spacer = styled.div`
     flex: 1;
 `
 
-@inject('userStore')
-@inject('postListStore')
-@observer
-class Post extends React.Component{
-    state = {
-        watchComment: true,
-        title: '',
-        body: '',
-        image: '',
-        hearts: 0,
-        views: 0,
-        comments: 0,
-        stars: 0,
-        authorThumbnail: '',
-        authorUsername: '',
-        createdAt: '',
-        updatedAt: '',
-        hearted: false,
-        stared: false
-    }
+const Post = ({ token, heart, unheart, star, unstar, postid, index }) => {
+    const [watchComment, setWatchComment] = useState(true);
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    const [image, setImage] = useState('');
+    const [hearts, setHearts] = useState(0);
+    const [views, setViews] = useState(0);
+    const [comments, setComments] = useState(0);
+    const [stars, setStars] = useState(0);
+    const [authorThumbnail, setAuthorThumbnail] = useState('');
+    const [authorUsername, setAuthorUsername] = useState('');
+    const [createdAt, setCreatedAt] = useState('');
+    const [hearted, setHearted] = useState(false);
+    const [stared, setStared] = useState(false);
 
-    componentDidMount(){
+    useEffect(() => {
         postApi.read({ 
-            token: this.props.userStore.token,
-            id: this.props.postid 
+            token, postid
         }).then((result) => {
             const post = result.data;
-            this.setState({
-                title: post.title,
-                body: post.body,
-                image: post.image,
-                hearts: post.hearts,
-                views: post.views,
-                stars: post.stars,
-                comments: post.comments,
-                authorThumbnail: post.authorThumbnail,
-                authorUsername: post.authorUsername,
-                hearted: post.hearted,
-                stared: post.stared,
-                createdAt: post.createdAt
-            })
+            setTitle(post.title);
+            setBody(post.body);
+            setImage(post.image);
+            setHearts(post.hearts);
+            setViews(post.views);
+            setStars(post.stars);
+            setComments(post.comments);
+            setAuthorThumbnail(post.authorThumbnail);
+            setAuthorUsername(post.authorUsername);
+            setHearted(post.hearted);
+            setStared(post.stared);
+            setCreatedAt(post.createdAt);
         }).catch((result) => {
             console.log(result)
         });
+    }, []);
+
+    const ToggleComment = () => {
+        setWatchComment(!watchComment);
     }
 
-    ToggleComment = () => {
-        this.setState({
-            watchComment: !this.state.watchComment
-        });
-    }
-
-    ToggleHeart = () => {
-        if(this.state.hearted){
-            this.setState({
-                hearted: false,
-                hearts: this.state.hearts-1
-            });
+    const ToggleHeart = () => {
+        if(hearted){
+            setHearted(false);
+            setHearts(hearts-1);
             postApi.unheart({
-                token: this.props.userStore.token,
-                postid: this.props.postid
+                token,
+                postid
             })
             .then((result) => {
                 console.log(result);
@@ -258,17 +244,15 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            if(this.props.index !== null){
-                this.props.postListStore.unheart({ index: this.props.index });
+            if(index !== null){
+                unheart({ index });
             }
         } else {
-            this.setState({
-                hearted: true,
-                hearts: this.state.hearts+1
-            });
+            setHearted(true);
+            setHearts(hearts+1);
             postApi.heart({
-                token: this.props.userStore.token,
-                postid: this.props.postid
+                token,
+                postid
             })
             .then((result) => {
                 console.log(result);
@@ -276,21 +260,20 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             });
-            if(this.props.index !== null){
-                this.props.postListStore.heart({ index: this.props.index });
+            if(index !== null){
+                heart({ index });
             }
         }
     }
 
-    ToggleStar = () => {
-        if(this.state.stared){
-            this.setState({
-                stared: false,
-                stars: this.state.stars-1
-            });
+    const ToggleStar = () => {
+        if(stared){
+            setStared(false);
+            setStars(stars-1);
+            
             postApi.unstar({
-                token: this.props.userStore.token,
-                postid: this.props.postid
+                token,
+                postid
             })
             .then((result) => {
                 console.log(result);
@@ -298,17 +281,16 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            if(this.props.index !== null){
-                this.props.postListStore.unstar({ index: this.props.index });
+            if(index !== null){
+                unstar({index});
             }
         } else {
-            this.setState({
-                stared: true,
-                stars: this.state.stars+1
-            });
+            setStared(true);
+            setStars(stars+1);
+
             postApi.star({
-                token: this.props.userStore.token,
-                postid: this.props.postid
+                token, 
+                postid
             })
             .then((result) => {
                 console.log(result);
@@ -316,50 +298,218 @@ class Post extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            if(this.props.index !== null){
-                this.props.postListStore.star({ index: this.props.index });
+            if(index !== null){
+                star({index});
             }
         }
     }
 
-    render(){
-        const { watchComment, title, body, image, hearts, views, stars, comments, hearted, stared } = this.state;
-
-        return(
-            <ContentArea>
-                <WhiteBox>
-                    <Content watchComment={watchComment?1:0}>
-                        <Title>{title}</Title>
-                        <Img src={image} />
-                        <Desc>{body}</Desc>
-                        <Icons>
-                            { HeartIcon({hearted:hearted?1:0, hearts, ToggleHeart:this.ToggleHeart}) }
-                            <Spacer />
-                            <Views>
-                                <Icon icon={faEye} />
-                                <IconName>Views</IconName>
-                                <H5>{views}</H5>
-                            </Views>
-                            <Spacer />
-                            <CommentNav>
-                                <Comments onClick={this.ToggleComment} watchComment={watchComment}>
-                                    <Icon icon={faComment} />
-                                    <IconName>Commnets</IconName>
-                                    <H5>{comments}</H5>
-                                </Comments>
-                                {
-                                    // <CommentsLine watchComment={watchComment} />
-                                }
-                            </CommentNav>
-                            <Spacer />
-                            { StarIcon({stared:stared?1:0, stars, ToggleStar: this.ToggleStar}) }
-                        </Icons>
-                    </Content>
-                    <CommentList watchComment={watchComment} postid={this.props.postid}/>
-                </WhiteBox>
-            </ContentArea>
-        )
-    }
+    return(
+        <ContentArea>
+            <WhiteBox>
+                <Content watchComment={watchComment?1:0}>
+                    <Title>{title}</Title>
+                    <Img src={image} />
+                    <Desc>{body}</Desc>
+                    <Icons>
+                        { HeartIcon({hearted:hearted?1:0, hearts, ToggleHeart}) }
+                        <Spacer />
+                        <Views>
+                            <Icon icon={faEye} />
+                            <IconName>Views</IconName>
+                            <H5>{views}</H5>
+                        </Views>
+                        <Spacer />
+                        <CommentNav>
+                            <Comments onClick={ToggleComment} watchComment={watchComment}>
+                                <Icon icon={faComment} />
+                                <IconName>Commnets</IconName>
+                                <H5>{comments}</H5>
+                            </Comments>
+                        </CommentNav>
+                        <Spacer />
+                        { StarIcon({stared:stared?1:0, stars, ToggleStar}) }
+                    </Icons>
+                </Content>
+                <CommentList watchComment={watchComment} postid={postid}/>
+            </WhiteBox>
+        </ContentArea>
+    )
 }
 
-export default Post;
+export default inject(({ userStore, postListStore }) => ({
+    token: userStore.token,
+    getPost: postListStore.getPost,
+    heart: postListStore.heart,
+    unheart: postListStore.unheart,
+    star: postListStore.star,
+    unstar: postListStore.unstar
+}))(observer(Post));
+
+// @inject('userStore')
+// @inject('postListStore')
+// @observer
+// class Post extends React.Component{
+//     state = {
+//         watchComment: true,
+//         title: '',
+//         body: '',
+//         image: '',
+//         hearts: 0,
+//         views: 0,
+//         comments: 0,
+//         stars: 0,
+//         authorThumbnail: '',
+//         authorUsername: '',
+//         createdAt: '',
+//         hearted: false,
+//         stared: false
+//     }
+
+//     componentDidMount(){
+//         postApi.read({ 
+//             token: this.props.userStore.token,
+//             id: this.props.postid 
+//         }).then((result) => {
+//             const post = result.data;
+//             this.setState({
+//                 title: post.title,
+//                 body: post.body,
+//                 image: post.image,
+//                 hearts: post.hearts,
+//                 views: post.views,
+//                 stars: post.stars,
+//                 comments: post.comments,
+//                 authorThumbnail: post.authorThumbnail,
+//                 authorUsername: post.authorUsername,
+//                 hearted: post.hearted,
+//                 stared: post.stared,
+//                 createdAt: post.createdAt
+//             })
+//         }).catch((result) => {
+//             console.log(result)
+//         });
+//     }
+
+//     ToggleComment = () => {
+//         this.setState({
+//             watchComment: !this.state.watchComment
+//         });
+//     }
+
+//     ToggleHeart = () => {
+//         if(this.state.hearted){
+//             this.setState({
+//                 hearted: false,
+//                 hearts: this.state.hearts-1
+//             });
+//             postApi.unheart({
+//                 token: this.props.userStore.token,
+//                 postid: this.props.postid
+//             })
+//             .then((result) => {
+//                 console.log(result);
+//             })
+//             .catch((result) => {
+//                 console.log(result);
+//             })
+//             if(this.props.index !== null){
+//                 this.props.postListStore.unheart({ index: this.props.index });
+//             }
+//         } else {
+//             this.setState({
+//                 hearted: true,
+//                 hearts: this.state.hearts+1
+//             });
+//             postApi.heart({
+//                 token: this.props.userStore.token,
+//                 postid: this.props.postid
+//             })
+//             .then((result) => {
+//                 console.log(result);
+//             })
+//             .catch((result) => {
+//                 console.log(result);
+//             });
+//             if(this.props.index !== null){
+//                 this.props.postListStore.heart({ index: this.props.index });
+//             }
+//         }
+//     }
+
+//     ToggleStar = () => {
+//         if(this.state.stared){
+//             this.setState({
+//                 stared: false,
+//                 stars: this.state.stars-1
+//             });
+//             postApi.unstar({
+//                 token: this.props.userStore.token,
+//                 postid: this.props.postid
+//             })
+//             .then((result) => {
+//                 console.log(result);
+//             })
+//             .catch((result) => {
+//                 console.log(result);
+//             })
+//             if(this.props.index !== null){
+//                 this.props.postListStore.unstar({ index: this.props.index });
+//             }
+//         } else {
+//             this.setState({
+//                 stared: true,
+//                 stars: this.state.stars+1
+//             });
+//             postApi.star({
+//                 token: this.props.userStore.token,
+//                 postid: this.props.postid
+//             })
+//             .then((result) => {
+//                 console.log(result);
+//             })
+//             .catch((result) => {
+//                 console.log(result);
+//             })
+//             if(this.props.index !== null){
+//                 this.props.postListStore.star({ index: this.props.index });
+//             }
+//         }
+//     }
+
+//     render(){
+//         const { watchComment, title, body, image, hearts, views, stars, comments, hearted, stared } = this.state;
+
+//         return(
+//             <ContentArea>
+//                 <WhiteBox>
+//                     <Content watchComment={watchComment?1:0}>
+//                         <Title>{title}</Title>
+//                         <Img src={image} />
+//                         <Desc>{body}</Desc>
+//                         <Icons>
+//                             { HeartIcon({hearted:hearted?1:0, hearts, ToggleHeart:this.ToggleHeart}) }
+//                             <Spacer />
+//                             <Views>
+//                                 <Icon icon={faEye} />
+//                                 <IconName>Views</IconName>
+//                                 <H5>{views}</H5>
+//                             </Views>
+//                             <Spacer />
+//                             <CommentNav>
+//                                 <Comments onClick={this.ToggleComment} watchComment={watchComment}>
+//                                     <Icon icon={faComment} />
+//                                     <IconName>Commnets</IconName>
+//                                     <H5>{comments}</H5>
+//                                 </Comments>
+//                             </CommentNav>
+//                             <Spacer />
+//                             { StarIcon({stared:stared?1:0, stars, ToggleStar: this.ToggleStar}) }
+//                         </Icons>
+//                     </Content>
+//                     <CommentList watchComment={watchComment} postid={this.props.postid}/>
+//                 </WhiteBox>
+//             </ContentArea>
+//         )
+//     }
+// }

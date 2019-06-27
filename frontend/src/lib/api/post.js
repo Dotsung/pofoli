@@ -63,8 +63,8 @@ export const unstar = ({token, postid}) =>
   });
 
 
-export const read = ({token, id}) => 
-  axios.get("http://localhost:4000/api/post/read/"+id,
+export const read = ({token, postid}) => 
+  axios.get("http://localhost:4000/api/post/read/"+postid,
   {
     headers: {
       'token': token

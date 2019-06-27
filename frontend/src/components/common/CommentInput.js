@@ -43,8 +43,8 @@ const Border = styled.span`
     transition: all .15s ease;
 `
 const SubmitButton = styled.button`
-    margin-top: 2px;
-    border: 1px solid ${oc.indigo[3]};
+    margin-top: 1px;
+    border: 2px solid ${oc.indigo[3]};
     background-color: ${oc.indigo[3]};
     font-size: 1rem;
     width: 4rem;
@@ -53,7 +53,7 @@ const SubmitButton = styled.button`
 
     ${
         props => props.on?
-            `border: 1px solid ${oc.indigo[7]};
+            `border: 2px solid ${oc.indigo[7]};
             background-color: ${oc.indigo[7]};`:``
     }
 `

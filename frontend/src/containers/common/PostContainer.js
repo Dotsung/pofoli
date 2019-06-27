@@ -24,17 +24,16 @@ const Background = styled.div`
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 `
 
-class PostContainer extends React.Component {
-    render(){
-        return (
-            <Wrapper>
-                <Link to="/">
-                    <Background />
-                </Link>
-                <Post postid={this.props.match.params.postid} index={this.props.location.state?this.props.location.state.index:null}/>
-            </Wrapper>
-        )
-    }
+const PostContainer = ({ match, location}) => {
+    return (
+        <Wrapper>
+            <Link to="/">
+                <Background />
+            </Link>
+            <Post postid={match.params.postid} index={location.state?location.state.index:null}/>
+        </Wrapper>
+    )
+    
 }
 
 export default PostContainer;
