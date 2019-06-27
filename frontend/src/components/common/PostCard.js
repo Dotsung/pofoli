@@ -2,12 +2,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
-import { shadow, media } from 'lib/styleUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom';
-import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import * as postApi from 'lib/api/post';
@@ -223,16 +221,15 @@ const Spacer = styled.div`
     flex: 1;
 `
 
-@inject('userStore')
-@inject('postListStore')
-@observer
-class PostCard extends React.Component{
+const PostCard = ({ token, getPost, heart, unheart, star, unstar, id, title, date, img, authorThumbnail, authorUsername, index }) =>{
+    const { hearted, stared, hearts, views, comments, stars } = getPost({index});
 
-    ToggleHeart = () => {
-        if(this.props.postListStore.postList[this.props.index].hearted){    
+    const ToggleHeart = () => {
+        if(hearted){
+            unheart({index});
             postApi.unheart({
-                token: this.props.userStore.token,
-                postid: this.props.id
+                token: token,
+                postid: id
             })
             .then((result) => {
                 console.log(result);
@@ -240,11 +237,11 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            this.props.postListStore.unheart({index: this.props.index});
         }else {
+            heart({index});
             postApi.heart({
-                token: this.props.userStore.token,
-                postid: this.props.id
+                token: token,
+                postid: id
             })
             .then((result) => {
                 console.log(result);
@@ -252,15 +249,15 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            this.props.postListStore.heart({index: this.props.index});
         }
     }
 
-    ToggleStar = () => {
-        if(this.props.postListStore.postList[this.props.index].stared){
+    const ToggleStar = () => {
+        if(stared){
+            unstar({index});
             postApi.unstar({
-                token: this.props.userStore.token,
-                postid: this.props.id
+                token: token,
+                postid: id
             })
             .then((result) => {
                 console.log(result);
@@ -268,11 +265,11 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            this.props.postListStore.unstar({index: this.props.index});
         } else {
+            star({index});
             postApi.star({
-                token: this.props.userStore.token,
-                postid: this.props.id
+                token: token,
+                postid: id
             })
             .then((result) => {
                 console.log(result);
@@ -280,89 +277,53 @@ class PostCard extends React.Component{
             .catch((result) => {
                 console.log(result);
             })
-            this.props.postListStore.star({index: this.props.index});
         }
     }
 
-    // getHearted = (postid) => {
-    //     if(this.state.heartload){
-    //         this.props.userStore.hearted.forEach((id) => {
-    //             if(postid === id){
-    //                 if(this.state.hearted === false){
-    //                     this.setState({
-    //                         hearted: true,
-    //                         heartload: false
-    //                     });
-    //                 }
-    //             }
-    //         });
-    //     }
-    // }
-
-    // getStared = (postid) => {
-    //     if(this.state.starload){
-    //         this.props.userStore.stared.forEach((id) => {
-    //             if(postid === id){
-    //                 if(this.state.stared === false){
-    //                     this.setState({
-    //                         stared: true,
-    //                         starload: false
-    //                     });
-    //                 }
-    //             }
-    //         });
-    //     }
-    // }
-
-    render(){
-        // console.log(this.props.userStore.hearted);
-        // console.log(this.props.userStore.state);
-        const { id, title, date, img, authorThumbnail, authorUsername, index } = this.props;
-        const { hearted, stared, hearts, views, comments, stars } = this.props.postListStore.postList[index];
-        const { ToggleHeart, ToggleStar, StateTest } = this;
-
-        return(
-            <CardWrapper>
-                <Link to={{
-                    pathname: "/post/"+id,
-                    state: {
-                        index: index
-                    }
-                }}>
-                    <ThumbnailWrapper>
-                        <CardThumbnail src={img}/>
-                        <Mask />
-                    </ThumbnailWrapper>
-                </Link>
-                <CardContents>
-                    <UserThumbnailWrapper href="/">
-                        <UserThumbnail src={authorThumbnail}/>
-                    </UserThumbnailWrapper>
-                    <CardTitle>
-                        {title}
-                    </CardTitle>
-                    <CardDate>
-                        {date}
-                    </CardDate>
-                    <Icons>
-                        { HeartIcon({hearted, hearts, ToggleHeart}) }
-                        <Spacer />
-                        <Views>
-                            <Icon icon={faEye} />
-                            <H5>{views}</H5>
-                        </Views>
-                        <Spacer />
-                        <Comments>
-                            <Icon icon={faComment} />
-                            <H5>{comments}</H5>
-                        </Comments>
-                        <Spacer />
-                        { StarIcon({stared, stars, ToggleStar }) }
-                    </Icons>
-                </CardContents>
-            </CardWrapper>
-        )
-    }
+    return(
+        <CardWrapper>
+            <Link to={{
+                pathname: "/post/"+id,
+                state: {
+                    index: index
+                }
+            }}>
+                <ThumbnailWrapper>
+                    <CardThumbnail src={img}/>
+                    <Mask />
+                </ThumbnailWrapper>
+            </Link>
+            <CardContents>
+                <UserThumbnailWrapper href="/">
+                    <UserThumbnail src={authorThumbnail}/>
+                </UserThumbnailWrapper>
+                <CardTitle>{title}</CardTitle>
+                <CardDate>{date}</CardDate>
+                <Icons>
+                    { HeartIcon({hearted, hearts, ToggleHeart}) }
+                    <Spacer />
+                    <Views>
+                        <Icon icon={faEye} />
+                        <H5>{views}</H5>
+                    </Views>
+                    <Spacer />
+                    <Comments>
+                        <Icon icon={faComment} />
+                        <H5>{comments}</H5>
+                    </Comments>
+                    <Spacer />
+                    { StarIcon({stared, stars, ToggleStar }) }
+                </Icons>
+            </CardContents>
+        </CardWrapper>
+    )
 }
 
-export default PostCard;
+export default inject(({ userStore, postListStore }) => ({
+    token: userStore.token,
+    getPost: postListStore.getPost,
+    heart: postListStore.heart,
+    unheart: postListStore.unheart,
+    star: postListStore.star,
+    unstar: postListStore.unstar
+}))(observer(PostCard));

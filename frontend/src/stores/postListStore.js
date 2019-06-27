@@ -53,15 +53,16 @@ class postListStore {
   }
 
   @action.bound
+  getPost = ({ index }) => {
+    return this.postList[index];
+  }
+
+  @action.bound
   heart = ({ index }) => {
       this.postList[index].hearted = true;
       this.postList[index].hearts += 1;
   }
 
-  // @action.bound
-  // inheart = ({ index }) => {
-  //     this.postList[index].hearts += 1;
-  // }
 
   @action.bound
   unheart = ({ index }) => {
@@ -69,10 +70,6 @@ class postListStore {
       this.postList[index].hearts -= 1;
   }
 
-  // @action.bound
-  // deheart = ({ index }) => {
-  //     this.postList[index].hearts -= 1;
-  // }
 
   @action.bound
   star = ({ index }) => {
@@ -80,22 +77,12 @@ class postListStore {
       this.postList[index].stars += 1;
   }
 
-  // @action.bound
-  // instar = ({ index }) => {
-  //     this.postList[index].stars += 1;
-  // }
-
   @action.bound
   unstar = ({ index }) => {
       this.postList[index].stared = false;
       this.postList[index].stars -= 1;
   }
 
-  // @action.bound
-  // destar = ({ index }) => {
-  //     this.postList[index].stars -= 1;
-  // }
-  
 }
 
 export default postListStore
