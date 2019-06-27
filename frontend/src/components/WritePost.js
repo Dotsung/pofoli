@@ -6,7 +6,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
 import oc from 'open-color';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import * as postApi from 'lib/api/post';
 
 const WhiteBox = styled.div`
@@ -76,10 +76,11 @@ const SubmitButton = styled.button`
 
 `
 
-const WritePost = ({token}) => {
+const WritePost = ({token, getList}) => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [image, setImage] = useState(null);
+    const [redirect, setRedirect] = useState(false);
 
     const onChangeTitle = e => {
         setTitle(e.target.value);
@@ -95,7 +96,6 @@ const WritePost = ({token}) => {
 
     const onSubmit = e => {
         e.preventDefault();
-
         
         const formData = new FormData();
 
@@ -110,6 +110,8 @@ const WritePost = ({token}) => {
         .then((result) => {
             console.log(result);
             console.log('성공');
+            setRedirect(true);
+            getList();
         })
         .catch((result) => {
             console.log(result);
@@ -118,6 +120,8 @@ const WritePost = ({token}) => {
     }
 
     return(
+        <>
+        {redirect?<Redirect to='/'/>:``}
         <WhiteBox>
             <Wrapper>
                 <Head>
@@ -142,9 +146,11 @@ const WritePost = ({token}) => {
                 </Form>
             </Wrapper>
         </WhiteBox>
+        </>
     )
 }
 
-export default inject(({ userStore }) => ({
-    token: userStore.token
+export default inject(({ userStore, postListStore }) => ({
+    token: userStore.token,
+    getList: postListStore.getList
 }))(observer(WritePost));

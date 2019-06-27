@@ -4,11 +4,10 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import oc from 'open-color';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
 import * as authApi from 'lib/api/auth';
-import { Redirect } from 'react-router'
 
 const SignInCard = styled.div`
     background-color: white;
