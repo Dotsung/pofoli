@@ -58,7 +58,7 @@ const HeaderContainer = ({token, thumbnail}) => {
 
     return (
         <Header>
-            { User({thumbnail}) }
+            { User({thumbnail})}
         </Header>
     );
 }

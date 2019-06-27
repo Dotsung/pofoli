@@ -9,22 +9,18 @@ import { stores } from './stores'
 
 const history = createBrowserHistory()
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <Provider {...stores}>
-          <Router history={history}>
-            <Switch>
-              <Route path='/auth' component={Auth} />
-              <Route path='/test' component={Test} />
-              <Route path='/' component={Home} />
-            </Switch>
-          </Router>
-        </Provider>
-      </div>
-    );
-  }
-}
+const App = () => (
+    <div className="App">
+      <Provider {...stores}>
+        <Router history={history}>
+          <Switch>
+            <Route path='/auth' component={Auth} />
+            <Route path='/test' component={Test} />
+            <Route path='/' component={Home} />
+          </Switch>
+        </Router>
+      </Provider>
+    </div>
+);
 
 export default App;

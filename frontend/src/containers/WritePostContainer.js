@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import Post from 'components/common/Post';
 import oc from 'open-color';
 import WritePost from 'components/WritePost';
 
@@ -25,15 +24,11 @@ const Background = styled.div`
     background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
 `
 
-class WritePostContainer extends React.Component {
-    render(){
-        return (
-            <Wrapper>
-                <Background/>
-                <WritePost/>
-            </Wrapper>
-        )
-    }
-}
+const WritePostContainer = () => (
+    <Wrapper>
+        <Background/>
+        <WritePost/>
+    </Wrapper>
+)
 
 export default WritePostContainer;

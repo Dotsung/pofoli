@@ -1,8 +1,10 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { observable, action } from 'mobx'
-import { observer, inject } from 'mobx-react'
+
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
+
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
 import * as postApi from 'lib/api/post';
@@ -15,6 +17,7 @@ const WhiteBox = styled.div`
     width: 500px;
     z-index: 30;
     background-color: white;
+    box-sizing: border-box;
     transform: translate(-50%);
 `
 
@@ -25,6 +28,7 @@ const Spacer = styled.div`
 const Wrapper = styled.div`
     padding: 20px;
     padding-top: 10px;
+    box-sizing: border-box;
 `
 
 const Head = styled.div`
@@ -49,6 +53,7 @@ const Form = styled.form`
     display: flex;
     width: 100%
     flex-direction: column;
+    box-sizing: border-box;
 `
 
 const InputBox = styled.div`
@@ -71,41 +76,35 @@ const SubmitButton = styled.button`
 
 `
 
-@inject('userStore')
-@observer
-class WritePost extends React.Component{
-    state = {
-        title: '',
-        body: '',
-        image: null
+const WritePost = ({token}) => {
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    const [image, setImage] = useState(null);
+
+    const onChangeTitle = e => {
+        setTitle(e.target.value);
     }
 
-    onChange = (e) => {
-        const { name, value } = e.target; 
-        this.setState({
-            [name]: value
-        });
+    const onChangeBody = e => {
+        setBody(e.target.value);
     }
 
-    onChangeFile = (e) => {
-        this.setState({
-            image: e.target.files[0]
-        });
+    const onChangeFile = e => {
+        setImage(e.target.files[0])
     }
 
-    onSubmit = (e) => {
+    const onSubmit = e => {
         e.preventDefault();
 
-        console.log(this.state)
-
+        
         const formData = new FormData();
 
-        formData.append('title', this.state.title);
-        formData.append('body', this.state.body);
-        formData.append('image', this.state.image);
-        
+        formData.append('title', title);
+        formData.append('body', body);
+        formData.append('image', image);
+
         postApi.write({ 
-            token: this.props.userStore.token, 
+            token: token, 
             formData: formData
         })
         .then((result) => {
@@ -116,39 +115,36 @@ class WritePost extends React.Component{
             console.log(result);
             console.log('실패');
         });
-
     }
 
-    render(){
-        const { title, body, image } = this.state;
-
-        return(
-            <WhiteBox>
-                <Wrapper>
-                    <Head>
-                        <H1>Write New Post</H1>
-                        <Spacer />
-                        <Link to="/">
-                            <H1>X</H1>
-                        </Link>
-                    </Head>
-                    <Slicer />
-                    <Form onSubmit={this.onSubmit}>
-                        <InputBox>
-                            <InputLabel>title</InputLabel>
-                            <Input type="text" name="title" value={title} onChange={this.onChange}/>
-                        </InputBox>
-                        <InputBox>
-                            <InputLabel>body</InputLabel>
-                            <Input type="text" name="body" value={body} onChange={this.onChange} />
-                        </InputBox>
-                        <input type="file" onChange={this.onChangeFile} accept="image/*" />
-                        <SubmitButton>Post</SubmitButton>
-                    </Form>
-                </Wrapper>
-            </WhiteBox>
-        )
-    }
+    return(
+        <WhiteBox>
+            <Wrapper>
+                <Head>
+                    <H1>Write New Post</H1>
+                    <Spacer />
+                    <Link to="/">
+                        <H1>X</H1>
+                    </Link>
+                </Head>
+                <Slicer />
+                <Form onSubmit={onSubmit}>
+                    <InputBox>
+                        <InputLabel>title</InputLabel>
+                        <Input type="text" value={title} onChange={onChangeTitle}/>
+                    </InputBox>
+                    <InputBox>
+                        <InputLabel>body</InputLabel>
+                        <Input type="text" value={body} onChange={onChangeBody} />
+                    </InputBox>
+                    <input type="file" onChange={onChangeFile} accept="image/*" />
+                    <SubmitButton>Post</SubmitButton>
+                </Form>
+            </Wrapper>
+        </WhiteBox>
+    )
 }
 
-export default WritePost;
+export default inject(({ userStore }) => ({
+    token: userStore.token
+}))(observer(WritePost));
