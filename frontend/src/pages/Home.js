@@ -9,17 +9,14 @@ const Content = styled.div`
     margin-top: 55px;
 `
 
-class Home extends React.Component{
-    render(){
-        return(
-            <>
-                <HeaderContainer/>
-                <Content>
-                    <PostCardList />
-                </Content>
-            </>
-        )
-    }
-}
+const Home = () => (
+    <>
+        <HeaderContainer/>
+        <Content>
+            <PostCardList />
+        </Content>
+    </>
+)
+
 
 export default Home;

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { observable, action } from 'mobx'
+import React from 'react';
 import { observer, inject } from 'mobx-react'
 import oc from 'open-color';
 import Header from 'components/base/Header';
@@ -42,11 +41,8 @@ const ProfileThumbnail = styled.img`
 const Href = styled(Link)`
 `
 
-
-@inject('userStore')
-@observer
-class HeaderContainer extends Component {
-    User({thumbnail}){
+const HeaderContainer = ({token, thumbnail}) => {
+    const User = ({thumbnail}) => {
         if(thumbnail){
             return (
                 <>
@@ -60,16 +56,15 @@ class HeaderContainer extends Component {
         }
     }
 
-    render() {
-        //console.log(this.props.userStore);
-        const { token, thumbnail } = this.props.userStore;
-
-        return (
-            <Header>
-                { this.User({thumbnail}) }
-            </Header>
-        );
-    }
+    return (
+        <Header>
+            { User({thumbnail}) }
+        </Header>
+    );
 }
 
-export default HeaderContainer;
+export default inject(({ userStore }) => ({
+    token: userStore.token,
+    thumbnail: userStore.thumbnail
+}))(observer(HeaderContainer));
+
