@@ -1,6 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import TextField from '@material-ui/core/TextField'
 
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
@@ -56,20 +57,11 @@ const Form = styled.form`
     box-sizing: border-box;
 `
 
-const InputBox = styled.div`
-    display: flex;
-    width: 100%
-    flex-direction: column;
+const FileInput = styled.input`
 `
 
-const Input = styled.input`
-    width: 100%
-    border: none;
-    border-bottom: 1px solid ${oc.gray[6]};
-`
+const TitleInput = styled(TextField)`
 
-const InputLabel = styled.h3`
-    margin: 0;
 `
 
 const SubmitButton = styled.button`
@@ -103,9 +95,9 @@ const WritePost = ({token, getList}) => {
         formData.append('body', body);
         formData.append('image', image);
 
-        postApi.write({ 
-            token: token, 
-            formData: formData
+        postApi.write({
+            token,
+            formData
         })
         .then((result) => {
             console.log(result);
@@ -133,15 +125,26 @@ const WritePost = ({token, getList}) => {
                 </Head>
                 <Slicer />
                 <Form onSubmit={onSubmit}>
-                    <InputBox>
-                        <InputLabel>title</InputLabel>
-                        <Input type="text" value={title} onChange={onChangeTitle}/>
-                    </InputBox>
-                    <InputBox>
-                        <InputLabel>body</InputLabel>
-                        <Input type="text" value={body} onChange={onChangeBody} />
-                    </InputBox>
-                    <input type="file" onChange={onChangeFile} accept="image/*" />
+                    <TitleInput
+                        id="standard-dense"
+                        label="Title"
+                        margin="dense"
+                        variant="outlined"
+                        value={title}
+                        onChange={onChangeTitle}
+                        autoComplete="off"
+                    />
+                    <TextField
+                        id="standard-multiline-static"
+                        label="내용"
+                        multiline
+                        rows="4"
+                        margin="normal"
+                        variant="outlined"
+                        value={body}
+                        onChange={onChangeBody}
+                    />
+                    <FileInput accept="image/*" id="icon-button-file" type="file" />
                     <SubmitButton>Post</SubmitButton>
                 </Form>
             </Wrapper>
