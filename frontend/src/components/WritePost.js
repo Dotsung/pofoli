@@ -1,7 +1,9 @@
 // @flow
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { styled as materialStyled } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button';
 
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
@@ -23,22 +25,12 @@ const WhiteBox = styled.div`
 `
 
 const Spacer = styled.div`
-    flex: 1;
+    width: 20px;
 `
 
 const Wrapper = styled.div`
-    padding: 20px;
-    padding-top: 10px;
+    padding: 10px;
     box-sizing: border-box;
-`
-
-const Head = styled.div`
-    display: flex;
-    width: 100%;
-`
-
-const H1 = styled.h1`
-    margin: 0;
 `
 
 const Slicer = styled.div`
@@ -60,12 +52,49 @@ const Form = styled.form`
 const FileInput = styled.input`
 `
 
+
+
 const TitleInput = styled(TextField)`
 
 `
 
-const SubmitButton = styled.button`
+const ButtonBox = styled.div`
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+`
 
+const Cancel = styled(Link)`
+    width: 100%;
+`
+
+const SubmitButton = styled.button`
+    border: 1px solid ${oc.indigo[5]};
+    background-color: ${oc.indigo[5]};
+    color: white;
+    height: 38px;
+    font-size: 1.5rem;
+    width: 100%;
+    cursor: pointer;
+    &:hover{
+        background-color: ${oc.indigo[7]};
+    }
+`
+
+const CancelButton = styled.button`
+    border: 1px solid ${oc.indigo[5]};
+    background-color: white;
+    height: 38px;
+    width: 100%;
+    color: ${oc.indigo[5]};
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    &:hover{
+        border: 1px solid ${oc.indigo[7]};
+        color: ${oc.indigo[7]};
+        background-color: ${oc.indigo[1]};
+    }
 `
 
 const WritePost = ({token, getList}) => {
@@ -83,7 +112,7 @@ const WritePost = ({token, getList}) => {
     }
 
     const onChangeFile = e => {
-        setImage(e.target.files[0])
+        setImage(e.target.files[0]);
     }
 
     const onSubmit = e => {
@@ -116,18 +145,9 @@ const WritePost = ({token, getList}) => {
         {redirect?<Redirect to='/'/>:``}
         <WhiteBox>
             <Wrapper>
-                <Head>
-                    <H1>Write New Post</H1>
-                    <Spacer />
-                    <Link to="/">
-                        <H1>X</H1>
-                    </Link>
-                </Head>
-                <Slicer />
                 <Form onSubmit={onSubmit}>
                     <TitleInput
-                        id="standard-dense"
-                        label="Title"
+                        label="제목"
                         margin="dense"
                         variant="outlined"
                         value={title}
@@ -135,17 +155,22 @@ const WritePost = ({token, getList}) => {
                         autoComplete="off"
                     />
                     <TextField
-                        id="standard-multiline-static"
                         label="내용"
                         multiline
-                        rows="4"
-                        margin="normal"
+                        rows="3"
+                        margin="dense"
                         variant="outlined"
                         value={body}
                         onChange={onChangeBody}
                     />
-                    <FileInput accept="image/*" id="icon-button-file" type="file" />
-                    <SubmitButton>Post</SubmitButton>
+                    <FileInput onChange={onChangeFile} accept="image/*" type="file"/>
+                    <ButtonBox>
+                        <Cancel to="/">
+                            <CancelButton>취소</CancelButton>
+                        </Cancel>
+                        <Spacer />
+                        <SubmitButton>Post</SubmitButton>
+                    </ButtonBox>
                 </Form>
             </Wrapper>
         </WhiteBox>
@@ -155,5 +180,6 @@ const WritePost = ({token, getList}) => {
 
 export default inject(({ userStore, postListStore }) => ({
     token: userStore.token,
+    thumbnail: userStore.thumbnail,
     getList: postListStore.getList
 }))(observer(WritePost));

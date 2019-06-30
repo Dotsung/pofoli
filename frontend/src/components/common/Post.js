@@ -189,7 +189,7 @@ const Spacer = styled.div`
     flex: 1;
 `
 
-const Post = ({ token, heart, unheart, star, unstar, postid, index }) => {
+const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) => {
     const [watchComment, setWatchComment] = useState(true);
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
@@ -205,10 +205,26 @@ const Post = ({ token, heart, unheart, star, unstar, postid, index }) => {
     const [stared, setStared] = useState(false);
 
     useEffect(() => {
-        postApi.read({ 
+        if(index !== null){
+            const post = getPost({index});
+            setTitle(post.title);
+            setBody(post.body);
+            setImage(post.image);
+            setHearts(post.hearts);
+            setViews(post.views);
+            setStars(post.stars);
+            setComments(post.comments);
+            setAuthorThumbnail(post.authorThumbnail);
+            setAuthorUsername(post.authorUsername);
+            setHearted(post.hearted);
+            setStared(post.stared);
+            setCreatedAt(post.createdAt);
+        }
+        postApi.read({
             token, postid
         }).then((result) => {
             const post = result.data;
+            console.log(post);
             setTitle(post.title);
             setBody(post.body);
             setImage(post.image);
