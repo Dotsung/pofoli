@@ -205,8 +205,8 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
     const [stared, setStared] = useState(false);
 
     useEffect(() => {
-        if(index !== null){
-            const post = getPost({index});
+        let post = getPost({index});
+        if(post){
             setTitle(post.title);
             setBody(post.body);
             setImage(post.image);
@@ -219,27 +219,28 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
             setHearted(post.hearted);
             setStared(post.stared);
             setCreatedAt(post.createdAt);
+        } else {
+            postApi.read({
+                token, postid
+            }).then((result) => {
+                post = result.data;
+                console.log(post);
+                setTitle(post.title);
+                setBody(post.body);
+                setImage(post.image);
+                setHearts(post.hearts);
+                setViews(post.views);
+                setStars(post.stars);
+                setComments(post.comments);
+                setAuthorThumbnail(post.authorThumbnail);
+                setAuthorUsername(post.authorUsername);
+                setHearted(post.hearted);
+                setStared(post.stared);
+                setCreatedAt(post.createdAt);
+            }).catch((result) => {
+                console.log(result)
+            });
         }
-        postApi.read({
-            token, postid
-        }).then((result) => {
-            const post = result.data;
-            console.log(post);
-            setTitle(post.title);
-            setBody(post.body);
-            setImage(post.image);
-            setHearts(post.hearts);
-            setViews(post.views);
-            setStars(post.stars);
-            setComments(post.comments);
-            setAuthorThumbnail(post.authorThumbnail);
-            setAuthorUsername(post.authorUsername);
-            setHearted(post.hearted);
-            setStared(post.stared);
-            setCreatedAt(post.createdAt);
-        }).catch((result) => {
-            console.log(result)
-        });
     }, []);
 
     const ToggleComment = () => {
