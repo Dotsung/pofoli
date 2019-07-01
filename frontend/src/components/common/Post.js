@@ -84,7 +84,7 @@ const HeaderText = styled.h3`
 
 const Content = styled.div`
     box-sizing: border-box;
-    padding: 30px;
+    padding: 20px 30px;
     @media (max-width: 700px) {
         padding: 20px;
         padding-top: 50px;
@@ -99,12 +99,13 @@ const Img = styled.img`
 
 const Title = styled.h1`
     margin: 0px;
+    font-size: 1.5rem;
 `
 
 const AuthorThumbnail = styled.img`
     display: block;
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     object-fit: cover;
     margin-right: 5px;
     border-radius: 50%;
@@ -123,19 +124,27 @@ const DateWrapper = styled.div`
     //flex-direction: row-reverse;
 `
 
+const ColumnWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
 const CreatedAt = styled.h3`
     margin: 0;
     color: ${oc.gray[7]};
     align-self: flex-end;
+    font-size: 1rem;
 `
 
 const Desc = styled.p`
+    margin: 0;
     white-space: pre-line;
+    font-weight: Medium;
 `
 
 const Icons = styled.div`
-    border-top: 1px solid ${oc.gray[5]};
-    margin-top: 1rem;
+    border-top: 1px solid ${oc.gray[4]};
+    margin-top: 6px;
     padding-top: 1rem;
     display: flex;
 `
@@ -415,13 +424,15 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
                     <HeaderText>Posts</HeaderText>
                 </Header>
                 <Content watchComment={watchComment?1:0}>
-                    <Title>{title}</Title>
                     <DateWrapper>
-                        <CreatedAt>{createdAt}</CreatedAt>
-                        <Spacer/>
                         <AuthorThumbnail src={authorThumbnail} />
-                        <AuthorUsername>{authorUsername}</AuthorUsername>
+                        <ColumnWrapper>
+                            <AuthorUsername>{authorUsername}</AuthorUsername>
+                            <CreatedAt>{createdAt}</CreatedAt>
+                        </ColumnWrapper>
+                        <Spacer/>
                     </DateWrapper>
+                    <Title>{title}</Title>
                     <Img src={image} />
                     <Desc>{body}</Desc>
                     <Icons>

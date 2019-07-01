@@ -21,7 +21,7 @@ const CardWrapper = styled.div`
 
 const ThumbnailWrapper = styled.div`
     position: relative;
-    background-color: ${oc.red[1]};
+    background-color: ${oc.indigo[1]};
     width: 100%;
     overflow: hidden;
     display: block;
