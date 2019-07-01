@@ -44,7 +44,6 @@ class Comment extends React.Component{
                 <CommentBox>
                     <Username>{authorUsername}</Username>
                     <CommentText>{body}</CommentText>
-                    {console.log({writed})}
                 </CommentBox>
             </Wrapper>
         )

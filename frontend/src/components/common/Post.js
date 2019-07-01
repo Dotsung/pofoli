@@ -26,6 +26,15 @@ const ContentArea = styled.div`
     &::-webkit-scrollbar{
         display: none;
     }
+
+    @media (max-width: 700px) {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+
+        transform: none;        
+    }
 `
 
 const WhiteBox = styled.div`
@@ -35,11 +44,29 @@ const WhiteBox = styled.div`
     background-color: white;
     width: 600px;
     border-radius: 3px;
+
+    @media (max-width: 700px) {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+    }
+`
+
+const Header = styled.div`
+    width: 100%;
+    height: 2rem;
+    display: none;
+    @media (max-width: 700px) {
+        display: block;
+    }
 `
 
 const Content = styled.div`
     box-sizing: border-box;
     padding: 30px;
+    @media (max-width: 700px) {
+        padding: 20px;
+    }
     padding-bottom: ${props => props.watchComment?`10px`:`20px`};
 `
 
@@ -332,6 +359,7 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
     return(
         <ContentArea>
             <WhiteBox>
+                <Header />
                 <Content watchComment={watchComment?1:0}>
                     <Title>{title}</Title>
                     <CreatedAt>{createdAt}</CreatedAt>
