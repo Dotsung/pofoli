@@ -8,6 +8,7 @@ import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
+import dateFormat from 'dateformat';
 
 import * as postApi from 'lib/api/post';
 
@@ -51,7 +52,14 @@ const Title = styled.h1`
     margin: 0px;
 `
 
-const Desc = styled.p``
+const CreatedAt = styled.h3`
+    margin: 0;
+    color: ${oc.gray[7]};
+`
+
+const Desc = styled.p`
+    white-space: pre-line;
+`
 
 const Icons = styled.div`
     border-top: 1px solid ${oc.gray[5]};
@@ -218,7 +226,7 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
             setAuthorUsername(post.authorUsername);
             setHearted(post.hearted);
             setStared(post.stared);
-            setCreatedAt(post.createdAt);
+            setCreatedAt(dateFormat(new Date(post.createdAt),"yyyy-mm-dd HH:MM"));
         } else {
             postApi.read({
                 token, postid
@@ -236,7 +244,7 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
                 setAuthorUsername(post.authorUsername);
                 setHearted(post.hearted);
                 setStared(post.stared);
-                setCreatedAt(post.createdAt);
+                setCreatedAt(dateFormat(new Date(post.createdAt),"yyyy-mm-dd HH:MM"));
             }).catch((result) => {
                 console.log(result)
             });
@@ -326,6 +334,7 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
             <WhiteBox>
                 <Content watchComment={watchComment?1:0}>
                     <Title>{title}</Title>
+                    <CreatedAt>{createdAt}</CreatedAt>
                     <Img src={image} />
                     <Desc>{body}</Desc>
                     <Icons>

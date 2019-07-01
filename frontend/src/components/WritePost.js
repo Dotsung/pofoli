@@ -49,12 +49,6 @@ const Form = styled.form`
 const FileInput = styled.input`
 `
 
-
-
-const TitleInput = styled(TextField)`
-
-`
-
 const PreviewImage = styled.img`
     width: 100%;
 `
@@ -151,7 +145,7 @@ const WritePost = ({token, getList}) => {
         <WhiteBox>
             <Wrapper>
                 <Form onSubmit={onSubmit}>
-                    <TitleInput
+                    <TextField
                         label="제목"
                         margin="dense"
                         variant="outlined"
