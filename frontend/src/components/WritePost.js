@@ -13,15 +13,12 @@ import { Link, Redirect } from 'react-router-dom';
 import * as postApi from 'lib/api/post';
 
 const WhiteBox = styled.div`
-    position: fixed;
-    top: 20%;
-    left: 50%;
     margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
     width: 500px;
-    z-index: 30;
     background-color: white;
     box-sizing: border-box;
-    transform: translate(-50%);
 `
 
 const Spacer = styled.div`
@@ -162,6 +159,7 @@ const WritePost = ({token, getList}) => {
                         onChange={onChangeTitle}
                         autoComplete="off"
                     />
+                    <PreviewImage src={previewImage} />
                     <TextField
                         label="내용"
                         multiline
@@ -171,7 +169,6 @@ const WritePost = ({token, getList}) => {
                         value={body}
                         onChange={onChangeBody}
                     />
-                    <PreviewImage src={previewImage} />
                     <FileInput onChange={onChangeFile} accept="image/*" type="file"/>
                     <ButtonBox>
                         <Cancel to="/">

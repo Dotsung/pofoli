@@ -6,11 +6,15 @@ import WritePost from 'components/WritePost';
 
 const Wrapper = styled.div`
     position: fixed;
-    z-index: 30;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    z-index: 30;
+    overflow-y: auto;
+    &::-webkit-scrollbar{
+        display: none;
+    }
 `
 
 const Background = styled.div`
@@ -25,10 +29,12 @@ const Background = styled.div`
 `
 
 const WritePostContainer = () => (
-    <Wrapper>
+    <>
         <Background/>
-        <WritePost/>
-    </Wrapper>
+        <Wrapper>
+            <WritePost/>
+        </Wrapper>
+    </>
 )
 
 export default WritePostContainer;
