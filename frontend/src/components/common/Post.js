@@ -4,11 +4,12 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as sheart, faStar as sstar, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import dateFormat from 'dateformat';
+import { Link } from 'react-router-dom';
 
 import * as postApi from 'lib/api/post';
 
@@ -53,12 +54,31 @@ const WhiteBox = styled.div`
 `
 
 const Header = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
     width: 100%;
-    height: 2rem;
+    height: 3rem;
+    background-color: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+
     display: none;
     @media (max-width: 700px) {
-        display: block;
+        display: flex;
     }
+`
+
+const GoBackIcon = styled(FontAwesomeIcon)`
+    font-size: 1.5rem;
+    margin: auto 10px;
+    color: ${oc.indigo[7]};
+`
+
+const HeaderText = styled.h3`
+    margin: auto 0;
+    font-size: 1.5rem;
+    color: ${oc.gray[8]};
 `
 
 const Content = styled.div`
@@ -66,6 +86,7 @@ const Content = styled.div`
     padding: 30px;
     @media (max-width: 700px) {
         padding: 20px;
+        padding-top: 50px;
     }
     padding-bottom: ${props => props.watchComment?`10px`:`20px`};
 `
@@ -194,6 +215,10 @@ const IconName = styled.h5`
     font-size: 1.1rem;
     line-height: 1.3rem;
     font-weight: 600;
+
+    @media (max-width: 700px) {
+        display: none;
+    }
 
     // 스크롤 방지
     -webkit-touch-callout: none; /* iOS Safari */
@@ -359,7 +384,10 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
     return(
         <ContentArea>
             <WhiteBox>
-                <Header />
+                <Header>
+                    <GoBackIcon icon={faChevronLeft} />
+                    <HeaderText>Go back to Posts</HeaderText>
+                </Header>
                 <Content watchComment={watchComment?1:0}>
                     <Title>{title}</Title>
                     <CreatedAt>{createdAt}</CreatedAt>
