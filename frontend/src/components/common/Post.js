@@ -39,8 +39,8 @@ const ContentArea = styled.div`
 `
 
 const WhiteBox = styled.div`
-    margin-top: 20%; 
-    margin-bottom: 30%;
+    margin-top: 100px; 
+    margin-bottom: 100px;
     box-sizing: border-box;
     background-color: white;
     width: 600px;
@@ -48,6 +48,7 @@ const WhiteBox = styled.div`
 
     @media (max-width: 700px) {
         width: 100%;
+        min-height: 100%;
         margin: 0;
         border-radius: 0;
     }
@@ -92,7 +93,7 @@ const Content = styled.div`
 `
 
 const Img = styled.img`
-    margin-top: 10px;
+    margin-top: 5px;
     width: 100%;
 `
 
@@ -100,9 +101,32 @@ const Title = styled.h1`
     margin: 0px;
 `
 
+const AuthorThumbnail = styled.img`
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    margin-right: 5px;
+    border-radius: 50%;
+`
+
+const AuthorUsername = styled.h3`
+    margin: 0;
+    color: ${oc.gray[9]};
+    //align-self: flex-end;
+`
+
+const DateWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //flex-direction: row-reverse;
+`
+
 const CreatedAt = styled.h3`
     margin: 0;
     color: ${oc.gray[7]};
+    align-self: flex-end;
 `
 
 const Desc = styled.p`
@@ -220,7 +244,7 @@ const IconName = styled.h5`
         display: none;
     }
 
-    // 스크롤 방지
+    // 마우스 드래그 방지
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
@@ -236,7 +260,7 @@ const H5 = styled.h5`
     line-height: 1.3rem;
     font-weight: 600;
 
-    // 스크롤 방지
+    // 마우스 드래그 방지
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
@@ -392,7 +416,12 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
                 </Header>
                 <Content watchComment={watchComment?1:0}>
                     <Title>{title}</Title>
-                    <CreatedAt>{createdAt}</CreatedAt>
+                    <DateWrapper>
+                        <CreatedAt>{createdAt}</CreatedAt>
+                        <Spacer/>
+                        <AuthorThumbnail src={authorThumbnail} />
+                        <AuthorUsername>{authorUsername}</AuthorUsername>
+                    </DateWrapper>
                     <Img src={image} />
                     <Desc>{body}</Desc>
                     <Icons>
@@ -429,171 +458,3 @@ export default inject(({ userStore, postListStore }) => ({
     star: postListStore.star,
     unstar: postListStore.unstar
 }))(observer(Post));
-
-// @inject('userStore')
-// @inject('postListStore')
-// @observer
-// class Post extends React.Component{
-//     state = {
-//         watchComment: true,
-//         title: '',
-//         body: '',
-//         image: '',
-//         hearts: 0,
-//         views: 0,
-//         comments: 0,
-//         stars: 0,
-//         authorThumbnail: '',
-//         authorUsername: '',
-//         createdAt: '',
-//         hearted: false,
-//         stared: false
-//     }
-
-//     componentDidMount(){
-//         postApi.read({ 
-//             token: this.props.userStore.token,
-//             id: this.props.postid 
-//         }).then((result) => {
-//             const post = result.data;
-//             this.setState({
-//                 title: post.title,
-//                 body: post.body,
-//                 image: post.image,
-//                 hearts: post.hearts,
-//                 views: post.views,
-//                 stars: post.stars,
-//                 comments: post.comments,
-//                 authorThumbnail: post.authorThumbnail,
-//                 authorUsername: post.authorUsername,
-//                 hearted: post.hearted,
-//                 stared: post.stared,
-//                 createdAt: post.createdAt
-//             })
-//         }).catch((result) => {
-//             console.log(result)
-//         });
-//     }
-
-//     ToggleComment = () => {
-//         this.setState({
-//             watchComment: !this.state.watchComment
-//         });
-//     }
-
-//     ToggleHeart = () => {
-//         if(this.state.hearted){
-//             this.setState({
-//                 hearted: false,
-//                 hearts: this.state.hearts-1
-//             });
-//             postApi.unheart({
-//                 token: this.props.userStore.token,
-//                 postid: this.props.postid
-//             })
-//             .then((result) => {
-//                 console.log(result);
-//             })
-//             .catch((result) => {
-//                 console.log(result);
-//             })
-//             if(this.props.index !== null){
-//                 this.props.postListStore.unheart({ index: this.props.index });
-//             }
-//         } else {
-//             this.setState({
-//                 hearted: true,
-//                 hearts: this.state.hearts+1
-//             });
-//             postApi.heart({
-//                 token: this.props.userStore.token,
-//                 postid: this.props.postid
-//             })
-//             .then((result) => {
-//                 console.log(result);
-//             })
-//             .catch((result) => {
-//                 console.log(result);
-//             });
-//             if(this.props.index !== null){
-//                 this.props.postListStore.heart({ index: this.props.index });
-//             }
-//         }
-//     }
-
-//     ToggleStar = () => {
-//         if(this.state.stared){
-//             this.setState({
-//                 stared: false,
-//                 stars: this.state.stars-1
-//             });
-//             postApi.unstar({
-//                 token: this.props.userStore.token,
-//                 postid: this.props.postid
-//             })
-//             .then((result) => {
-//                 console.log(result);
-//             })
-//             .catch((result) => {
-//                 console.log(result);
-//             })
-//             if(this.props.index !== null){
-//                 this.props.postListStore.unstar({ index: this.props.index });
-//             }
-//         } else {
-//             this.setState({
-//                 stared: true,
-//                 stars: this.state.stars+1
-//             });
-//             postApi.star({
-//                 token: this.props.userStore.token,
-//                 postid: this.props.postid
-//             })
-//             .then((result) => {
-//                 console.log(result);
-//             })
-//             .catch((result) => {
-//                 console.log(result);
-//             })
-//             if(this.props.index !== null){
-//                 this.props.postListStore.star({ index: this.props.index });
-//             }
-//         }
-//     }
-
-//     render(){
-//         const { watchComment, title, body, image, hearts, views, stars, comments, hearted, stared } = this.state;
-
-//         return(
-//             <ContentArea>
-//                 <WhiteBox>
-//                     <Content watchComment={watchComment?1:0}>
-//                         <Title>{title}</Title>
-//                         <Img src={image} />
-//                         <Desc>{body}</Desc>
-//                         <Icons>
-//                             { HeartIcon({hearted:hearted?1:0, hearts, ToggleHeart:this.ToggleHeart}) }
-//                             <Spacer />
-//                             <Views>
-//                                 <Icon icon={faEye} />
-//                                 <IconName>Views</IconName>
-//                                 <H5>{views}</H5>
-//                             </Views>
-//                             <Spacer />
-//                             <CommentNav>
-//                                 <Comments onClick={this.ToggleComment} watchComment={watchComment}>
-//                                     <Icon icon={faComment} />
-//                                     <IconName>Commnets</IconName>
-//                                     <H5>{comments}</H5>
-//                                 </Comments>
-//                             </CommentNav>
-//                             <Spacer />
-//                             { StarIcon({stared:stared?1:0, stars, ToggleStar: this.ToggleStar}) }
-//                         </Icons>
-//                     </Content>
-//                     <CommentList watchComment={watchComment} postid={this.props.postid}/>
-//                 </WhiteBox>
-//             </ContentArea>
-//         )
-//     }
-// }
