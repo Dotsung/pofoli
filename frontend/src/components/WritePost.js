@@ -58,6 +58,10 @@ const TitleInput = styled(TextField)`
 
 `
 
+const PreviewImage = styled.img`
+    width: 100%;
+`
+
 const ButtonBox = styled.div`
     width: 100%;
     display: flex;
@@ -101,6 +105,7 @@ const WritePost = ({token, getList}) => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [image, setImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState(null);
     const [redirect, setRedirect] = useState(false);
 
     const onChangeTitle = e => {
@@ -112,7 +117,10 @@ const WritePost = ({token, getList}) => {
     }
 
     const onChangeFile = e => {
-        setImage(e.target.files[0]);
+        if (e.target.files && e.target.files[0]) {
+            setImage(e.target.files[0]);
+            setPreviewImage(URL.createObjectURL(e.target.files[0]))
+        }
     }
 
     const onSubmit = e => {
@@ -163,6 +171,7 @@ const WritePost = ({token, getList}) => {
                         value={body}
                         onChange={onChangeBody}
                     />
+                    <PreviewImage src={previewImage} />
                     <FileInput onChange={onChangeFile} accept="image/*" type="file"/>
                     <ButtonBox>
                         <Cancel to="/">
