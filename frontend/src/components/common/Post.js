@@ -69,14 +69,14 @@ const Header = styled.div`
     }
 `
 
-const GoBackIcon = styled(FontAwesomeIcon)`
+const GoBackIcon = styled(Link)`
     font-size: 1.5rem;
     margin: auto 10px;
     color: ${oc.indigo[7]};
 `
 
 const HeaderText = styled.h3`
-    margin: auto 0;
+    margin: auto 10px;
     font-size: 1.5rem;
     color: ${oc.gray[8]};
 `
@@ -385,8 +385,10 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
         <ContentArea>
             <WhiteBox>
                 <Header>
-                    <GoBackIcon icon={faChevronLeft} />
-                    <HeaderText>Go back to Posts</HeaderText>
+                    <GoBackIcon to='/'>
+                        <FontAwesomeIcon icon={faChevronLeft} />
+                    </GoBackIcon>
+                    <HeaderText>Posts</HeaderText>
                 </Header>
                 <Content watchComment={watchComment?1:0}>
                     <Title>{title}</Title>
