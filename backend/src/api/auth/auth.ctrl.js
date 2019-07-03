@@ -148,11 +148,11 @@ export const check = async (ctx) => {
 };
 
 export const findUser = async (ctx) => {
-  const { id } = ctx.params;
+  const { username } = ctx.params;
   let user = null;
 
   try{
-    user = await User.findById(id);
+    user = await User.findByUsername(username);
   } catch(e) {
     ctx.throw(500, e);
   }

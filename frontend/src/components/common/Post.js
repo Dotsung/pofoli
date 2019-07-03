@@ -19,16 +19,26 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    @media (max-width: 700px) {
+        height: 100%;
+        min-height: 100%;
+    }
 `
 
 const VBlank = styled.div`
     width: 100%;
     height: 100px;
+    @media (max-width: 700px) {
+        display: none;
+    }
 `
 
 const RowFlexDiv = styled.div`
     display: flex;
     width: 100%;
+    @media (max-width: 700px) {
+        min-height: 100%;
+    }
 `
 
 const HBlank = styled.div`
@@ -409,11 +419,13 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index, his
         }
     }
 
+    const goBack = () => history.push(history.location.pathname.replace('post/'+postid, ''));
+
     return(
         <Wrapper>
-            <VBlank onClick={history.goBack}/>
+            <VBlank onClick={goBack}/>
             <RowFlexDiv>
-                <HBlank onClick={history.goBack}/>
+                <HBlank onClick={goBack}/>
                 <WhiteBox>
                     <Header>
                         <GoBackIcon to='/'>
@@ -455,9 +467,9 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index, his
                     </Content>
                     <CommentList watchComment={watchComment} postid={postid}/>
                 </WhiteBox>
-                <HBlank onClick={history.goBack}/>
+                <HBlank onClick={goBack}/>
             </RowFlexDiv>
-            <VBlank onClick={history.goBack}/>
+            <VBlank onClick={goBack}/>
         </Wrapper>
     )
 }

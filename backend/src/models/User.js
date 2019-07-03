@@ -20,20 +20,6 @@ const User = new mongoose.Schema({
     follower: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
   },
   email: String,
-  social: {
-    facebook: {
-      id: String,
-      accessToken: String
-    },
-    twitter: {
-      id: String,
-      accessToken: String
-    },
-    google: {
-      id: String,
-      accessToken: String
-    }
-  },
   password: String,
   createdAt: {
     type: Date,
