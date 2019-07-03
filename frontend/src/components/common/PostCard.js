@@ -283,7 +283,7 @@ const PostCard = ({ token, getPost, heart, unheart, star, unstar, id, title, dat
     return(
         <CardWrapper>
             <Link to={{
-                pathname: "/post/"+id,
+                pathname: 'post/'+id,
                 state: {
                     index: index
                 }
@@ -294,7 +294,7 @@ const PostCard = ({ token, getPost, heart, unheart, star, unstar, id, title, dat
                 </ThumbnailWrapper>
             </Link>
             <CardContents>
-                <UserThumbnailWrapper href="/">
+                <UserThumbnailWrapper href="/user">
                     <UserThumbnail src={authorThumbnail}/>
                 </UserThumbnailWrapper>
                 <CardTitle>{title}</CardTitle>

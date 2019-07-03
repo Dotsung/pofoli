@@ -89,6 +89,9 @@ const PostCardList = ({postList, loadMore}) => {
   return (
     <>
     <Route path='/post/:postid' component={PostContainer}/>
+    <Route path='/user/post/post/:postid' component={PostContainer}/>
+    <Route path='/user/heart/post/:postid' component={PostContainer}/>
+    <Route path='/user/star/post/:postid' component={PostContainer}/>
     <Route path='/write' component={WritePostContainer}/>
       <CardListWrapper>
         {postList.map((card, index) => (

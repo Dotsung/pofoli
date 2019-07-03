@@ -24,12 +24,12 @@ const Background = styled.div`
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 `
 
-const PostContainer = ({ match, location}) => {
+
+
+const PostContainer = ({ match, location, history}) => {
     return (
         <Wrapper>
-            <Link to="/">
-                <Background />
-            </Link>
+            <Background onClick={history.goBack}/>
             <Post postid={match.params.postid} index={location.state?location.state.index:null}/>
         </Wrapper>
     )

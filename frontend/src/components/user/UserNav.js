@@ -89,9 +89,9 @@ const MobileItem = styled(NavLink)`
 const UserInfo = () => {
     return (
         <Wrapper>
-            <Item to='/user/post' activeClassName="active">Post</Item>
-            <Item to='/user/heart' activeClassName="active">Heart</Item>
-            <Item to='/user/star' activeClassName="active">Star</Item>
+            <Item to='/user/post/' activeClassName="active">Post</Item>
+            <Item to='/user/heart/' activeClassName="active">Heart</Item>
+            <Item to='/user/star/' activeClassName="active">Star</Item>
             <Item to='/user/following' activeClassName="active">Following</Item>
             <Item to='/user/follower' activeClassName="active">Follower</Item>
             
