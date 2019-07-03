@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import Post from 'components/common/Post';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
@@ -24,11 +24,16 @@ const Background = styled.div`
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 `
 
-
+const GlobalStyle = createGlobalStyle`
+  html {
+    overflow-y: hidden;
+  }
+`
 
 const PostContainer = ({ match, location, history}) => {
     return (
         <Wrapper>
+            <GlobalStyle />
             <Background onClick={history.goBack}/>
             <Post postid={match.params.postid} index={location.state?location.state.index:null}/>
         </Wrapper>

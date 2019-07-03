@@ -294,7 +294,7 @@ const PostCard = ({ token, getPost, heart, unheart, star, unstar, id, title, dat
                 </ThumbnailWrapper>
             </Link>
             <CardContents>
-                <UserThumbnailWrapper href="/user">
+                <UserThumbnailWrapper href="/user/post/">
                     <UserThumbnail src={authorThumbnail}/>
                 </UserThumbnailWrapper>
                 <CardTitle>{title}</CardTitle>

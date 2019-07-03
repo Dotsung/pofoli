@@ -82,7 +82,6 @@ class postListStore {
       this.postList[index].stared = false;
       this.postList[index].stars -= 1;
   }
-
 }
 
 export default postListStore

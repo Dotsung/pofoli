@@ -13,11 +13,13 @@ import PostCard from "components/common/PostCard";
 import PostContainer from "containers/common/PostContainer";
 import WritePostContainer from 'containers/WritePostContainer';
 
+
 const CardListWrapper = styled.div`
   column-count: 6;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
+  overflow-y: hidden;
 
   @media (max-width: 1920px) {
     column-count: 5;
@@ -93,36 +95,36 @@ const PostCardList = ({postList, loadMore}) => {
     <Route path='/user/heart/post/:postid' component={PostContainer}/>
     <Route path='/user/star/post/:postid' component={PostContainer}/>
     <Route path='/write' component={WritePostContainer}/>
-      <CardListWrapper>
-        {postList.map((card, index) => (
-          <PostCard
-            id={card._id}
-            index={index}
-            title={card.title}
-            date={dateFormat(new Date(card.createdAt),"isoDate")}
-            author={card.author}
-            body={card.body}
-            img={card.image}
-            authorThumbnail={card.authorThumbnail}
-            authorUsername={card.authorUsername}
-            hearted={card.hearted}
-            stared={card.stared}
-            hearts={card.hearts}
-            views={card.views}
-            comments={card.comments}
-            stars={card.stars}
-            key={index}
-          />)
-        )}
-      </CardListWrapper>
-      <Link to="/write">
-        <NewPostButton>
-          <NewPostButtonTextWrapper>
-            <NewPostButtonText>+</NewPostButtonText>
-          </NewPostButtonTextWrapper>
-        </NewPostButton>
-      </Link>
-      <LoadMoreButton onClick={loadMore}>Load More</LoadMoreButton>
+    <CardListWrapper>
+      {postList.map((card, index) => (
+        <PostCard
+          id={card._id}
+          index={index}
+          title={card.title}
+          date={dateFormat(new Date(card.createdAt),"isoDate")}
+          author={card.author}
+          body={card.body}
+          img={card.image}
+          authorThumbnail={card.authorThumbnail}
+          authorUsername={card.authorUsername}
+          hearted={card.hearted}
+          stared={card.stared}
+          hearts={card.hearts}
+          views={card.views}
+          comments={card.comments}
+          stars={card.stars}
+          key={index}
+        />)
+      )}
+    </CardListWrapper>
+    <Link to="/write">
+      <NewPostButton>
+        <NewPostButtonTextWrapper>
+          <NewPostButtonText>+</NewPostButtonText>
+        </NewPostButtonTextWrapper>
+      </NewPostButton>
+    </Link>
+    <LoadMoreButton onClick={loadMore}>Load More</LoadMoreButton>
     </>
   );
 }
