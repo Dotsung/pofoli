@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import UserInfo from 'components/user/UserInfo';
 import UserNav from 'components/user/UserNav';
+import PostCardList from 'containers/common/PostCardList';
 
 const WhiteBox = styled.div`
     background: white;
@@ -16,12 +17,15 @@ const Wrapper = styled.div`
 
 const UserContainer = () => {
     return (
+        <>
         <WhiteBox>
             <Wrapper>
                 <UserInfo />
                 <UserNav />
             </Wrapper>
         </WhiteBox>
+        <PostCardList />
+        </>
     )
 }
 

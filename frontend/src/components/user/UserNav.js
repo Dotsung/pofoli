@@ -2,6 +2,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser as followerIcon } from '@fortawesome/free-solid-svg-icons'
+import { faNewspaper, faHeart, faStar, faUser as followingIcon } from '@fortawesome/free-regular-svg-icons'
 import { NavLink } from 'react-router-dom';
 
 const Wrapper = styled.div`
@@ -24,7 +27,7 @@ const Wrapper = styled.div`
         padding: 0 100px;
     }
     @media (max-width: 700px) {
-        padding: 0 00px;
+        padding: 0;
     }
 `
 
@@ -49,6 +52,38 @@ const Item = styled(NavLink)`
         color: ${oc.indigo[7]};
         border-bottom: 2px solid ${oc.indigo[7]};
     }
+
+    @media (max-width: 700px) {
+        display: none;
+    }
+`
+
+const MobileItem = styled(NavLink)`
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    color: ${oc.gray[9]};
+    display: none;
+
+    &:link{
+        color: ${oc.gray[9]};
+        text-decoration: none;
+    }
+    &:visited{
+        color: ${oc.gray[9]};
+        text-decoration: none;
+    }
+    &:hover{
+        color: ${oc.indigo[7]};
+    }
+    &.active{
+        color: ${oc.indigo[7]};
+        border-bottom: 2px solid ${oc.indigo[7]};
+    }
+
+    @media (max-width: 700px) {
+        display: block;
+    }
 `
 
 const UserInfo = () => {
@@ -57,8 +92,14 @@ const UserInfo = () => {
             <Item to='/user/post' activeClassName="active">Post</Item>
             <Item to='/user/heart' activeClassName="active">Heart</Item>
             <Item to='/user/star' activeClassName="active">Star</Item>
-            <Item to='/user/follow' activeClassName="active">Follow</Item>
+            <Item to='/user/following' activeClassName="active">Following</Item>
             <Item to='/user/follower' activeClassName="active">Follower</Item>
+            
+            <MobileItem to='/user/post' activeClassName="active"><FontAwesomeIcon icon={faNewspaper}/></MobileItem>
+            <MobileItem to='/user/heart' activeClassName="active"><FontAwesomeIcon icon={faHeart}/></MobileItem>
+            <MobileItem to='/user/star' activeClassName="active"><FontAwesomeIcon icon={faStar}/></MobileItem>
+            <MobileItem to='/user/following' activeClassName="active"><FontAwesomeIcon icon={followingIcon}/></MobileItem>
+            <MobileItem to='/user/follower' activeClassName="active"><FontAwesomeIcon icon={followerIcon}/></MobileItem>
         </Wrapper>
     )
 }
