@@ -15,32 +15,27 @@ import * as postApi from 'lib/api/post';
 
 import CommentList from './CommentList';
 
-const ContentArea = styled.div`
-    height: 100vh;
-    position: fixed;
-    z-index: 30;
-    left: 50%;
-    top: 0;
-    transform: translate(-50%);
-    overflow-y: scroll;
+const Wrapper = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+`
 
-    &::-webkit-scrollbar{
-        display: none;
-    }
+const VBlank = styled.div`
+    width: 100%;
+    height: 100px;
+`
 
-    @media (max-width: 700px) {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
+const RowFlexDiv = styled.div`
+    display: flex;
+    width: 100%;
+`
 
-        transform: none;        
-    }
+const HBlank = styled.div`
+    flex: 1;
 `
 
 const WhiteBox = styled.div`
-    margin-top: 100px; 
-    margin-bottom: 100px;
     box-sizing: border-box;
     background-color: white;
     width: 600px;
@@ -282,7 +277,7 @@ const Spacer = styled.div`
     flex: 1;
 `
 
-const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) => {
+const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index, history}) => {
     const [watchComment, setWatchComment] = useState(true);
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
@@ -415,49 +410,55 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index }) =
     }
 
     return(
-        <ContentArea>
-            <WhiteBox>
-                <Header>
-                    <GoBackIcon to='/'>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                    </GoBackIcon>
-                    <HeaderText>Posts</HeaderText>
-                </Header>
-                <Content watchComment={watchComment?1:0}>
-                    <DateWrapper>
-                        <AuthorThumbnail src={authorThumbnail} />
-                        <ColumnWrapper>
-                            <AuthorUsername>{authorUsername}</AuthorUsername>
-                            <CreatedAt>{createdAt}</CreatedAt>
-                        </ColumnWrapper>
-                        <Spacer/>
-                    </DateWrapper>
-                    <Title>{title}</Title>
-                    <Img src={image} />
-                    <Desc>{body}</Desc>
-                    <Icons>
-                        { HeartIcon({hearted:hearted?1:0, hearts, ToggleHeart}) }
-                        <Spacer />
-                        <Views>
-                            <Icon icon={faEye} />
-                            <IconName>Views</IconName>
-                            <H5>{views}</H5>
-                        </Views>
-                        <Spacer />
-                        <CommentNav>
-                            <Comments onClick={ToggleComment} watchComment={watchComment}>
-                                <Icon icon={faComment} />
-                                <IconName>Commnets</IconName>
-                                <H5>{comments}</H5>
-                            </Comments>
-                        </CommentNav>
-                        <Spacer />
-                        { StarIcon({stared:stared?1:0, stars, ToggleStar}) }
-                    </Icons>
-                </Content>
-                <CommentList watchComment={watchComment} postid={postid}/>
-            </WhiteBox>
-        </ContentArea>
+        <Wrapper>
+            <VBlank onClick={history.goBack}/>
+            <RowFlexDiv>
+                <HBlank onClick={history.goBack}/>
+                <WhiteBox>
+                    <Header>
+                        <GoBackIcon to='/'>
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                        </GoBackIcon>
+                        <HeaderText>Posts</HeaderText>
+                    </Header>
+                    <Content watchComment={watchComment?1:0}>
+                        <DateWrapper>
+                            <AuthorThumbnail src={authorThumbnail} />
+                            <ColumnWrapper>
+                                <AuthorUsername>{authorUsername}</AuthorUsername>
+                                <CreatedAt>{createdAt}</CreatedAt>
+                            </ColumnWrapper>
+                            <Spacer/>
+                        </DateWrapper>
+                        <Title>{title}</Title>
+                        <Img src={image} />
+                        <Desc>{body}</Desc>
+                        <Icons>
+                            { HeartIcon({hearted:hearted?1:0, hearts, ToggleHeart}) }
+                            <Spacer />
+                            <Views>
+                                <Icon icon={faEye} />
+                                <IconName>Views</IconName>
+                                <H5>{views}</H5>
+                            </Views>
+                            <Spacer />
+                            <CommentNav>
+                                <Comments onClick={ToggleComment} watchComment={watchComment}>
+                                    <Icon icon={faComment} />
+                                    <IconName>Commnets</IconName>
+                                    <H5>{comments}</H5>
+                                </Comments>
+                            </CommentNav>
+                            <Spacer />
+                            { StarIcon({stared:stared?1:0, stars, ToggleStar}) }
+                        </Icons>
+                    </Content>
+                    <CommentList watchComment={watchComment} postid={postid}/>
+                </WhiteBox>
+                <HBlank onClick={history.goBack}/>
+            </RowFlexDiv>
+            <VBlank onClick={history.goBack}/>
+        </Wrapper>
     )
 }
 

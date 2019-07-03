@@ -7,11 +7,12 @@ import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
     position: fixed;
-    z-index: 20;
+    z-index: 30;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
+    overflow-y: auto;
 `
 
 const Background = styled.div`
@@ -22,6 +23,7 @@ const Background = styled.div`
     height: 100%; /* Full height */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index: 25;
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -32,11 +34,13 @@ const GlobalStyle = createGlobalStyle`
 
 const PostContainer = ({ match, location, history}) => {
     return (
+        <>
+        <GlobalStyle />
         <Wrapper>
-            <GlobalStyle />
-            <Background onClick={history.goBack}/>
-            <Post postid={match.params.postid} index={location.state?location.state.index:null}/>
+            <Post postid={match.params.postid} index={location.state?location.state.index:null} history={history}/>
         </Wrapper>
+        <Background/>
+        </>
     )
     
 }
