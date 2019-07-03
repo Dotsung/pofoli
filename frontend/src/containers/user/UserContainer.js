@@ -3,14 +3,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 import UserInfo from 'components/user/UserInfo';
+import UserNav from 'components/user/UserNav';
 
 const WhiteBox = styled.div`
-    margin: 0 400px;
     background: white;
 `
 
 const Wrapper = styled.div`
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
 `
 
 const UserContainer = () => {
@@ -18,6 +19,7 @@ const UserContainer = () => {
         <WhiteBox>
             <Wrapper>
                 <UserInfo />
+                <UserNav />
             </Wrapper>
         </WhiteBox>
     )

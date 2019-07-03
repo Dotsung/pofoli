@@ -7,10 +7,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
+const Positioner = styled.div`
+    width: 100%;
+    padding: 0 500px;
+    box-sizing: border-box;
+
+    
+`
+
 const Wrapper = styled.div`
+    padding: 40px;
     width: 100%;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+`
+const RowDiv = styled.div`
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
 `
 
 const Thumbnail = styled.img`
@@ -19,10 +34,6 @@ const Thumbnail = styled.img`
     height: 6rem;
     object-fit: cover;
     border-radius: 50%;
-`
-
-const RowDiv = styled.div`
-    display: flex;
 `
 
 const ColumnDiv = styled.div`
@@ -76,29 +87,31 @@ const Desc = styled.p`
 
 const UserInfo = () => {
     return (
-        <Wrapper>
-            <RowDiv>
-                <Thumbnail src="https://dotia-files.s3.ap-northeast-2.amazonaws.com/5d19ec31c9637a205c939243fa6f6c0ab23285c870e7c9bc1dfe1c2d.gif" />
-                <ColumnDiv>
-                    <Username>Dotsung</Username>
-                    <Desc>I'm pixel art man from hell</Desc>
-                    <InfoList>
-                        <InfoDiv>
-                            <Icon icon={faCalendarAlt} />
-                            <Info>가입일: 2019.06.23</Info>
-                        </InfoDiv>
-                        <InfoDiv>
-                            <Icon icon={faEnvelope} />
-                            <InfoA href="mailto:dotsung22@gmail.com">dotsung22@gmail.com</InfoA>
-                        </InfoDiv>
-                        <InfoDiv>
-                            <Icon icon={faLink} />
-                            <InfoA href="https://github.com/Dotsung">https://github.com/Dotsung</InfoA>
-                        </InfoDiv>
-                    </InfoList>
-                </ColumnDiv>
-            </RowDiv>
-        </Wrapper>
+        <Positioner>
+            <Wrapper>
+                <RowDiv>
+                    <Thumbnail src="https://dotia-files.s3.ap-northeast-2.amazonaws.com/5d19ec31c9637a205c939243fa6f6c0ab23285c870e7c9bc1dfe1c2d.gif" />
+                    <ColumnDiv>
+                        <Username>Dotsung</Username>
+                        <Desc>I'm pixel art man from hell</Desc>
+                        <InfoList>
+                            <InfoDiv>
+                                <Icon icon={faCalendarAlt} />
+                                <Info>가입일: 2019.06.23</Info>
+                            </InfoDiv>
+                            <InfoDiv>
+                                <Icon icon={faEnvelope} />
+                                <InfoA href="mailto:dotsung22@gmail.com">dotsung22@gmail.com</InfoA>
+                            </InfoDiv>
+                            <InfoDiv>
+                                <Icon icon={faLink} />
+                                <InfoA href="https://github.com/Dotsung">https://github.com/Dotsung</InfoA>
+                            </InfoDiv>
+                        </InfoList>
+                    </ColumnDiv>
+                </RowDiv>
+            </Wrapper>
+        </Positioner>
     )
 }
 
