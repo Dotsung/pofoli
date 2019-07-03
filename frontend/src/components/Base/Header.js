@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
-import { shadow, media } from 'lib/styleUtils';
+import { Link } from 'react-router-dom';
 
 // 상단 고정
 const Positioner = styled.div`
@@ -36,9 +36,21 @@ const HeaderContents = styled.div`
 `;
 
 // 로고
-const Logo = styled.h1`
+const Logo = styled(Link)`
     font-size: 1.5rem;
     letter-spacing: 1px;
+    font-weight: bold;
+    &:link{
+        color: ${oc.gray[9]};
+        text-decoration: none;
+    }
+    &:visited{
+        color: ${oc.gray[9]};
+        text-decoration: none;
+    }
+    &:hover{
+        color: ${oc.indigo[7]};
+    }
 `;
 
 // 중간 여백
@@ -51,7 +63,7 @@ const Header = ({children}) => {
             <Positioner>
                 <WhiteBackground>
                     <HeaderContents>
-                        <Logo>DOTIA</Logo>
+                        <Logo to='/'>DOTIA</Logo>
                         <Spacer/>
                         {children}
                     </HeaderContents>

@@ -10,6 +10,22 @@ const Wrapper = styled.div`
     height: 30px;
     display: flex;
     box-sizing: border-box;
+
+    @media (max-width: 1920px) {
+        padding: 0 500px;
+    }
+    @media (max-width: 1600px) {
+        padding: 0 400px;
+    }
+    @media (max-width: 1400px) {
+        padding: 0 200px;
+    }
+    @media (max-width: 900px) {
+        padding: 0 100px;
+    }
+    @media (max-width: 700px) {
+        padding: 0 00px;
+    }
 `
 
 const Item = styled(NavLink)`

@@ -12,7 +12,21 @@ const Positioner = styled.div`
     padding: 0 500px;
     box-sizing: border-box;
 
-    
+    @media (max-width: 1920px) {
+        padding: 0 500px;
+    }
+    @media (max-width: 1600px) {
+        padding: 0 400px;
+    }
+    @media (max-width: 1400px) {
+        padding: 0 200px;
+    }
+    @media (max-width: 900px) {
+        padding: 0 100px;
+    }
+    @media (max-width: 700px) {
+        padding: 0 00px;
+    }
 `
 
 const Wrapper = styled.div`
@@ -21,11 +35,18 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    @media (max-width: 700px) {
+        padding: 20px;
+    }
 `
 const RowDiv = styled.div`
     display: flex;
     width: 100%;
     box-sizing: border-box;
+
+    @media (max-width: 700px) {
+        flex-direction: column;
+    }
 `
 
 const Thumbnail = styled.img`
@@ -42,6 +63,9 @@ const ColumnDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-self: flex-start;
+    @media (max-width: 700px) {
+        margin-top: 0;
+    }
 `
 
 const InfoList = styled.div`
