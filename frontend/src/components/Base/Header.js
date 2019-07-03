@@ -20,6 +20,7 @@ const WhiteBackground = styled.div`
     display: flex;
     justify-content: center;
     height: auto;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 `;
 
 // 해더의 내용
