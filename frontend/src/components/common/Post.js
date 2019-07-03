@@ -19,9 +19,9 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     @media (max-width: 700px) {
         height: 100%;
-        min-height: 100%;
     }
 `
 
@@ -36,6 +36,7 @@ const VBlank = styled.div`
 const RowFlexDiv = styled.div`
     display: flex;
     width: 100%;
+    box-sizing: border-box;
     @media (max-width: 700px) {
         min-height: 100%;
     }
@@ -50,6 +51,7 @@ const WhiteBox = styled.div`
     background-color: white;
     width: 600px;
     border-radius: 3px;
+    overflow: auto;
 
     @media (max-width: 700px) {
         width: 100%;
@@ -75,7 +77,7 @@ const Header = styled.div`
     }
 `
 
-const GoBackIcon = styled(Link)`
+const GoBackIcon = styled(FontAwesomeIcon)`
     font-size: 1.5rem;
     margin: auto 10px;
     color: ${oc.indigo[7]};
@@ -428,9 +430,7 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index, his
                 <HBlank onClick={goBack}/>
                 <WhiteBox>
                     <Header>
-                        <GoBackIcon to='/'>
-                            <FontAwesomeIcon icon={faChevronLeft} />
-                        </GoBackIcon>
+                        <GoBackIcon icon={faChevronLeft} onClick={goBack} />
                         <HeaderText>Posts</HeaderText>
                     </Header>
                     <Content watchComment={watchComment?1:0}>
