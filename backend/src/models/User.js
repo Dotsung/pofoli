@@ -16,8 +16,8 @@ const User = new mongoose.Schema({
     username: String,
     introduction: String,
     thumbnail: { type: String, default: "https://dotia-files.s3.ap-northeast-2.amazonaws.com/defaultThumbnail.png" },
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    follower: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
+    following: { type:Number, default:0 },
+    follower: { type:Number, default:0 }
   },
   email: String,
   password: String,
