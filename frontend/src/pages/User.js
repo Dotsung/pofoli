@@ -9,11 +9,11 @@ const Content = styled.div`
     margin-top: 55px;
 `
 
-const User = () => (
+const User = ({match}) => (
     <>
         <HeaderContainer/>
         <Content>
-            <UserContainer />
+            <UserContainer username={match.params.username}/>
         </Content>
     </>
 )

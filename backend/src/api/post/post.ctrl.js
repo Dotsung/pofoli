@@ -111,9 +111,6 @@ exports.list = async (ctx) => {
       const Hearts = await Heart.find({ userid: user._id });
       const Stars = await Star.find({ userid: user._id });
 
-      console.log(Hearts);
-      console.log(Stars);
-
       const postlist = await Post.find()
                                 .sort({_id: -1})
                                 .limit(15)
@@ -121,12 +118,10 @@ exports.list = async (ctx) => {
       
       const newP = await Promise.all( postlist.map(async (post, index) => {
         let existHeart = Hearts.find(heart => heart.postid.toString() === post._id.toString());
-        console.log(existHeart);
           if(existHeart){
             post.hearted = true;
         }
         let existStar = Stars.find(star => star.postid.toString() === post._id.toString());
-        console.log(existStar)
         if(existStar){
           post.stared = true;
         }
@@ -210,7 +205,6 @@ exports.heart = async (ctx) => {
     ctx.throw(404);
   }
 
-  console.log(currentPost);
 
   const existHeart = await Heart.findOne({ userid: user._id, postid:postid });
 

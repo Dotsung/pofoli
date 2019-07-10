@@ -1,7 +1,9 @@
 // @flow
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
+
+import * as profileApi from 'lib/api/profile';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
@@ -65,6 +67,7 @@ const ColumnDiv = styled.div`
     align-self: flex-start;
     @media (max-width: 700px) {
         margin-top: 0;
+        margin-left: 0;
     }
 `
 
@@ -109,19 +112,38 @@ const Desc = styled.p`
     margin: 0;
 `
 
-const UserInfo = () => {
+const UserInfo = ({username}) => {
+    const [intro, setIntro] = useState('');
+    const [thumbnail, setThumbnail] = useState('');
+    const [createdAt, setCreatedAt] = useState('');
+
+    useEffect(() => {
+        profileApi.getProfile({username})
+        .then((result) => {
+            console.log(result);
+            const profile = result.data.profile;
+            
+            setIntro(profile.introduction);
+            setThumbnail(profile.thumbnail);
+            setCreatedAt(result.data.createdAt);
+        })
+        .catch((result) => {
+            console.log(result);
+        });
+    }, []);
+
     return (
         <Positioner>
             <Wrapper>
                 <RowDiv>
-                    <Thumbnail src="https://dotia-files.s3.ap-northeast-2.amazonaws.com/5d19ec31c9637a205c939243fa6f6c0ab23285c870e7c9bc1dfe1c2d.gif" />
+                    <Thumbnail src={thumbnail} />
                     <ColumnDiv>
-                        <Username>Dotsung</Username>
-                        <Desc>I'm pixel art man from hell</Desc>
+                        <Username>{username}</Username>
+                        <Desc>{intro}</Desc>
                         <InfoList>
                             <InfoDiv>
                                 <Icon icon={faCalendarAlt} />
-                                <Info>가입일: 2019.06.23</Info>
+                                <Info>가입일: {createdAt}</Info>
                             </InfoDiv>
                             <InfoDiv>
                                 <Icon icon={faEnvelope} />

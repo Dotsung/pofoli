@@ -15,12 +15,12 @@ const Wrapper = styled.div`
     flex-direction: column;
 `
 
-const UserContainer = () => {
+const UserContainer = ({username}) => {
     return (
         <>
         <WhiteBox>
             <Wrapper>
-                <UserInfo />
+                <UserInfo username={username}/>
                 <UserNav />
             </Wrapper>
         </WhiteBox>

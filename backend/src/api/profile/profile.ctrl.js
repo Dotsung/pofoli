@@ -12,7 +12,10 @@ exports.getProfile = async (ctx) => {
       return
     }
 
-    ctx.body = user;
+    ctx.body = {
+      profile:user.profile,
+      createdAt:user.createdAt
+    }
   } catch (err) {
     ctx.throw(500, err)
   }

@@ -15,7 +15,7 @@ const App = () => (
         <Router history={history}>
           <Switch>
             <Route path='/auth' component={Auth} />
-            <Route path='/user' component={User} />
+            <Route path='/user/:username' component={User} />
             <Route path='/test' component={Test} />
             <Route path='/' component={Home} />
           </Switch>
