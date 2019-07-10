@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
+import dateFormat from 'dateformat';
+
 const Positioner = styled.div`
     width: 100%;
     padding: 0 500px;
@@ -125,7 +127,7 @@ const UserInfo = ({username}) => {
             
             setIntro(profile.introduction);
             setThumbnail(profile.thumbnail);
-            setCreatedAt(result.data.createdAt);
+            setCreatedAt(dateFormat(new Date(result.data.createdAt),"yyyy-mm-dd"));
         })
         .catch((result) => {
             console.log(result);
