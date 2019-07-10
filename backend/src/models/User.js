@@ -14,7 +14,7 @@ const hash = password => {
 const User = new mongoose.Schema({
   profile: {
     username: String,
-    introduction: String,
+    introduction: { type:String, default:"소개가 없습니다." },
     thumbnail: { type: String, default: "https://dotia-files.s3.ap-northeast-2.amazonaws.com/defaultThumbnail.png" },
     following: { type:Number, default:0 },
     follower: { type:Number, default:0 }

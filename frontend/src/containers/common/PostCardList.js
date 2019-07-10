@@ -13,7 +13,6 @@ import PostCard from "components/common/PostCard";
 import PostContainer from "containers/common/PostContainer";
 import WritePostContainer from 'containers/WritePostContainer';
 
-
 const CardListWrapper = styled.div`
   column-count: 6;
   width: 100%;

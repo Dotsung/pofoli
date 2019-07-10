@@ -15,7 +15,7 @@ api.get('/', (ctx) => {
 
 api.use('/auth', auth.routes())
 api.use('/post', post.routes())
-//api.use('/profile', profile.routes())
+api.use('/profile', profile.routes())
 api.use('/test', test.routes())
 api.use('/comment', comment.routes())
 
