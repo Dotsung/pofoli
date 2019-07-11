@@ -150,6 +150,71 @@ exports.list = async (ctx) => {
   
 }
 
+exports.heartList = async (ctx) => {
+
+  // 파라미터 값으로 페이지값이 없을 시 page = 1, 10진법
+  const page = parseInt(ctx.params.page || 1, 10)
+
+  if (page < 1) {
+    // page가 1보다 작을 시 잘못된 요청 반환
+    ctx.status = 400
+    return
+  }
+
+  const { token } = ctx.header;
+  let user = null;
+
+  try{
+    user = await decodeToken(token);
+  } catch (err) {
+  }
+
+
+  if(user){
+    try {
+      // sort: _id 값 역순으로 정렬
+      const Hearts = await Heart.find({ userid: user._id });
+      const Stars = await Star.find({ userid: user._id });
+
+      const postlist = await Post.find()
+                                .sort({_id: -1})
+                                .limit(15)
+                                .skip((page - 1) * 15).exec();
+      
+      const newP = await Promise.all( postlist.map(async (post, index) => {
+        let existHeart = Hearts.find(heart => heart.postid.toString() === post._id.toString());
+          if(existHeart){
+            post.hearted = true;
+        }
+        let existStar = Stars.find(star => star.postid.toString() === post._id.toString());
+        if(existStar){
+          post.stared = true;
+        }
+        return post;
+      }));
+
+      ctx.body = newP;
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  } else {
+    try {
+      // sort: _id 값 역순으로 정렬
+      const postlist = await Post.find()
+                                .sort({_id: -1})
+                                .limit(15)
+                                .skip((page - 1) * 15).exec()
+      const lastpage = await Post.countDocuments().exec
+  
+      ctx.set('last-page', Math.ceil(lastpage / 10))
+      ctx.body = postlist
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  }
+  
+}
+
 // 특정 포스트 글 읽기 (GET) API '/api/post/read/:id'
 exports.read = async (ctx) => {
   // 파라미터로 id 값 가져오기

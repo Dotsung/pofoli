@@ -21,10 +21,10 @@ const UserContainer = ({username}) => {
         <WhiteBox>
             <Wrapper>
                 <UserInfo username={username}/>
-                <UserNav />
+                <UserNav username={username}/>
             </Wrapper>
         </WhiteBox>
-        <PostCardList />
+        <PostCardList username={username}/>
         </>
     )
 }

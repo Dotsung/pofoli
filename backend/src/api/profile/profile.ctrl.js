@@ -8,7 +8,7 @@ exports.getProfile = async (ctx) => {
     const user = await User.findByUsername(username);
 
     if (!user) {
-      ctx.status = 404
+      ctx.status = 404;
       return
     }
 

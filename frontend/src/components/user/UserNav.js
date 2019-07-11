@@ -86,14 +86,14 @@ const MobileItem = styled(NavLink)`
     }
 `
 
-const UserInfo = () => {
+const UserInfo = ({username}) => {
     return (
         <Wrapper>
-            <Item to='/user/post/' activeClassName="active">Post</Item>
-            <Item to='/user/heart/' activeClassName="active">Heart</Item>
-            <Item to='/user/star/' activeClassName="active">Star</Item>
-            <Item to='/user/following' activeClassName="active">Following</Item>
-            <Item to='/user/follower' activeClassName="active">Follower</Item>
+            <Item to={'/user/'+username+'/posts/'} activeClassName="active">Post</Item>
+            <Item to={'/user/'+username+'/hearts/'} activeClassName="active">Heart</Item>
+            <Item to={'/user/'+username+'/star/'} activeClassName="active">Star</Item>
+            <Item to={'/user/'+username+'/following'} activeClassName="active">Following</Item>
+            <Item to={'/user/'+username+'/follower'} activeClassName="active">Follower</Item>
             
             <MobileItem to='/user/post' activeClassName="active"><FontAwesomeIcon icon={faNewspaper}/></MobileItem>
             <MobileItem to='/user/heart' activeClassName="active"><FontAwesomeIcon icon={faHeart}/></MobileItem>
