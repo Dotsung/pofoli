@@ -12,6 +12,8 @@ post.post('/write', postCtrl.write)
 post.get('/list/:page', postCtrl.list)
 post.get('/read/:id', postCtrl.read)
 
+post.get('/userlist/:author/:page', postCtrl.userPostList);
+
 post.post('/heart', postCtrl.heart);
 post.post('/unheart', postCtrl.unheart);
 post.post('/star', postCtrl.star);

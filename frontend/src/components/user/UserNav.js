@@ -91,7 +91,7 @@ const UserInfo = ({username}) => {
         <Wrapper>
             <Item to={'/user/'+username+'/posts/'} activeClassName="active">Post</Item>
             <Item to={'/user/'+username+'/hearts/'} activeClassName="active">Heart</Item>
-            <Item to={'/user/'+username+'/star/'} activeClassName="active">Star</Item>
+            <Item to={'/user/'+username+'/stars/'} activeClassName="active">Star</Item>
             <Item to={'/user/'+username+'/following'} activeClassName="active">Following</Item>
             <Item to={'/user/'+username+'/follower'} activeClassName="active">Follower</Item>
             
