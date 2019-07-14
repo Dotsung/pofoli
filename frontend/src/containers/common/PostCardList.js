@@ -86,13 +86,11 @@ const NewPostButtonText = styled.p`
   left: 5px;
 `
 
-const PostCardList = ({postList, loadMore, username}) => {
+const PostCardList = ({postList, loadMore, username, match}) => {
   return (
     <>
     <Route path='/post/:postid' component={PostContainer}/>
-    <Route path={'/user/'+username+'/posts/post/:postid'} component={PostContainer}/>
-    <Route path={'/user/'+username+'/hearts/post/:postid'} component={PostContainer}/>
-    <Route path={'/user/'+username+'/stars/post/:postid'} component={PostContainer}/>
+    <Route path={'/user/'+username+'/'+match.params.category+'/post/:postid'} component={PostContainer}/>
     <Route path='/write' component={WritePostContainer}/>
     <CardListWrapper>
       {postList.map((card, index) => (

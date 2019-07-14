@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import { Route } from 'react-router-dom';
 
 import UserInfo from 'components/user/UserInfo';
 import UserNav from 'components/user/UserNav';
@@ -24,7 +25,10 @@ const UserContainer = ({username}) => {
                 <UserNav username={username}/>
             </Wrapper>
         </WhiteBox>
-        <PostCardList username={username}/>
+        {
+            //<PostCardList username={username}/>
+        }
+        <Route path={'/user/'+username+'/:category'} component={PostCardList}/>
         </>
     )
 }
