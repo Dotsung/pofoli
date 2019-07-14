@@ -95,11 +95,11 @@ const UserInfo = ({username}) => {
             <Item to={'/user/'+username+'/following'} activeClassName="active">Following</Item>
             <Item to={'/user/'+username+'/follower'} activeClassName="active">Follower</Item>
             
-            <MobileItem to='/user/post' activeClassName="active"><FontAwesomeIcon icon={faNewspaper}/></MobileItem>
-            <MobileItem to='/user/heart' activeClassName="active"><FontAwesomeIcon icon={faHeart}/></MobileItem>
-            <MobileItem to='/user/star' activeClassName="active"><FontAwesomeIcon icon={faStar}/></MobileItem>
-            <MobileItem to='/user/following' activeClassName="active"><FontAwesomeIcon icon={followingIcon}/></MobileItem>
-            <MobileItem to='/user/follower' activeClassName="active"><FontAwesomeIcon icon={followerIcon}/></MobileItem>
+            <MobileItem to={'/user/'+username+'/posts/'} activeClassName="active"><FontAwesomeIcon icon={faNewspaper}/></MobileItem>
+            <MobileItem to={'/user/'+username+'/hearts/'} activeClassName="active"><FontAwesomeIcon icon={faHeart}/></MobileItem>
+            <MobileItem to={'/user/'+username+'/stars/'} activeClassName="active"><FontAwesomeIcon icon={faStar}/></MobileItem>
+            <MobileItem to={'/user/'+username+'/following/'} activeClassName="active"><FontAwesomeIcon icon={followingIcon}/></MobileItem>
+            <MobileItem to={'/user/'+username+'/follower/'} activeClassName="active"><FontAwesomeIcon icon={followerIcon}/></MobileItem>
         </Wrapper>
     )
 }
