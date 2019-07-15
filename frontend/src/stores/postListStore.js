@@ -56,8 +56,6 @@ class postListStore {
   getUserPostList = ({username}) => {
     postApi.userPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
-      console.log('list불러오기 성공');
-      console.log(result);
       this.postList = [];
       this.postList = result.data;
       this.state = "done";

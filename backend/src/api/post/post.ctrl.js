@@ -213,13 +213,13 @@ exports.userPostList = async (ctx) => {
       ctx.throw(500, err)
     }
   }
-  
 }
 
-exports.heartList = async (ctx) => {
+exports.heartPostList = async (ctx) => {
 
   // 파라미터 값으로 페이지값이 없을 시 page = 1, 10진법
   const page = parseInt(ctx.params.page || 1, 10)
+  const author = ctx.params.author;
 
   if (page < 1) {
     // page가 1보다 작을 시 잘못된 요청 반환
@@ -242,7 +242,11 @@ exports.heartList = async (ctx) => {
       const Hearts = await Heart.find({ userid: user._id });
       const Stars = await Star.find({ userid: user._id });
 
-      const postlist = await Post.find()
+      const authorid = await User.findByUsername(author);
+      const authorHearts = await Heart.find({ userid: authorid});
+      console.log(authorHearts.map((heart) => heart.postid));
+
+      const postlist = await Post.find({ _id: authorHearts.map((heart) => heart.postid) })
                                 .sort({_id: -1})
                                 .limit(15)
                                 .skip((page - 1) * 15).exec();
@@ -265,8 +269,11 @@ exports.heartList = async (ctx) => {
     }
   } else {
     try {
-      // sort: _id 값 역순으로 정렬
-      const postlist = await Post.find()
+      
+      const authorid = await User.findByUsername(author);
+      const authorHearts = await Heart.find({ userid: authorid});
+
+      const postlist = await Post.find({ _id: authorHearts.map((heart) => heart.postid) })
                                 .sort({_id: -1})
                                 .limit(15)
                                 .skip((page - 1) * 15).exec()
@@ -278,7 +285,6 @@ exports.heartList = async (ctx) => {
       ctx.throw(500, err)
     }
   }
-  
 }
 
 // 특정 포스트 글 읽기 (GET) API '/api/post/read/:id'

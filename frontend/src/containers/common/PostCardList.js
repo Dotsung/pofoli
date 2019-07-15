@@ -86,7 +86,7 @@ const NewPostButtonText = styled.p`
   left: 5px;
 `
 
-const PostCardList = ({postList, loadMore, getUserPostList, match}) => {
+const PostCardList = ({postList, loadMore, getList, getUserPostList, match}) => {
 
   useEffect(() => {
     if(match){
@@ -98,6 +98,8 @@ const PostCardList = ({postList, loadMore, getUserPostList, match}) => {
         default:
           break;
       }
+    } else {
+      getList();
     }
   },[]);
 
@@ -149,5 +151,6 @@ const PostCardList = ({postList, loadMore, getUserPostList, match}) => {
 export default inject(({ postListStore }) => ({
   postList: postListStore.postList,
   loadMore: postListStore.loadMore,
+  getList: postListStore.getList,
   getUserPostList: postListStore.getUserPostList
 }))(observer(PostCardList));
