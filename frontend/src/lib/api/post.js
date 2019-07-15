@@ -26,6 +26,22 @@ export const userPostList = ({token, username, page}) =>
   }
 });
 
+export const heartPostList = ({token, username, page}) =>
+  axios.get("http://localhost:4000/api/post/heartlist/"+username+'/'+page,
+  {
+    headers: {
+      'token': token
+  }
+});
+
+export const starPostList = ({token, username, page}) =>
+  axios.get("http://localhost:4000/api/post/starlist/"+username+'/'+page,
+  {
+    headers: {
+      'token': token
+  }
+});
+
 export const heart = ({token, postid}) =>
   axios.post("http://localhost:4000/api/post/heart",
   {

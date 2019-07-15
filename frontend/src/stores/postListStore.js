@@ -68,6 +68,36 @@ class postListStore {
   }
 
   @action.bound
+  getHeartPostList = ({username}) => {
+    postApi.heartPostList({token: this.token, username:username ,page: this.page})
+    .then((result) => {
+      this.postList = [];
+      this.postList = result.data;
+      this.state = "done";
+      this.state = "update";
+    })
+    .catch((result) => {
+      console.log('list store err');
+      console.log(result);
+    });
+  }
+
+  @action.bound
+  getStarPostList = ({username}) => {
+    postApi.starPostList({token: this.token, username:username ,page: this.page})
+    .then((result) => {
+      this.postList = [];
+      this.postList = result.data;
+      this.state = "done";
+      this.state = "update";
+    })
+    .catch((result) => {
+      console.log('list store err');
+      console.log(result);
+    });
+  }
+
+  @action.bound
   loadMore = () => {
     this.page = this.page + 1;
     postApi.list({token: this.token, page: this.page})

@@ -86,7 +86,7 @@ const NewPostButtonText = styled.p`
   left: 5px;
 `
 
-const PostCardList = ({postList, loadMore, getList, getUserPostList, match}) => {
+const PostCardList = ({postList, loadMore, getList, getUserPostList, getHeartPostList, getStarPostList, match}) => {
 
   useEffect(() => {
     if(match){
@@ -94,14 +94,19 @@ const PostCardList = ({postList, loadMore, getList, getUserPostList, match}) => 
         case 'posts':
           getUserPostList({username: match.params.username});
           break;
-      
+        case 'hearts':
+          getHeartPostList({username: match.params.username});
+          break;
+        case 'stars':
+          getStarPostList({username: match.params.username});
+          break;
         default:
           break;
       }
     } else {
       getList();
     }
-  },[]);
+  },[match]);
 
   const NavRoute = () => {
     if(match){
@@ -152,5 +157,7 @@ export default inject(({ postListStore }) => ({
   postList: postListStore.postList,
   loadMore: postListStore.loadMore,
   getList: postListStore.getList,
-  getUserPostList: postListStore.getUserPostList
+  getUserPostList: postListStore.getUserPostList,
+  getHeartPostList: postListStore.getHeartPostList,
+  getStarPostList: postListStore.getStarPostList
 }))(observer(PostCardList));
