@@ -236,15 +236,14 @@ exports.heartPostList = async (ctx) => {
   }
 
 
+  const authorid = await User.findByUsername(author);
+  const authorHearts = await Heart.find({ userid: authorid});
+
   if(user){
     try {
       // sort: _id 값 역순으로 정렬
       const Hearts = await Heart.find({ userid: user._id });
       const Stars = await Star.find({ userid: user._id });
-
-      const authorid = await User.findByUsername(author);
-      const authorHearts = await Heart.find({ userid: authorid});
-      console.log(authorHearts.map((heart) => heart.postid));
 
       const postlist = await Post.find({ _id: authorHearts.map((heart) => heart.postid) })
                                 .sort({_id: -1})
@@ -269,11 +268,74 @@ exports.heartPostList = async (ctx) => {
     }
   } else {
     try {
-      
-      const authorid = await User.findByUsername(author);
-      const authorHearts = await Heart.find({ userid: authorid});
-
       const postlist = await Post.find({ _id: authorHearts.map((heart) => heart.postid) })
+                                .sort({_id: -1})
+                                .limit(15)
+                                .skip((page - 1) * 15).exec()
+      const lastpage = await Post.countDocuments().exec
+  
+      ctx.set('last-page', Math.ceil(lastpage / 10))
+      ctx.body = postlist
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  }
+}
+
+exports.starPostList = async (ctx) => {
+
+  // 파라미터 값으로 페이지값이 없을 시 page = 1, 10진법
+  const page = parseInt(ctx.params.page || 1, 10)
+  const author = ctx.params.author;
+
+  if (page < 1) {
+    // page가 1보다 작을 시 잘못된 요청 반환
+    ctx.status = 400
+    return
+  }
+
+  const { token } = ctx.header;
+  let user = null;
+
+  try{
+    user = await decodeToken(token);
+  } catch (err) {
+  }
+
+
+  const authorid = await User.findByUsername(author);
+  const authorStars = await Star.find({ userid: authorid});
+  
+  if(user){
+    try {
+      // sort: _id 값 역순으로 정렬
+      const Hearts = await Heart.find({ userid: user._id });
+      const Stars = await Star.find({ userid: user._id });
+
+      const postlist = await Post.find({ _id: authorStars.map((star) => star.postid) })
+                                .sort({_id: -1})
+                                .limit(15)
+                                .skip((page - 1) * 15).exec();
+      
+      const newP = await Promise.all( postlist.map(async (post, index) => {
+        let existHeart = Hearts.find(heart => heart.postid.toString() === post._id.toString());
+          if(existHeart){
+            post.hearted = true;
+        }
+        let existStar = Stars.find(star => star.postid.toString() === post._id.toString());
+        if(existStar){
+          post.stared = true;
+        }
+        return post;
+      }));
+
+      ctx.body = newP;
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  } else {
+    try {
+      const postlist = await Post.find({ _id: authorStars.map((star) => star.postid) })
                                 .sort({_id: -1})
                                 .limit(15)
                                 .skip((page - 1) * 15).exec()

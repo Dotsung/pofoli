@@ -14,6 +14,7 @@ post.get('/read/:id', postCtrl.read)
 
 post.get('/userlist/:author/:page', postCtrl.userPostList);
 post.get('/heartlist/:author/:page', postCtrl.heartPostList);
+post.get('/starlist/:author/:page', postCtrl.starPostList);
 
 post.post('/heart', postCtrl.heart);
 post.post('/unheart', postCtrl.unheart);
