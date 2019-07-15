@@ -87,10 +87,17 @@ const NewPostButtonText = styled.p`
 `
 
 const PostCardList = ({postList, loadMore, username, match}) => {
+
+  const NavRoute = () => {
+    if(match){
+      return <Route path={'/user/'+match.params.username+'/'+match.params.category+'/post/:postid'} component={PostContainer}/>
+    }
+  }
+
   return (
     <>
     <Route path='/post/:postid' component={PostContainer}/>
-    <Route path={'/user/'+username+'/'+match.params.category+'/post/:postid'} component={PostContainer}/>
+    {NavRoute()}
     <Route path='/write' component={WritePostContainer}/>
     <CardListWrapper>
       {postList.map((card, index) => (

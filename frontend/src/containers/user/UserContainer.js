@@ -28,7 +28,7 @@ const UserContainer = ({username}) => {
         {
             //<PostCardList username={username}/>
         }
-        <Route path={'/user/'+username+'/:category'} component={PostCardList}/>
+        <Route path={'/user/:username/:category'} component={PostCardList}/>
         </>
     )
 }
