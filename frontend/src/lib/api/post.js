@@ -18,6 +18,14 @@ export const list = ({token, page}) =>
   }
 });
 
+export const userPostList = ({token, username, page}) =>
+  axios.get("http://localhost:4000/api/post/userlist/"+username+'/'+page,
+  {
+    headers: {
+      'token': token
+  }
+});
+
 export const heart = ({token, postid}) =>
   axios.post("http://localhost:4000/api/post/heart",
   {

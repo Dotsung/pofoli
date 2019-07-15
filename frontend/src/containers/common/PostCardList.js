@@ -86,7 +86,20 @@ const NewPostButtonText = styled.p`
   left: 5px;
 `
 
-const PostCardList = ({postList, loadMore, username, match}) => {
+const PostCardList = ({postList, loadMore, getUserPostList, match}) => {
+
+  useEffect(() => {
+    if(match){
+      switch (match.params.category) {
+        case 'posts':
+          getUserPostList({username: match.params.username});
+          break;
+      
+        default:
+          break;
+      }
+    }
+  },[]);
 
   const NavRoute = () => {
     if(match){
@@ -135,5 +148,6 @@ const PostCardList = ({postList, loadMore, username, match}) => {
 
 export default inject(({ postListStore }) => ({
   postList: postListStore.postList,
-  loadMore: postListStore.loadMore
+  loadMore: postListStore.loadMore,
+  getUserPostList: postListStore.getUserPostList
 }))(observer(PostCardList));

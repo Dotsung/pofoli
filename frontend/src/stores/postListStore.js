@@ -53,6 +53,40 @@ class postListStore {
   }
 
   @action.bound
+  getUserPostList = ({username}) => {
+    postApi.userPostList({token: this.token, username:username ,page: this.page})
+    .then((result) => {
+      console.log('list불러오기 성공');
+      console.log(result);
+      this.postList = [];
+      this.postList = result.data;
+      this.state = "done";
+      this.state = "update";
+    })
+    .catch((result) => {
+      console.log('list store err');
+      console.log(result);
+    });
+  }
+
+  @action.bound
+  loadMore = () => {
+    this.page = this.page + 1;
+    postApi.list({token: this.token, page: this.page})
+    .then((result) => {
+        //console.log('list불러오기 성공');
+        this.postList = this.postList.concat(result.data);
+        this.state = "done";
+        this.state = "update";
+        //console.log(this.state.data)
+    })
+    .catch((result) => {
+        console.log('list store err');
+        console.log(result);
+    });
+  }
+
+  @action.bound
   getPost = ({ index }) => {
     return this.postList[index];
   }
