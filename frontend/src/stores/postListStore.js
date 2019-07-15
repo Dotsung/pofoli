@@ -23,7 +23,6 @@ class postListStore {
     postApi.list({token: this.token, page: this.page})
     .then((result) => {
       //console.log('list불러오기 성공');
-      this.postList = [];
       this.postList = result.data;
       this.state = "done";
       this.state = "update";
@@ -56,7 +55,6 @@ class postListStore {
   getUserPostList = ({username}) => {
     postApi.userPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
-      this.postList = [];
       this.postList = result.data;
       this.state = "done";
       this.state = "update";
@@ -71,7 +69,6 @@ class postListStore {
   getHeartPostList = ({username}) => {
     postApi.heartPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
-      this.postList = [];
       this.postList = result.data;
       this.state = "done";
       this.state = "update";
@@ -86,7 +83,6 @@ class postListStore {
   getStarPostList = ({username}) => {
     postApi.starPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
-      this.postList = [];
       this.postList = result.data;
       this.state = "done";
       this.state = "update";
@@ -95,6 +91,11 @@ class postListStore {
       console.log('list store err');
       console.log(result);
     });
+  }
+
+  @action.bound
+  deleteList = () => {
+    this.postList = [];
   }
 
   @action.bound

@@ -86,9 +86,10 @@ const NewPostButtonText = styled.p`
   left: 5px;
 `
 
-const PostCardList = ({postList, loadMore, getList, getUserPostList, getHeartPostList, getStarPostList, match}) => {
+const PostCardList = ({postList, loadMore, getList, deleteList, getUserPostList, getHeartPostList, getStarPostList, match}) => {
 
   useEffect(() => {
+    deleteList();
     if(match){
       switch (match.params.category) {
         case 'posts':
@@ -157,6 +158,7 @@ export default inject(({ postListStore }) => ({
   postList: postListStore.postList,
   loadMore: postListStore.loadMore,
   getList: postListStore.getList,
+  deleteList: postListStore.deleteList,
   getUserPostList: postListStore.getUserPostList,
   getHeartPostList: postListStore.getHeartPostList,
   getStarPostList: postListStore.getStarPostList
