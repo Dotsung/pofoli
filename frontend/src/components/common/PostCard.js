@@ -110,12 +110,36 @@ const UserThumbnailWrapper = styled.a`
     }
 `
 
+const UserThumbnailPositioner = styled.div`
+    position: relative;
+    display: block;
+    width: 3.75rem;
+    height: 3.75rem;
+`
+
 const UserThumbnail = styled.img`
     display: block;
     width: 3.75rem;
     height: 3.75rem;
     object-fit: cover;
     border-radius: 50%;
+`
+
+const UserThumbnailMask = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3.75rem;
+    height: 3.75rem;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transition: 0.125s all ease-in;
+
+    &:hover {
+        opacity: 1;
+    }
 `
 
 const CardTitle = styled.h3`
@@ -295,7 +319,10 @@ const PostCard = ({ token, getPost, heart, unheart, star, unstar, id, title, dat
             </Link>
             <CardContents>
                 <UserThumbnailWrapper href={"/user/"+authorUsername+"/posts/"}>
-                    <UserThumbnail src={authorThumbnail}/>
+                    <UserThumbnailPositioner>
+                        <UserThumbnail src={authorThumbnail}/>
+                        <UserThumbnailMask/>
+                    </UserThumbnailPositioner>
                 </UserThumbnailWrapper>
                 <CardTitle>{title}</CardTitle>
                 <CardDate>{date}</CardDate>
