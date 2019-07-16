@@ -9,7 +9,6 @@ class postListStore {
 
   constructor() {
       this.token = localStorage['dotia-token'];
-      this.getList();
   }
 
   @action.bound
