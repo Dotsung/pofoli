@@ -17,5 +17,16 @@ export const checkStatus = ({ token }) =>
       }
   });
 
+export const updateThumbnail = ({ token, formData }) => 
+  axios.post("http://localhost:4000/api/auth/updatethumbnail",
+  formData,
+    {
+      headers: {
+          'token': token,
+          'Content-Type': 'multipart/form-data'
+    }
+});
+
+
 export const findUserById = ({ id }) => 
   axios.get("http://localhost:4000/api/auth/findUser/"+id);

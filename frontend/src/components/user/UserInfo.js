@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import oc from 'open-color';
 
 import * as profileApi from 'lib/api/profile';
+import * as authApi from 'lib/api/auth';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink, faCameraRetro } from '@fortawesome/free-solid-svg-icons';
@@ -152,12 +153,17 @@ const FileInput = styled.input`
     opacity: 0;
 `
 
-const UserInfo = ({username, currentUsername}) => {
+const UserInfo = ({username, currentUsername, token}) => {
     const [intro, setIntro] = useState('');
     const [thumbnail, setThumbnail] = useState('');
     const [createdAt, setCreatedAt] = useState('');
+    const [newThumbnail, setNewThumbnail] = useState(null);
 
     useEffect(() => {
+        getProfile();
+    }, []);
+
+    const getProfile = () => {
         profileApi.getProfile({username})
         .then((result) => {
             console.log(result);
@@ -170,7 +176,39 @@ const UserInfo = ({username, currentUsername}) => {
         .catch((result) => {
             console.log(result);
         });
-    }, []);
+    }
+
+    const returnFileBox = () => {
+        if(username === currentUsername){
+            return (
+                <Filebox>
+                    <FileInput type="file" id="fileInput" onChange={onChangeFile}/>
+                    <FileLabel><Icon icon={faCameraRetro}/></FileLabel>
+                </Filebox>
+            )
+        }
+    }
+
+    const onChangeFile = e => {
+        e.preventDefault();
+        
+        const formData = new FormData();
+
+        formData.append('image', e.target.files[0]);
+        authApi.updateThumbnail({
+            token,
+            formData
+        })
+        .then((result) => {
+            console.log(result);
+            console.log('성공');
+            getProfile();
+        })
+        .catch((result) => {
+            console.log(result);
+            console.log('실패');
+        });
+    }
 
     return (
         <Positioner>
@@ -178,10 +216,7 @@ const UserInfo = ({username, currentUsername}) => {
                 <RowDiv>
                     <Thumbnailbox>
                         <Thumbnail src={thumbnail} />
-                        <Filebox>
-                            <FileInput type="file" id="fileInput"/>
-                            <FileLabel><Icon icon={faCameraRetro}/></FileLabel>
-                        </Filebox>
+                        {returnFileBox()}
                     </Thumbnailbox>
                     <ColumnDiv>
                         <Username>{username}</Username>
@@ -208,5 +243,6 @@ const UserInfo = ({username, currentUsername}) => {
 }
 
 export default inject(({ userStore }) => ({
-    currentUsername: userStore.username
+    currentUsername: userStore.username,
+    token: userStore.token
 }))(observer(UserInfo));
