@@ -59,6 +59,12 @@ export const updateUserInfo = async (ctx) => {
   const { token } = ctx.header;
   const user = await decodeToken(token);
 
+  const {
+    introduction,
+    email,
+    site
+  } = ctx.request.body;
+
   if (!user) {
     ctx.status = 404;
     return;
@@ -76,6 +82,9 @@ export const updateUserInfo = async (ctx) => {
     return;
   }
 
-  currentUser.profile.thumbnail = url;
+  currentUser.profile.introduction = introduction;
+  currentUser.profile.email = email;
+  currentUser.profile.site = site;
+  
   ctx.body = await currentUser.save();
 }

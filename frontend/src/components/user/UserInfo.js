@@ -156,7 +156,7 @@ const UserInfo = ({username, currentUsername, token}) => {
     const [intro, setIntro] = useState('');
     const [thumbnail, setThumbnail] = useState('');
     const [createdAt, setCreatedAt] = useState('');
-    const [mail, setMail] = useState('');
+    const [email, setEmail] = useState('');
     const [site, setSite] = useState('');
 
     useEffect(() => {
@@ -171,7 +171,7 @@ const UserInfo = ({username, currentUsername, token}) => {
             
             setIntro(profile.introduction);
             setThumbnail(profile.thumbnail);
-            setMail(profile.email);
+            setEmail(profile.email);
             setSite(profile.site);
             setCreatedAt(dateFormat(new Date(result.data.createdAt),"yyyy-mm-dd"));
         })
@@ -230,7 +230,7 @@ const UserInfo = ({username, currentUsername, token}) => {
                             </InfoDiv>
                             <InfoDiv>
                                 <Icon icon={faEnvelope} />
-                                <InfoA href={`mailto:${mail}`}>{mail}</InfoA>
+                                <InfoA href={`mailto:${email}`}>{email}</InfoA>
                             </InfoDiv>
                             <InfoDiv>
                                 <Icon icon={faLink} />
