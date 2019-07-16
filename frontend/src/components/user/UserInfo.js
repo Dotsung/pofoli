@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import oc from 'open-color';
 
 import * as profileApi from 'lib/api/profile';
-import * as authApi from 'lib/api/auth';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink, faCameraRetro } from '@fortawesome/free-solid-svg-icons';
@@ -157,7 +156,6 @@ const UserInfo = ({username, currentUsername, token}) => {
     const [intro, setIntro] = useState('');
     const [thumbnail, setThumbnail] = useState('');
     const [createdAt, setCreatedAt] = useState('');
-    const [newThumbnail, setNewThumbnail] = useState(null);
 
     useEffect(() => {
         getProfile();
@@ -195,7 +193,7 @@ const UserInfo = ({username, currentUsername, token}) => {
         const formData = new FormData();
 
         formData.append('image', e.target.files[0]);
-        authApi.updateThumbnail({
+        profileApi.updateThumbnail({
             token,
             formData
         })

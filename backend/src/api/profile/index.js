@@ -8,5 +8,6 @@ profile.get('/', (ctx) => {
 });
 
 profile.get('/get/:username', profileCtrl.getProfile);
+profile.post('/updatethumbnail', profileCtrl.updateUserThumbnail);
 
 export default profile
