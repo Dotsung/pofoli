@@ -13,4 +13,6 @@ auth.get('/exists/:key(email|username)/:value', authCtrl.exists);
 auth.get('/check', authCtrl.check);
 auth.get('/finduser/:id', authCtrl.findUser);
 
+auth.post('/updatethumbnail', authCtrl.updateUserThumbnail);
+
 export default auth

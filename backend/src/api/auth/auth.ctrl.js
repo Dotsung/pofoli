@@ -2,6 +2,7 @@ import User from 'models/User';
 import Joi from 'joi';
 
 import { decodeToken } from 'jwt/jwt_token';
+import uploadFile from 's3/uploadFile';
 
 
 // 회원가입 (POST) API '/api/auth/register'
@@ -112,7 +113,7 @@ export const exists = async (ctx) => {
 
   try {
       // key 에 따라 findByEmail 혹은 findByUsername 을 실행합니다.
-      user = await (key === 'email' ? User.findByEmail(value) : User.findByUsername(value));    
+      user = await (key === 'email' ? User.findByEmail(value) : User.findByUsername(value));
   } catch (e) {
       ctx.throw(500, e);
   }
@@ -146,6 +147,38 @@ export const check = async (ctx) => {
 
   ctx.body = currentUser;
 };
+
+export const updateUserThumbnail = async (ctx) => {
+  const { token } = ctx.header;
+  const user = await decodeToken(token);
+
+  const file = ctx.request.files.image;
+  const { key, url } = await uploadFile({
+      fileName: user._id+file.name,
+      filePath: file.path,
+      fileType: file.type
+  });
+
+  if (!user) {
+    ctx.status = 404;
+    return;
+  }
+
+  let currentUser = null
+  try {
+    currentUser = await User.findById(user)
+  } catch (err) {
+    ctx.throw(500, err)
+  }
+
+  if (!currentUser) {
+    ctx.status = 403  // 권한 없음
+    return;
+  }
+
+  currentUser.profile.thumbnail = url;
+  ctx.body = await currentUser.save();
+}
 
 export const findUser = async (ctx) => {
   const { username } = ctx.params;
