@@ -156,6 +156,8 @@ const UserInfo = ({username, currentUsername, token}) => {
     const [intro, setIntro] = useState('');
     const [thumbnail, setThumbnail] = useState('');
     const [createdAt, setCreatedAt] = useState('');
+    const [mail, setMail] = useState('');
+    const [site, setSite] = useState('');
 
     useEffect(() => {
         getProfile();
@@ -169,6 +171,8 @@ const UserInfo = ({username, currentUsername, token}) => {
             
             setIntro(profile.introduction);
             setThumbnail(profile.thumbnail);
+            setMail(profile.email);
+            setSite(profile.site);
             setCreatedAt(dateFormat(new Date(result.data.createdAt),"yyyy-mm-dd"));
         })
         .catch((result) => {
@@ -226,11 +230,11 @@ const UserInfo = ({username, currentUsername, token}) => {
                             </InfoDiv>
                             <InfoDiv>
                                 <Icon icon={faEnvelope} />
-                                <InfoA href="mailto:dotsung22@gmail.com">dotsung22@gmail.com</InfoA>
+                                <InfoA href={`mailto:${mail}`}>{mail}</InfoA>
                             </InfoDiv>
                             <InfoDiv>
                                 <Icon icon={faLink} />
-                                <InfoA href="https://github.com/Dotsung">https://github.com/Dotsung</InfoA>
+                                <InfoA href={site}>{site}</InfoA>
                             </InfoDiv>
                         </InfoList>
                     </ColumnDiv>
