@@ -107,7 +107,7 @@ const PostCardList = ({postList, loadMore, getList, deleteList, getUserPostList,
     } else {
       getList();
     }
-  },[match?match.params.category:``]);
+  },[match?match.params.category:null]);
 
   const NavRoute = () => {
     if(match){

@@ -6,8 +6,11 @@ import oc from 'open-color';
 import * as profileApi from 'lib/api/profile';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { faLink, faCameraRetro } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faEnvelope } from '@fortawesome/free-regular-svg-icons';
+
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 import dateFormat from 'dateformat';
 
@@ -87,6 +90,9 @@ const InfoDiv = styled.div`
 
 const Icon = styled(FontAwesomeIcon)`
     font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+    display: block;
 `
 
 const Info = styled.p`
@@ -114,7 +120,39 @@ const Desc = styled.p`
     margin: 0;
 `
 
-const UserInfo = ({username}) => {
+const Thumbnailbox = styled.div`
+    position: relative;
+`
+
+const Filebox = styled.div`
+    position: absolute;
+    bottom: 90px;
+    right: 0;
+`
+
+const FileLabel = styled.button`
+    color: white;
+    background-color: rgba(66, 99, 235, 0.8);
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    border: none;
+    border-radius: 50%;
+`
+
+const FileInput = styled.input`
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 2rem;
+    height: 2rem;
+    outline: 0 none;
+    opacity: 0;
+`
+
+const UserInfo = ({username, currentUsername}) => {
     const [intro, setIntro] = useState('');
     const [thumbnail, setThumbnail] = useState('');
     const [createdAt, setCreatedAt] = useState('');
@@ -138,7 +176,13 @@ const UserInfo = ({username}) => {
         <Positioner>
             <Wrapper>
                 <RowDiv>
-                    <Thumbnail src={thumbnail} />
+                    <Thumbnailbox>
+                        <Thumbnail src={thumbnail} />
+                        <Filebox>
+                            <FileInput type="file" id="fileInput"/>
+                            <FileLabel><Icon icon={faCameraRetro}/></FileLabel>
+                        </Filebox>
+                    </Thumbnailbox>
                     <ColumnDiv>
                         <Username>{username}</Username>
                         <Desc>{intro}</Desc>
@@ -163,4 +207,6 @@ const UserInfo = ({username}) => {
     )
 }
 
-export default UserInfo;
+export default inject(({ userStore }) => ({
+    currentUsername: userStore.username
+}))(observer(UserInfo));
