@@ -31,7 +31,7 @@ const HeaderContents = styled.div`
     flex-direction: row;
     align-items: center;
 
-    padding-left: 1rem;
+    padding: 0 1rem;
 `;
 
 // 로고
@@ -54,16 +54,18 @@ const Logo = styled(Link)`
 
 // 중간 여백
 const Spacer = styled.div`
-    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    flex: 1;
 `;
 
-const Header = ({children}) => {
+const Header = ({setDropdown, children}) => {
         return (
             <Positioner>
                 <WhiteBackground>
-                    <HeaderContents>
+                    <HeaderContents >
                         <Logo to='/'>DOTIA</Logo>
-                        <Spacer/>
+                        <Spacer onClick={()=>{setDropdown(false)}}/>
                         {children}
                     </HeaderContents>
                 </WhiteBackground>
