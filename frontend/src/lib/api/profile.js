@@ -14,3 +14,16 @@ export const updateThumbnail = ({ token, formData }) =>
           'Content-Type': 'multipart/form-data'
     }
 });
+
+export const updateInfo = ({ token, introduction, email, site }) => 
+  axios.post(backendPATH+"/api/profile/updateinfo",
+  {
+    introduction: introduction,
+    email: email,
+    site: site
+  },
+  {
+    headers: {
+        'token': token
+  }
+});

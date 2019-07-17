@@ -8,6 +8,8 @@ import * as profileApi from 'lib/api/profile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink, faCameraRetro } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarAlt, faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import TextField from '@material-ui/core/TextField';
+import { styled as materialstyled } from '@material-ui/styles';
 
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
@@ -93,6 +95,7 @@ const Icon = styled(FontAwesomeIcon)`
     margin: 0;
     padding: 0;
     display: block;
+    ${props=>props.edit?`display:none`:``};
 `
 
 const Info = styled.p`
@@ -109,6 +112,7 @@ const Site = styled.a`
         color: ${oc.indigo[7]};
         text-decoration: none;
     }
+    ${props=>props.edit?`display:none`:``};
 `
 
 const Username = styled.h2`
@@ -118,6 +122,7 @@ const Username = styled.h2`
 
 const Desc = styled.p`
     margin: 0;
+    ${props=>props.edit?`display:none`:``};
 `
 
 const Thumbnailbox = styled.div`
@@ -126,7 +131,7 @@ const Thumbnailbox = styled.div`
 
 const Filebox = styled.div`
     position: absolute;
-    bottom: 90px;
+    top: 60px;
     right: 0;
 `
 
@@ -152,12 +157,37 @@ const FileInput = styled.input`
     opacity: 0;
 `
 
+const InfoInput = materialstyled(TextField)({
+    display: props=>props.edit?``:`none`
+});
+
+const EditButton = styled.button`
+    border: 1px solid ${oc.indigo[5]};
+    background-color: ${oc.indigo[5]};
+    color: white;
+    height: 30px;
+    font-size: 1rem;
+    width: 50px;
+    align-self: flex-end;
+    margin-left: 30px;
+    cursor: pointer;
+    &:hover{
+        background-color: ${oc.indigo[7]};
+    }
+`
+
+const SubmitButton = styled.button`
+
+`
+
 const UserInfo = ({username, currentUsername, token}) => {
     const [intro, setIntro] = useState('');
     const [thumbnail, setThumbnail] = useState('');
     const [createdAt, setCreatedAt] = useState('');
     const [email, setEmail] = useState('');
     const [site, setSite] = useState('');
+
+    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         getProfile();
@@ -212,6 +242,11 @@ const UserInfo = ({username, currentUsername, token}) => {
         });
     }
 
+    const onChangeIntro = e => {
+        e.preventDefault();
+        setIntro(e.target.value);
+    }
+
     return (
         <Positioner>
             <Wrapper>
@@ -222,22 +257,50 @@ const UserInfo = ({username, currentUsername, token}) => {
                     </Thumbnailbox>
                     <ColumnDiv>
                         <Username>{username}</Username>
-                        <Desc>{intro}</Desc>
+                        <Desc edit={edit}>{intro}</Desc>
+                        <InfoInput
+                            label="소개"
+                            margin="dense"
+                            variant="outlined"
+                            value={intro}
+                            onChange={onChangeIntro}
+                            autoComplete="off"
+                            edit={edit}
+                        />
                         <InfoList>
                             <InfoDiv>
-                                <Icon icon={faCalendarAlt} />
+                                <Icon icon={faCalendarAlt}/>
                                 <Info>가입일: {createdAt}</Info>
                             </InfoDiv>
                             <InfoDiv>
-                                <Icon icon={faEnvelope} />
-                                <Site href={`mailto:${email}`}>{email}</Site>
+                                <Icon icon={faEnvelope} edit={edit}/>
+                                <Site href={`mailto:${email}`} edit={edit}>{email}</Site>
+                                <InfoInput
+                                    label="Email"
+                                    margin="dense"
+                                    variant="outlined"
+                                    value={email}
+                                    onChange={onChangeIntro}
+                                    autoComplete="off"
+                                    edit={edit}
+                                />
                             </InfoDiv>
                             <InfoDiv>
-                                <Icon icon={faLink} />
-                                <Site href={site}>{site}</Site>
+                                <Icon icon={faLink} edit={edit}/>
+                                <Site href={site} edit={edit}>{site}</Site>
+                                <InfoInput
+                                    label="웹사이트"
+                                    margin="dense"
+                                    variant="outlined"
+                                    value={site}
+                                    onChange={onChangeIntro}
+                                    autoComplete="off"
+                                    edit={edit}
+                                />
                             </InfoDiv>
                         </InfoList>
                     </ColumnDiv>
+                    <EditButton onClick={()=>{setEdit(!edit)}}>편집</EditButton>
                 </RowDiv>
             </Wrapper>
         </Positioner>
