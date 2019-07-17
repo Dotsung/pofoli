@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import { backendPATH } from './env';
+
 export const write = ({ token, formData }) =>
-  axios.post("http://localhost:4000/api/post/write",
+  axios.post(backendPATH+"/api/post/write",
     formData,
     {
       headers: {
@@ -11,7 +13,7 @@ export const write = ({ token, formData }) =>
   });
 
 export const list = ({token, page}) => 
-  axios.get("http://localhost:4000/api/post/list/"+page,
+  axios.get(backendPATH+"/api/post/list/"+page,
   {
     headers: {
       'token': token
@@ -19,7 +21,7 @@ export const list = ({token, page}) =>
 });
 
 export const userPostList = ({token, username, page}) =>
-  axios.get("http://localhost:4000/api/post/userlist/"+username+'/'+page,
+  axios.get(backendPATH+"/api/post/userlist/"+username+'/'+page,
   {
     headers: {
       'token': token
@@ -27,7 +29,7 @@ export const userPostList = ({token, username, page}) =>
 });
 
 export const heartPostList = ({token, username, page}) =>
-  axios.get("http://localhost:4000/api/post/heartlist/"+username+'/'+page,
+  axios.get(backendPATH+"/api/post/heartlist/"+username+'/'+page,
   {
     headers: {
       'token': token
@@ -35,7 +37,7 @@ export const heartPostList = ({token, username, page}) =>
 });
 
 export const starPostList = ({token, username, page}) =>
-  axios.get("http://localhost:4000/api/post/starlist/"+username+'/'+page,
+  axios.get(backendPATH+"/api/post/starlist/"+username+'/'+page,
   {
     headers: {
       'token': token
@@ -43,7 +45,7 @@ export const starPostList = ({token, username, page}) =>
 });
 
 export const heart = ({token, postid}) =>
-  axios.post("http://localhost:4000/api/post/heart",
+  axios.post(backendPATH+"/api/post/heart",
   {
     postid: postid
   },
@@ -54,7 +56,7 @@ export const heart = ({token, postid}) =>
   });
 
 export const unheart = ({token, postid}) =>
-  axios.post("http://localhost:4000/api/post/unheart",
+  axios.post(backendPATH+"/api/post/unheart",
   {
     postid: postid
   },
@@ -65,7 +67,7 @@ export const unheart = ({token, postid}) =>
   });
 
 export const star = ({token, postid}) =>
-  axios.post("http://localhost:4000/api/post/star",
+  axios.post(backendPATH+"/api/post/star",
   {
     postid: postid
   },
@@ -76,7 +78,7 @@ export const star = ({token, postid}) =>
   });
 
 export const unstar = ({token, postid}) =>
-  axios.post("http://localhost:4000/api/post/unstar",
+  axios.post(backendPATH+"/api/post/unstar",
   {
     postid: postid
   },
@@ -88,7 +90,7 @@ export const unstar = ({token, postid}) =>
 
 
 export const read = ({token, postid}) => 
-  axios.get("http://localhost:4000/api/post/read/"+postid,
+  axios.get(backendPATH+"/api/post/read/"+postid,
   {
     headers: {
       'token': token

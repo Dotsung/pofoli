@@ -13,6 +13,8 @@
 # production
 /build
 
+/src/lib/api/env.js
+
 # misc
 .DS_Store
 .env.local

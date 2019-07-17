@@ -1,10 +1,12 @@
 import axios from "axios";
 
+import { backendPATH } from './env';
+
 export const getProfile = ({ username }) =>
-  axios.get("http://localhost:4000/api/profile/get/"+username);
+  axios.get(backendPATH+"/api/profile/get/"+username);
 
 export const updateThumbnail = ({ token, formData }) => 
-  axios.post("http://localhost:4000/api/profile/updatethumbnail",
+  axios.post(backendPATH+"/api/profile/updatethumbnail",
   formData,
     {
       headers: {

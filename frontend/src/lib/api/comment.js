@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import { backendPATH } from './env';
+
 export const write = ({ token, body, postid }) =>
-  axios.post("http://localhost:4000/api/comment/write",
+  axios.post(backendPATH+"/api/comment/write",
     {
         body: body,
         postid: postid
@@ -13,7 +15,7 @@ export const write = ({ token, body, postid }) =>
 });
 
 export const list = ({token, postid}) => 
-  axios.get("http://localhost:4000/api/comment/list/"+postid,
+  axios.get(backendPATH+"/api/comment/list/"+postid,
   {
     headers: {
       'token': token

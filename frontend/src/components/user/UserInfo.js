@@ -100,7 +100,7 @@ const Info = styled.p`
     margin-left: 5px;
 `
 
-const InfoA = styled.a`
+const Site = styled.a`
     margin: 0;
     margin-left: 5px;
     font-size: 1rem;
@@ -230,11 +230,11 @@ const UserInfo = ({username, currentUsername, token}) => {
                             </InfoDiv>
                             <InfoDiv>
                                 <Icon icon={faEnvelope} />
-                                <InfoA href={`mailto:${email}`}>{email}</InfoA>
+                                <Site href={`mailto:${email}`}>{email}</Site>
                             </InfoDiv>
                             <InfoDiv>
                                 <Icon icon={faLink} />
-                                <InfoA href={site}>{site}</InfoA>
+                                <Site href={site}>{site}</Site>
                             </InfoDiv>
                         </InfoList>
                     </ColumnDiv>
