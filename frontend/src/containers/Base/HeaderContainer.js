@@ -63,10 +63,7 @@ const DropdownItem = styled.button`
     }
 `
 
-const Href = styled(Link)`
-`
-
-const HeaderContainer = ({token, thumbnail}) => {
+const HeaderContainer = ({token, username ,thumbnail}) => {
     const [dropdown, setDropdown] = useState(false);
 
     const User = ({thumbnail}) => {
@@ -74,7 +71,7 @@ const HeaderContainer = ({token, thumbnail}) => {
             return (
                 <>
                 <DropdownMenu dropdown={dropdown?1:0}>
-                    <DropdownItem>프로필</DropdownItem>
+                    <a href={"/user/"+username+"/posts/"}><DropdownItem>프로필</DropdownItem></a>
                     <DropdownItem>로그아웃</DropdownItem>
                 </DropdownMenu>
                     <ProfileThumbnail src={thumbnail} onClick={() => {setDropdown(!dropdown)}}/>
@@ -82,7 +79,7 @@ const HeaderContainer = ({token, thumbnail}) => {
             )
         } else {
             return (
-                <Href to="/auth/signin"><StyledButton>Login</StyledButton></Href>
+                <Link to="/auth/signin"><StyledButton>Login</StyledButton></Link>
             )
         }
     }
@@ -96,5 +93,6 @@ const HeaderContainer = ({token, thumbnail}) => {
 
 export default inject(({ userStore }) => ({
     token: userStore.token,
+    username: userStore.username,
     thumbnail: userStore.thumbnail
 }))(observer(HeaderContainer));
