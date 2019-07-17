@@ -1,5 +1,8 @@
-import React from 'react';
-import { observer, inject } from 'mobx-react'
+import React, { useState } from 'react';
+
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
+
 import oc from 'open-color';
 import Header from 'components/base/Header';
 import styled from 'styled-components';
@@ -38,15 +41,54 @@ const ProfileThumbnail = styled.img`
     border-radius: 50%;
 `
 
+const ProfileThumbnailWrapper = styled.div`
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: ${oc.gray[3]};
+    height: 100%;
+    padding: 0 30px;
+    cursor: pointer;
+`
+
+const DropdownMenu = styled.div`
+    position: absolute;
+    top: 55px;
+    right: 0;
+    display: ${props=>props.dropdown?`flex`:`none`};
+    flex-direction: column;
+    width: 130px;
+    background-color: red;
+`
+
+const DropdownItem = styled.button`
+    width: 130px;
+    height: 35px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    &:hover{
+        background-color: ${oc.indigo[0]};
+    }
+`
+
 const Href = styled(Link)`
 `
 
 const HeaderContainer = ({token, thumbnail}) => {
+    const [dropdown, setDropdown] = useState(false);
+
     const User = ({thumbnail}) => {
         if(thumbnail){
             return (
                 <>
+                <DropdownMenu dropdown={dropdown?1:0}>
+                    <DropdownItem>프로필</DropdownItem>
+                    <DropdownItem>로그아웃</DropdownItem>
+                </DropdownMenu>
+                <ProfileThumbnailWrapper onClick={() => {setDropdown(!dropdown)}}>
                     <ProfileThumbnail src={thumbnail}/>
+                </ProfileThumbnailWrapper>
                 </>
             )
         } else {
@@ -67,4 +109,3 @@ export default inject(({ userStore }) => ({
     token: userStore.token,
     thumbnail: userStore.thumbnail
 }))(observer(HeaderContainer));
-

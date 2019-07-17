@@ -31,7 +31,6 @@ const HeaderContents = styled.div`
     flex-direction: row;
     align-items: center;
 
-    padding-right: 1rem;
     padding-left: 1rem;
 `;
 

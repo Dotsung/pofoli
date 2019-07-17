@@ -96,22 +96,20 @@ const AuthSection = styled.div`
     }
 `
 
-class AuthForm extends React.Component {
-    render(){
-        return (
-            <Wrapper>
-                <GlobalStyle />
-                <IntroSection>
-                    <Mask />
-                    <TitleWrapper>
-                        <ToHome to='/'><Title>Dotia</Title></ToHome>
-                    </TitleWrapper>
-                    <Route path='/auth/signin' component={SignIn} />
-                    <Route path='/auth/signup' component={SignUp} />
-                </IntroSection>
-            </Wrapper>
-        )
-    }
+const AuthForm = () => {
+    return (
+        <Wrapper>
+            <GlobalStyle />
+            <IntroSection>
+                <Mask />
+                <TitleWrapper>
+                    <ToHome to='/'><Title>Dotia</Title></ToHome>
+                </TitleWrapper>
+                <Route path='/auth/signin' component={SignIn} />
+                <Route path='/auth/signup' component={SignUp} />
+            </IntroSection>
+        </Wrapper>
+    )
 }
 
 export default AuthForm;
