@@ -63,8 +63,13 @@ const DropdownItem = styled.button`
     }
 `
 
-const HeaderContainer = ({token, username ,thumbnail}) => {
+const HeaderContainer = ({token, username, Login, thumbnail}) => {
     const [dropdown, setDropdown] = useState(false);
+
+    const onLogout = () => {
+        localStorage.setItem('dotia-token', null);
+        window.location.reload();
+    }
 
     const User = ({thumbnail}) => {
         if(thumbnail){
@@ -72,7 +77,7 @@ const HeaderContainer = ({token, username ,thumbnail}) => {
                 <>
                 <DropdownMenu dropdown={dropdown?1:0}>
                     <a href={"/user/"+username+"/posts/"}><DropdownItem>프로필</DropdownItem></a>
-                    <DropdownItem>로그아웃</DropdownItem>
+                    <DropdownItem onClick={onLogout}>로그아웃</DropdownItem>
                 </DropdownMenu>
                     <ProfileThumbnail src={thumbnail} onClick={() => {setDropdown(!dropdown)}}/>
                 </>
@@ -94,5 +99,6 @@ const HeaderContainer = ({token, username ,thumbnail}) => {
 export default inject(({ userStore }) => ({
     token: userStore.token,
     username: userStore.username,
+    Login: userStore.Login,
     thumbnail: userStore.thumbnail
 }))(observer(HeaderContainer));
