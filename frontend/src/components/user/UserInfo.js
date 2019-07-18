@@ -174,10 +174,42 @@ const EditButton = styled.button`
     &:hover{
         background-color: ${oc.indigo[7]};
     }
+    ${props=>props.edit?`display:none`:``};
+`
+
+const CancelButton = styled.button`
+    border: 1px solid ${oc.indigo[5]};
+    background-color: white;
+    height: 30px;
+    font-size: 1rem;
+    width: 50px;
+    color: ${oc.indigo[5]};
+    cursor: pointer;
+    align-self: flex-end;
+    margin-left: 30px;
+
+    &:hover{
+        border: 1px solid ${oc.indigo[7]};
+        color: ${oc.indigo[7]};
+        background-color: ${oc.indigo[1]};
+    }
+    ${props=>props.edit?``:`display:none`};
 `
 
 const SubmitButton = styled.button`
-
+    border: 1px solid ${oc.indigo[5]};
+    background-color: ${oc.indigo[5]};
+    color: white;
+    height: 30px;
+    font-size: 1rem;
+    width: 50px;
+    margin-left: 10px;
+    align-self: flex-end;
+    cursor: pointer;
+    &:hover{
+        background-color: ${oc.indigo[7]};
+    }
+    ${props=>props.edit?``:`display:none`};
 `
 
 const UserInfo = ({username, currentUsername, token}) => {
@@ -257,7 +289,7 @@ const UserInfo = ({username, currentUsername, token}) => {
                     </Thumbnailbox>
                     <ColumnDiv>
                         <Username>{username}</Username>
-                        <Desc edit={edit}>{intro}</Desc>
+                        <Desc edit={edit?1:0}>{intro}</Desc>
                         <InfoInput
                             label="소개"
                             margin="dense"
@@ -265,7 +297,7 @@ const UserInfo = ({username, currentUsername, token}) => {
                             value={intro}
                             onChange={onChangeIntro}
                             autoComplete="off"
-                            edit={edit}
+                            edit={edit?1:0}
                         />
                         <InfoList>
                             <InfoDiv>
@@ -273,8 +305,8 @@ const UserInfo = ({username, currentUsername, token}) => {
                                 <Info>가입일: {createdAt}</Info>
                             </InfoDiv>
                             <InfoDiv>
-                                <Icon icon={faEnvelope} edit={edit}/>
-                                <Site href={`mailto:${email}`} edit={edit}>{email}</Site>
+                                <Icon icon={faEnvelope} edit={edit?1:0}/>
+                                <Site href={`mailto:${email}`} edit={edit?1:0}>{email}</Site>
                                 <InfoInput
                                     label="Email"
                                     margin="dense"
@@ -282,12 +314,12 @@ const UserInfo = ({username, currentUsername, token}) => {
                                     value={email}
                                     onChange={onChangeIntro}
                                     autoComplete="off"
-                                    edit={edit}
+                                    edit={edit?1:0}
                                 />
                             </InfoDiv>
                             <InfoDiv>
-                                <Icon icon={faLink} edit={edit}/>
-                                <Site href={site} edit={edit}>{site}</Site>
+                                <Icon icon={faLink} edit={edit?1:0}/>
+                                <Site href={site} edit={edit?1:0}>{site}</Site>
                                 <InfoInput
                                     label="웹사이트"
                                     margin="dense"
@@ -295,12 +327,14 @@ const UserInfo = ({username, currentUsername, token}) => {
                                     value={site}
                                     onChange={onChangeIntro}
                                     autoComplete="off"
-                                    edit={edit}
+                                    edit={edit?1:0}
                                 />
                             </InfoDiv>
                         </InfoList>
                     </ColumnDiv>
-                    <EditButton onClick={()=>{setEdit(!edit)}}>편집</EditButton>
+                    <EditButton edit={edit?1:0} onClick={()=>{setEdit(true)}}>편집</EditButton>
+                    <CancelButton edit={edit?1:0} onClick={()=>{setEdit(false)}}>취소</CancelButton>
+                    <SubmitButton edit={edit?1:0}>저장</SubmitButton>
                 </RowDiv>
             </Wrapper>
         </Positioner>
