@@ -1,4 +1,3 @@
-// @flow
 import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
@@ -236,7 +235,7 @@ const CommentsLine = styled.div`
 
 const Stars = styled.div`
     display: flex;
-    color: ${oc.gray[7]}
+    color: ${oc.gray[7]};
     &:hover{
         color: ${oc.yellow[5]};
     }

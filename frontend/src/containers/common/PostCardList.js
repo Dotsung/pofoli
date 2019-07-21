@@ -1,4 +1,3 @@
-// @flow
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import oc from "open-color";
@@ -12,6 +11,7 @@ import { observer } from 'mobx-react-lite';
 import PostCard from "components/common/PostCard";
 import PostContainer from "containers/common/PostContainer";
 import WritePostContainer from 'containers/WritePostContainer';
+import WritePostButton from 'components/common/WritePostButton';
 
 const CardListWrapper = styled.div`
   column-count: 6;
@@ -45,45 +45,21 @@ const LoadMoreButton = styled.button`
   height: 2rem;
 `
 
-const NewPostButton = styled.button`
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  width: 50px;
-  height: 50px;
-  border: none;
-  border-radius: 50%;
-  font-size: 3rem;
-  z-index: 15;
-  display: block;
-  background-color: ${oc.indigo[6]};
-  color: white;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
-  cursor: pointer;
-
-  &:hover{
-    background-color: ${oc.indigo[8]};
-    color: ${oc.gray[3]};
-  }
-  &:focus{
-    outline: 0;
-  }
-`
-
 const NewPostButtonTextWrapper = styled.div`
-  display: block;
-  position: relative;
+  display: flex;
   width: 100%;
   height: 100%;
   margin: 0;
 `
 
 const NewPostButtonText = styled.p`
-  display: block;
-  position: absolute;
-  margin: 0;
-  top: -2px;
-  left: 5px;
+    width: 250px;
+    height: 50px;
+    margin: 0 auto;
+    padding: 0;
+    display: inline-block;
+    line-height: 50px;
+    text-align: center;
 `
 
 const PostCardList = ({postList, loadMore, getList, deleteList, getUserPostList, getHeartPostList, getStarPostList, match}) => {
@@ -142,13 +118,7 @@ const PostCardList = ({postList, loadMore, getList, deleteList, getUserPostList,
         />)
       )}
     </CardListWrapper>
-    <Link to="/write">
-      <NewPostButton>
-        <NewPostButtonTextWrapper>
-          <NewPostButtonText>+</NewPostButtonText>
-        </NewPostButtonTextWrapper>
-      </NewPostButton>
-    </Link>
+    <WritePostButton />
     <LoadMoreButton onClick={loadMore}>Load More</LoadMoreButton>
     </>
   );
