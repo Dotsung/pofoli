@@ -40,7 +40,7 @@ const StyledInput = styled.input`
     margin-top: 0.5rem;
     border: none;
     height: 2.5rem;
-    background-color: ${oc.gray[2]}
+    background-color: ${oc.gray[2]};
     border-radius: 3px;
     font-size: 1rem;
     &::placeholder {

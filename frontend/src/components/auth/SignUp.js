@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, {useState, useReducer} from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
@@ -39,7 +39,7 @@ const StyledInput = styled.input`
     border: none;
     height: 2.5rem;
     width: 100%;
-    background-color: ${oc.gray[2]}
+    background-color: ${oc.gray[2]};
     border-radius: 3px;
     font-size: 1rem;
     &::placeholder {
@@ -72,7 +72,7 @@ const H1 = styled.h1`
 const StyledButton = styled.button`
     border: none;
     height: 2.5rem;
-    background-color: ${oc.gray[7]}
+    background-color: ${oc.gray[7]};
     color: white;
     border-radius: 3px;
     font-size: 1.5rem;
@@ -185,67 +185,36 @@ const ErrMsg = styled.h5`
     color: ${oc.red[8]};
 `
 
-class SignUp extends React.Component {
-    state = {
+function reducer(state, action){
+    return {
+        ...state,
+        [action.name]: action.value
+    };
+}
+
+const SignUp = () => {
+    const [redirect, setRedirect] = useState(false);
+
+    const [state, dispatch] = useReducer(reducer, {
         email: '',
         username: '',
         password: '',
-        confirmPassword: '',
-        emailErrMsg: '', 
-        usernameErrMsg: '', 
-        passwordErrMsg: '', 
-        confirmPasswordErrMsg: '',
-        redirect: false
-    }
+        confirmPassword: ''
+    });
+    const { email, username, password, confirmPassword } = state;
+    
+    const onChange = e => {
+        dispatch(e.target);
+    };
 
-    onChange = (e) => {
-        const { name, value } = e.target; 
-        this.setState({
-            [name]: value,
-            [name+'ErrMsg']: ''
-        });
-    }
-
-    onSubmit = (e) => {
+    const onSubmit = e => {
         e.preventDefault();
-
-        const {email, username, password, confirmPassword } = this.state;
-
-        if(email === ''){
-            this.setState({
-                emailErrMsg: '이메일을 입력해 주세요.'
-            });
-            return;
-        }
-
-        if(username === ''){
-            this.setState({
-                usernameErrMsg: '닉네임을 입력해 주세요.'
-            });
-            return;
-        }
-
-        if(password === ''){
-            this.setState({
-                passwordErrMsg: '비밀번호를 입력해 주세요.'
-            });
-            return;
-        }
-
-        if(confirmPassword === ''){
-            this.setState({
-                confirmPasswordErrMsg: '비밀번호를 한번 더 입력해 주세요.'
-            });
-            return;
-        }
-
-        console.log('통과')
 
         authApi.localRegister({email, username, password})
         .then((result) => {
             console.log(result);
             console.log('성공');
-            this.setState({ redirect: true })
+            setRedirect(true);
         })
         .catch((result) => {
             console.log(result);
@@ -253,60 +222,53 @@ class SignUp extends React.Component {
         });
     }
 
-    render(){
-        const { email, username, password, confirmPassword, redirect, emailErrMsg, usernameErrMsg, passwordErrMsg, confirmPasswordErrMsg } = this.state;
-
-        if(redirect){
-            return <Redirect to='/'/>; 
-        }
-
-        return(
-            <SignUpCard>
-                <FormWrapper>
-                    <H1>회원가입</H1>
-                    <SignUpForm onSubmit={this.onSubmit}>
-                        <LabelWrapper>
-                            <Label>Email</Label>
-                            <StyledInput type="text" name="email" value={email} placeholder="Email" onChange={this.onChange} />
-                            <ErrMsg>{emailErrMsg}</ErrMsg>
-                        </LabelWrapper>
-                        <LabelWrapper>
-                            <Label>닉네임</Label>
-                            <StyledInput type="text" name="username" value={username} placeholder="Username" onChange={this.onChange} />
-                            <ErrMsg>{usernameErrMsg}</ErrMsg>
-                        </LabelWrapper>
-                        <LabelWrapper>
-                            <Label>비밀번호</Label>
-                            <StyledInput type="password" name="password" value={password} placeholder="Password" onChange={this.onChange} />
-                            <ErrMsg>{passwordErrMsg}</ErrMsg>
-                        </LabelWrapper>
-                        <LabelWrapper>
-                            <Label>비밀번호 확인</Label>
-                            <StyledInput type="password" name="confirmPassword" value={confirmPassword} placeholder="Confirm Password" onChange={this.onChange} />
-                            <ErrMsg>{confirmPasswordErrMsg}</ErrMsg>
-                        </LabelWrapper>
-                        <StyledButton>가입하기</StyledButton>
-                    </SignUpForm>
-                    <ToSignIn to='/auth/signin'>계정이 이미 있으신가요?로그인</ToSignIn>
-                    <Separator><Or>or</Or></Separator>
-                    <SocialButtons>
-                        <FaceBookButton>
-                            <Icon icon={faFacebook} />
-                            <H3>Facebook으로 시작하기</H3>
-                        </FaceBookButton>
-                        <TwitterButton>
-                            <Icon icon={faTwitter} />
-                            <H3>Twitter로 시작하기</H3>
-                        </TwitterButton>
-                        <GoogleButton>
-                            <Icon icon={faGoogle} />
-                            <H3>Google로 시작하기</H3>
-                        </GoogleButton>
-                    </SocialButtons>
-                </FormWrapper>
-            </SignUpCard>
-        )
+    if(redirect){
+        return <Redirect to='/'/>; 
     }
+
+    return(
+        <SignUpCard>
+            <FormWrapper>
+                <H1>회원가입</H1>
+                <SignUpForm onSubmit={onSubmit}>
+                    <LabelWrapper>
+                        <Label>Email</Label>
+                        <StyledInput type="text" name="email" value={email} placeholder="Email" onChange={onChange} />
+                    </LabelWrapper>
+                    <LabelWrapper>
+                        <Label>닉네임</Label>
+                        <StyledInput type="text" name="username" value={username} placeholder="Username" onChange={onChange} />
+                    </LabelWrapper>
+                    <LabelWrapper>
+                        <Label>비밀번호</Label>
+                        <StyledInput type="password" name="password" value={password} placeholder="Password" onChange={onChange} />
+                    </LabelWrapper>
+                    <LabelWrapper>
+                        <Label>비밀번호 확인</Label>
+                        <StyledInput type="password" name="confirmPassword" value={confirmPassword} placeholder="Confirm Password" onChange={onChange} />
+                    </LabelWrapper>
+                    <StyledButton>가입하기</StyledButton>
+                </SignUpForm>
+                <ToSignIn to='/auth/signin'>계정이 이미 있으신가요?로그인</ToSignIn>
+                <Separator><Or>or</Or></Separator>
+                <SocialButtons>
+                    <FaceBookButton>
+                        <Icon icon={faFacebook} />
+                        <H3>Facebook으로 시작하기</H3>
+                    </FaceBookButton>
+                    <TwitterButton>
+                        <Icon icon={faTwitter} />
+                        <H3>Twitter로 시작하기</H3>
+                    </TwitterButton>
+                    <GoogleButton>
+                        <Icon icon={faGoogle} />
+                        <H3>Google로 시작하기</H3>
+                    </GoogleButton>
+                </SocialButtons>
+            </FormWrapper>
+        </SignUpCard>
+    )
+    
 }
 
 export default SignUp;
