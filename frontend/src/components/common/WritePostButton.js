@@ -33,7 +33,7 @@ const NewPostButton = styled.button`
 `
 
 const Icon = styled(FontAwesomeIcon)`
-    font-size: 2rem;
+    font-size: 1.5rem;
     display: block;
     margin: auto;
     padding: 0;

@@ -1,8 +1,9 @@
 // @flow
-import React from 'react';
+import React, {useState} from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { observable, action } from 'mobx'
-import { observer, inject } from 'mobx-react'
+import { observable, action, set } from 'mobx'
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import oc from 'open-color';
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -63,7 +64,7 @@ const StyledButton = styled.button`
     margin-top: 1rem;
     border: none;
     height: 2.5rem;
-    background-color: ${oc.gray[7]}
+    background-color: ${oc.gray[7]};
     &:hover{
         background-color: ${oc.gray[8]}
     }
@@ -80,14 +81,14 @@ const Spacer = styled.div`
 const ToSignUp = styled(Link)`
     margin-top: 0.7rem;
     font-size: 1rem;
-    color: ${oc.gray[6]}
+    color: ${oc.gray[6]};
 
     &:visited{
-        color: ${oc.gray[6]}
+        color: ${oc.gray[6]};
     }
 
     &:hover{
-        color: ${oc.gray[7]}
+        color: ${oc.gray[7]};
     }
 `
 
@@ -168,78 +169,73 @@ const H3 = styled.h3`
     font-size: 1.5rem;
 `
 
-@inject('userStore')
-@inject('postListStore')
-@observer
-class SignIn extends React.Component {
-    state = {
-        email: '',
-        password: '',
-        redirect: false
+const SignIn = ({Login, RefreshPostList}) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(false);
+
+    const onChangeEmail = e => {
+        setEmail(e.target.value);
     }
 
-    onChange = (e) => {
-        const { name, value } = e.target; 
-        this.setState({
-            [name]: value
-        });
+    const onChangePassword = e => {
+        setPassword(e.target.value);
     }
 
-    onSubmit = (e) => {
+    const onSubmit = e => {
         e.preventDefault();
-
-        const {email, password} = this.state;
 
         authApi.localLogin({email, password})
         .then((result) => {
             console.log(result);
             console.log('성공');
             localStorage.setItem('dotia-token', result.data.token);
-            this.props.userStore.Login();
-            this.props.postListStore.Login();
-            this.setState({ redirect: true })
+            Login();
+            RefreshPostList();
+            setRedirect(true);
         })
         .catch((result) => {
             console.log(result);
             console.log('실패');
         });
     }
-    render(){
-        const { email, password, redirect } = this.state;
-
-        if(redirect){
-            return <Redirect to='/'/>; 
-        }
-
-        return(
-            <SignInCard>
-                <FormWrapper>
-                    <H1>로그인</H1>
-                    <SignInForm onSubmit={this.onSubmit}>
-                        <StyledInput type="text" name="email" value={email} placeholder="Email" onChange={this.onChange} />
-                        <StyledInput type="password" name="password" value={password} placeholder="Password" onChange={this.onChange} />
-                        <StyledButton>로그인</StyledButton>
-                    </SignInForm>
-                    <ToSignUp to='/auth/signup'>회원이 아니신가요?가입하기</ToSignUp>
-                    <Separator><Or>or</Or></Separator>
-                    <SocialButtons>
-                        <FaceBookButton>
-                            <Icon icon={faFacebook} />
-                            <H3>Facebook 로그인</H3>
-                        </FaceBookButton>
-                        <TwitterButton>
-                            <Icon icon={faTwitter} />
-                            <H3>Twitter 로그인</H3>
-                        </TwitterButton>
-                        <GoogleButton>
-                            <Icon icon={faGoogle} />
-                            <H3>Google 로그인</H3>
-                        </GoogleButton>
-                    </SocialButtons>
-                </FormWrapper>
-            </SignInCard>
-        )
+    
+    if(redirect){
+        return <Redirect to='/'/>; 
     }
+
+    return(
+        <SignInCard>
+            <FormWrapper>
+                <H1>로그인</H1>
+                <SignInForm onSubmit={onSubmit}>
+                    <StyledInput type="text" name="email" value={email} placeholder="Email" onChange={onChangeEmail} />
+                    <StyledInput type="password" name="password" value={password} placeholder="Password" onChange={onChangePassword} />
+                    <StyledButton>로그인</StyledButton>
+                </SignInForm>
+                <ToSignUp to='/auth/signup'>회원이 아니신가요?가입하기</ToSignUp>
+                <Separator><Or>or</Or></Separator>
+                <SocialButtons>
+                    <FaceBookButton>
+                        <Icon icon={faFacebook} />
+                        <H3>Facebook 로그인</H3>
+                    </FaceBookButton>
+                    <TwitterButton>
+                        <Icon icon={faTwitter} />
+                        <H3>Twitter 로그인</H3>
+                    </TwitterButton>
+                    <GoogleButton>
+                        <Icon icon={faGoogle} />
+                        <H3>Google 로그인</H3>
+                    </GoogleButton>
+                </SocialButtons>
+            </FormWrapper>
+        </SignInCard>
+    )
+    
 }
 
-export default SignIn;
+export default inject(({ userStore, postListStore }) => ({
+    Login: userStore.Login,
+    RefreshPostList: postListStore.Login
+}))(observer(SignIn));
