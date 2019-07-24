@@ -324,8 +324,8 @@ const PostCard = ({ token, getPost, heart, unheart, star, unstar, id, title, dat
                         <UserThumbnailMask/>
                     </UserThumbnailPositioner>
                 </UserThumbnailWrapper>
-                <CardTitle>{title}</CardTitle>
                 <CardDate>{date}</CardDate>
+                <CardTitle>{title}</CardTitle>
                 <Icons>
                     { HeartIcon({hearted, hearts, ToggleHeart}) }
                     <Spacer />

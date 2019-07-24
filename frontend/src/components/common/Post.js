@@ -117,10 +117,22 @@ const AuthorThumbnail = styled.img`
     border-radius: 50%;
 `
 
-const AuthorUsername = styled.h3`
+const AuthorUsername = styled(Link)`
+    font-size: 1rem;
+    font-weight:bold;
     margin: 0;
-    color: ${oc.gray[9]};
-    //align-self: flex-end;
+    color: ${oc.gray[7]};
+
+    &:link{
+        text-decoration: none;
+    }
+    &:visited{
+        text-decoration: none;
+    }
+    &:hover{
+        text-decoration: none;
+        color: ${oc.gray[9]};
+    }
 `
 
 const DateWrapper = styled.div`
@@ -209,7 +221,7 @@ const Comments = styled.div`
     &:hover{
         color: ${oc.indigo[5]};
     }
-    color: ${oc.gray[7]}
+    color: ${oc.gray[7]};
     cursor: pointer;
 
     ${
@@ -434,9 +446,11 @@ const Post = ({ token, getPost, heart, unheart, star, unstar, postid, index, his
                     </Header>
                     <Content watchComment={watchComment?1:0}>
                         <DateWrapper>
-                            <AuthorThumbnail src={authorThumbnail} />
+                            <Link to={"/user/"+authorUsername+"/posts/"}>
+                                <AuthorThumbnail src={authorThumbnail} />
+                            </Link>
                             <ColumnWrapper>
-                                <AuthorUsername>{authorUsername}</AuthorUsername>
+                                <AuthorUsername to={"/user/"+authorUsername+"/posts/"}>{authorUsername}</AuthorUsername>
                                 <CreatedAt>{createdAt}</CreatedAt>
                             </ColumnWrapper>
                             <Spacer/>

@@ -81,8 +81,7 @@ const Title = styled.h1`
     z-index: 2;
     font-size: 2rem;
     margin: 0;
-    margin-left: 1rem;
-    margin-top: 0.5rem;
+    margin: 0.5rem 1rem;
 `
 
 const AuthSection = styled.div`

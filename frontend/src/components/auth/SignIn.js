@@ -1,7 +1,6 @@
 // @flow
 import React, {useState} from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
-import { observable, action, set } from 'mobx'
+import styled from 'styled-components';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import oc from 'open-color';
@@ -64,9 +63,9 @@ const StyledButton = styled.button`
     margin-top: 1rem;
     border: none;
     height: 2.5rem;
-    background-color: ${oc.gray[7]};
+    background-color: ${oc.indigo[5]};
     &:hover{
-        background-color: ${oc.gray[8]}
+        background-color: ${oc.indigo[6]};
     }
     color: white;
     border-radius: 3px;
@@ -214,21 +213,6 @@ const SignIn = ({Login, RefreshPostList}) => {
                     <StyledButton>로그인</StyledButton>
                 </SignInForm>
                 <ToSignUp to='/auth/signup'>회원이 아니신가요?가입하기</ToSignUp>
-                <Separator><Or>or</Or></Separator>
-                <SocialButtons>
-                    <FaceBookButton>
-                        <Icon icon={faFacebook} />
-                        <H3>Facebook 로그인</H3>
-                    </FaceBookButton>
-                    <TwitterButton>
-                        <Icon icon={faTwitter} />
-                        <H3>Twitter 로그인</H3>
-                    </TwitterButton>
-                    <GoogleButton>
-                        <Icon icon={faGoogle} />
-                        <H3>Google 로그인</H3>
-                    </GoogleButton>
-                </SocialButtons>
             </FormWrapper>
         </SignInCard>
     )

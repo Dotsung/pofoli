@@ -1,10 +1,10 @@
 // @flow
 import React, {useState, useReducer} from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import * as authApi from 'lib/api/auth';
 import { Redirect } from 'react-router';
 
@@ -72,13 +72,13 @@ const H1 = styled.h1`
 const StyledButton = styled.button`
     border: none;
     height: 2.5rem;
-    background-color: ${oc.gray[7]};
+    background-color: ${oc.indigo[5]};
     color: white;
     border-radius: 3px;
     font-size: 1.5rem;
     cursor: pointer;
     &:hover{
-        background-color: ${oc.gray[8]}
+        background-color: ${oc.indigo[6]};
     }
 `
 
@@ -250,21 +250,6 @@ const SignUp = () => {
                     <StyledButton>가입하기</StyledButton>
                 </SignUpForm>
                 <ToSignIn to='/auth/signin'>계정이 이미 있으신가요?로그인</ToSignIn>
-                <Separator><Or>or</Or></Separator>
-                <SocialButtons>
-                    <FaceBookButton>
-                        <Icon icon={faFacebook} />
-                        <H3>Facebook으로 시작하기</H3>
-                    </FaceBookButton>
-                    <TwitterButton>
-                        <Icon icon={faTwitter} />
-                        <H3>Twitter로 시작하기</H3>
-                    </TwitterButton>
-                    <GoogleButton>
-                        <Icon icon={faGoogle} />
-                        <H3>Google로 시작하기</H3>
-                    </GoogleButton>
-                </SocialButtons>
             </FormWrapper>
         </SignUpCard>
     )
