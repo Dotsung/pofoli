@@ -144,7 +144,7 @@ const UserThumbnailMask = styled.div`
 
 const CardTitle = styled.h3`
     margin: 0px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 `
 
 const CardDate = styled.span`
@@ -153,7 +153,7 @@ const CardDate = styled.span`
 `
 
 const Icons = styled.div`
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     display: flex;
     border-top: 1px solid ${oc.gray[5]};
     padding-top: 1rem;
@@ -202,13 +202,13 @@ const Comments = styled.div`
     &:hover{
         color: ${oc.indigo[5]};
     }
-    color: ${oc.gray[7]}
+    color: ${oc.gray[7]};
     cursor: pointer;
 `
 
 const Stars = styled.div`
     display: flex;
-    color: ${oc.gray[7]}
+    color: ${oc.gray[7]};
     &:hover{
         color: ${oc.yellow[5]};
     }
