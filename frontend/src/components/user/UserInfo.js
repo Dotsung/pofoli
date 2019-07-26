@@ -219,6 +219,10 @@ const UserInfo = ({username, currentUsername, token}) => {
     const [email, setEmail] = useState('');
     const [site, setSite] = useState('');
 
+    const [OIntro, setOIntro] = useState('');
+    const [OEmail, setOEmail] = useState('');
+    const [OSite, setOSite] = useState('');
+
     const [edit, setEdit] = useState(false);
 
     useEffect(() => {
@@ -236,6 +240,10 @@ const UserInfo = ({username, currentUsername, token}) => {
             setEmail(profile.email);
             setSite(profile.site);
             setCreatedAt(dateFormat(new Date(result.data.createdAt),"yyyy-mm-dd"));
+
+            setOIntro(profile.introduction);
+            setOEmail(profile.email);
+            setOSite(profile.site);
         })
         .catch((result) => {
             console.log(result);
@@ -279,6 +287,41 @@ const UserInfo = ({username, currentUsername, token}) => {
         setIntro(e.target.value);
     }
 
+    const onChangeEmail = e => {
+        e.preventDefault();
+        setEmail(e.target.value);
+    }
+
+    const onChangeSite = e => {
+        e.preventDefault();
+        setSite(e.target.value);
+    }
+
+    const onCancel = e => {
+        e.preventDefault();
+        setIntro(OIntro);
+        setEmail(OEmail);
+        setSite(OSite);
+        setEdit(false);
+    }
+
+    const onSubmit = e => {
+        e.preventDefault();
+        profileApi.updateInfo({ 
+            token: token,
+            introduction: intro,
+            email: email,
+            site: site
+        })
+        .then((result) => {
+            console.log(result);
+        })
+        .catch((result) => {
+            console.log(result);
+        });
+        setEdit(false);
+    }
+
     return (
         <Positioner>
             <Wrapper>
@@ -312,7 +355,7 @@ const UserInfo = ({username, currentUsername, token}) => {
                                     margin="dense"
                                     variant="outlined"
                                     value={email}
-                                    onChange={onChangeIntro}
+                                    onChange={onChangeEmail}
                                     autoComplete="off"
                                     edit={edit?1:0}
                                 />
@@ -325,7 +368,7 @@ const UserInfo = ({username, currentUsername, token}) => {
                                     margin="dense"
                                     variant="outlined"
                                     value={site}
-                                    onChange={onChangeIntro}
+                                    onChange={onChangeSite}
                                     autoComplete="off"
                                     edit={edit?1:0}
                                 />
@@ -333,8 +376,8 @@ const UserInfo = ({username, currentUsername, token}) => {
                         </InfoList>
                     </ColumnDiv>
                     <EditButton edit={edit?1:0} onClick={()=>{setEdit(true)}}>편집</EditButton>
-                    <CancelButton edit={edit?1:0} onClick={()=>{setEdit(false)}}>취소</CancelButton>
-                    <SubmitButton edit={edit?1:0}>저장</SubmitButton>
+                    <CancelButton edit={edit?1:0} onClick={onCancel}>취소</CancelButton>
+                    <SubmitButton edit={edit?1:0} onClick={onSubmit}>저장</SubmitButton>
                 </RowDiv>
             </Wrapper>
         </Positioner>

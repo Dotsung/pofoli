@@ -11,7 +11,7 @@ import { observer, inject } from 'mobx-react';
 import * as postApi from 'lib/api/post';
 
 const CardWrapper = styled.div`
-    display: flex;
+    display: flex;  
     flex-direction: column;
     margin-bottom: 10px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
@@ -245,7 +245,7 @@ const Spacer = styled.div`
     flex: 1;
 `
 
-const PostCard = ({ token, getPost, heart, unheart, star, unstar, id, title, date, img, authorThumbnail, authorUsername, index }) =>{
+const PostCard = ({ token, getPost, heart, unheart, star, unstar, id, title, date, img, authorThumbnail, authorUsername, index }) => {
     const { hearted, stared, hearts, views, comments, stars } = getPost({index});
 
     const ToggleHeart = () => {

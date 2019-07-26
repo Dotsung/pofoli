@@ -103,7 +103,7 @@ class CommentInput extends React.Component{
     }
 
     onChange = (e) => {
-        const { name, value } = e.target; 
+        const { name, value } = e.target;
         this.setState({
             [name]: value
         });
@@ -128,7 +128,7 @@ class CommentInput extends React.Component{
             body: ''
         });
 
-        commentApi.write({ 
+        commentApi.write({
             token: this.props.userStore.token,
             body: body,
             postid: this.props.postid
