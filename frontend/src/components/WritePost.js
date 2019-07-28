@@ -33,7 +33,7 @@ const Wrapper = styled.div`
 const Slicer = styled.div`
     height: 1px;
     width: 100%;
-    background-color: ${oc.gray[5]}
+    background-color: ${oc.gray[5]};
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 `
@@ -41,7 +41,7 @@ const Slicer = styled.div`
 const Form = styled.form`
     padding: 10px;
     display: flex;
-    width: 100%
+    width: 100%;
     flex-direction: column;
     box-sizing: border-box;
 `

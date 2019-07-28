@@ -65,10 +65,10 @@ const NewPostButtonText = styled.p`
 `
 
 const LodingSection = styled.div`
-
+  display: ${props=>props.loading?`bolck`:`none`};
 `
 
-const PostCardList = ({postList, loadMore, getList, deleteList, getUserPostList, getHeartPostList, getStarPostList, match}) => {
+const PostCardList = ({postList, state, loadMore, getList, deleteList, getUserPostList, getHeartPostList, getStarPostList, match}) => {
 
   useEffect(() => {
     deleteList();
@@ -124,7 +124,7 @@ const PostCardList = ({postList, loadMore, getList, deleteList, getUserPostList,
         />)
       )}
     </CardListWrapper>
-    <LodingSection>
+    <LodingSection loading={state==="pending"?1:0}>
       <div className="spinner">
         <div className="bounce1"></div>
         <div className="bounce2"></div>
@@ -139,6 +139,7 @@ const PostCardList = ({postList, loadMore, getList, deleteList, getUserPostList,
 
 export default inject(({ postListStore }) => ({
   postList: postListStore.postList,
+  state: postListStore.state,
   loadMore: postListStore.loadMore,
   getList: postListStore.getList,
   deleteList: postListStore.deleteList,
