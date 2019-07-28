@@ -13,6 +13,8 @@ import PostContainer from "containers/common/PostContainer";
 import WritePostContainer from 'containers/WritePostContainer';
 import WritePostButton from 'components/common/WritePostButton';
 
+import './PostCardList.css';
+
 const CardListWrapper = styled.div`
   column-count: 6;
   width: 100%;
@@ -60,6 +62,10 @@ const NewPostButtonText = styled.p`
     display: inline-block;
     line-height: 50px;
     text-align: center;
+`
+
+const LodingSection = styled.div`
+
 `
 
 const PostCardList = ({postList, loadMore, getList, deleteList, getUserPostList, getHeartPostList, getStarPostList, match}) => {
@@ -118,6 +124,13 @@ const PostCardList = ({postList, loadMore, getList, deleteList, getUserPostList,
         />)
       )}
     </CardListWrapper>
+    <LodingSection>
+      <div className="spinner">
+        <div className="bounce1"></div>
+        <div className="bounce2"></div>
+        <div className="bounce3"></div>
+      </div>
+    </LodingSection>
     <WritePostButton />
     <LoadMoreButton onClick={loadMore}>Load More</LoadMoreButton>
     </>
