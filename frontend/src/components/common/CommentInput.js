@@ -49,6 +49,9 @@ const Border = styled.span`
     transform: scaleX(0);
     transform-origin: 0 0;
     transition: all .15s ease;
+    @media (max-width: 700px) {
+        width: 100%;
+    }
 `
 const SubmitButton = styled.button`
     margin-top: 1px;
@@ -63,6 +66,9 @@ const SubmitButton = styled.button`
         props => props.on?
             `border: 2px solid ${oc.indigo[7]};
             background-color: ${oc.indigo[7]};`:``
+    }
+    @media (max-width: 700px) {
+        display: none;
     }
 `
 
@@ -90,6 +96,10 @@ const Input = styled.input`
 
     &:focus ~ ${Border}{
         transform: scaleX(1);
+    }
+    
+    @media (max-width: 700px) {
+        width: 100%;
     }
 `
 

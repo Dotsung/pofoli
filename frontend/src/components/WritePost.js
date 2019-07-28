@@ -122,6 +122,7 @@ const WritePost = ({token, getList}) => {
         formData.append('title', title);
         formData.append('body', body);
         formData.append('image', image);
+        setRedirect(true);
 
         postApi.write({
             token,
@@ -130,8 +131,7 @@ const WritePost = ({token, getList}) => {
         .then((result) => {
             console.log(result);
             console.log('성공');
-            setRedirect(true);
-            getList();
+            window.location.reload();
         })
         .catch((result) => {
             console.log(result);
