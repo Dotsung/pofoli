@@ -13,6 +13,8 @@ import PostContainer from "containers/common/PostContainer";
 import WritePostContainer from "containers/WritePostContainer";
 import WritePostButton from "components/common/WritePostButton";
 
+import "./PostCardList.css";
+
 const CardListWrapper = styled.div`
   /* column-count: 6;
   width: 100%;
@@ -71,6 +73,10 @@ const NewPostButtonText = styled.p`
   text-align: center;
 `;
 
+const LodingSection = styled.div`
+  display: ${props => (props.loading ? `bolck` : `none`)};
+`;
+
 const PostCardList = ({
   postList,
   loadMore,
@@ -79,7 +85,8 @@ const PostCardList = ({
   getUserPostList,
   getHeartPostList,
   getStarPostList,
-  match
+  match,
+  state
 }) => {
   useEffect(() => {
     deleteList();
@@ -148,6 +155,13 @@ const PostCardList = ({
           />
         ))}
       </CardListWrapper>
+      <LodingSection loading={state === "pending" ? 1 : 0}>
+        <div className="spinner">
+          <div className="bounce1" />
+          <div className="bounce2" />
+          <div className="bounce3" />
+        </div>
+      </LodingSection>
       <WritePostButton />
       <LoadMoreButton onClick={loadMore}>Load More</LoadMoreButton>
     </>
@@ -156,6 +170,7 @@ const PostCardList = ({
 
 export default inject(({ postListStore }) => ({
   postList: postListStore.postList,
+  state: postListStore.state,
   loadMore: postListStore.loadMore,
   getList: postListStore.getList,
   deleteList: postListStore.deleteList,

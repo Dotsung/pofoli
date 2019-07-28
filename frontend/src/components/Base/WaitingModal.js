@@ -12,6 +12,10 @@ const Modal = styled.div`
 `;
 
 const WaitingModal = ({ on }) => {
+  if (on === false) {
+    return <></>;
+  }
+
   return <Modal />;
 };
 

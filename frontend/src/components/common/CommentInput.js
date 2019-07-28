@@ -19,6 +19,10 @@ const UserThumbnail = styled.img`
     height: 3rem;
     object-fit: cover;
     border-radius: 50%;
+
+    @media (max-width: 700px) {
+        display: none;
+    }
 `
 
 const Form = styled.form`
@@ -28,6 +32,10 @@ const Form = styled.form`
     width: 100%;
     margin-top: 0.3rem;
     margin-left: 1rem;
+
+    @media (max-width: 700px) {
+        margin-left: 0;
+    }
 `
 
 const Border = styled.span`
@@ -41,6 +49,9 @@ const Border = styled.span`
     transform: scaleX(0);
     transform-origin: 0 0;
     transition: all .15s ease;
+    @media (max-width: 700px) {
+        width: 100%;
+    }
 `
 const SubmitButton = styled.button`
     margin-top: 1px;
@@ -55,6 +66,9 @@ const SubmitButton = styled.button`
         props => props.on?
             `border: 2px solid ${oc.indigo[7]};
             background-color: ${oc.indigo[7]};`:``
+    }
+    @media (max-width: 700px) {
+        display: none;
     }
 `
 
@@ -82,6 +96,10 @@ const Input = styled.input`
 
     &:focus ~ ${Border}{
         transform: scaleX(1);
+    }
+    
+    @media (max-width: 700px) {
+        width: 100%;
     }
 `
 

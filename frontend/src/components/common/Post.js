@@ -93,7 +93,7 @@ const Content = styled.div`
     padding: 20px 30px;
     @media (max-width: 700px) {
         padding: 20px;
-        padding-top: 50px;
+        padding-top: 70px;
     }
     padding-bottom: ${props => props.watchComment?`10px`:`20px`};
 `
