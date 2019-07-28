@@ -19,12 +19,12 @@ class postListStore {
 
   @action.bound
   getList = () => {
+    this.state = "pending";
     postApi.list({token: this.token, page: this.page})
     .then((result) => {
       //console.log('list불러오기 성공');
       this.postList = result.data;
       this.state = "done";
-      this.state = "update";
       //console.log(this.state.data)
     })
     .catch((result) => {
@@ -35,13 +35,13 @@ class postListStore {
 
   @action.bound
   loadMore = () => {
+    this.state = "pending";
     this.page = this.page + 1;
     postApi.list({token: this.token, page: this.page})
     .then((result) => {
         //console.log('list불러오기 성공');
         this.postList = this.postList.concat(result.data);
         this.state = "done";
-        this.state = "update";
         //console.log(this.state.data)
     })
     .catch((result) => {
@@ -52,11 +52,11 @@ class postListStore {
 
   @action.bound
   getUserPostList = ({username}) => {
+    this.state = "pending";
     postApi.userPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
       this.postList = result.data;
       this.state = "done";
-      this.state = "update";
     })
     .catch((result) => {
       console.log('list store err');
@@ -66,11 +66,11 @@ class postListStore {
 
   @action.bound
   getHeartPostList = ({username}) => {
+    this.state = "pending";
     postApi.heartPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
       this.postList = result.data;
       this.state = "done";
-      this.state = "update";
     })
     .catch((result) => {
       console.log('list store err');
@@ -80,11 +80,11 @@ class postListStore {
 
   @action.bound
   getStarPostList = ({username}) => {
+    this.state = "pending";
     postApi.starPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
       this.postList = result.data;
       this.state = "done";
-      this.state = "update";
     })
     .catch((result) => {
       console.log('list store err');
@@ -95,23 +95,6 @@ class postListStore {
   @action.bound
   deleteList = () => {
     this.postList = [];
-  }
-
-  @action.bound
-  loadMore = () => {
-    this.page = this.page + 1;
-    postApi.list({token: this.token, page: this.page})
-    .then((result) => {
-        //console.log('list불러오기 성공');
-        this.postList = this.postList.concat(result.data);
-        this.state = "done";
-        this.state = "update";
-        //console.log(this.state.data)
-    })
-    .catch((result) => {
-        console.log('list store err');
-        console.log(result);
-    });
   }
 
   @action.bound
