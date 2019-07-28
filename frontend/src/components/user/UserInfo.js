@@ -11,8 +11,6 @@ import { faCalendarAlt, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import TextField from '@material-ui/core/TextField';
 import { styled as materialstyled } from '@material-ui/styles';
 
-import WaitingModal from 'components/base/WaitingModal';
-
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
@@ -327,7 +325,6 @@ const UserInfo = ({username, currentUsername, token}) => {
     return (
         <Positioner>
             <Wrapper>
-                <WaitingModal />
                 <RowDiv>
                     <Thumbnailbox>
                         <Thumbnail src={thumbnail} />

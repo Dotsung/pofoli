@@ -19,6 +19,10 @@ const UserThumbnail = styled.img`
     height: 3rem;
     object-fit: cover;
     border-radius: 50%;
+
+    @media (max-width: 700px) {
+        display: none;
+    }
 `
 
 const Form = styled.form`
@@ -28,6 +32,10 @@ const Form = styled.form`
     width: 100%;
     margin-top: 0.3rem;
     margin-left: 1rem;
+
+    @media (max-width: 700px) {
+        margin-left: 0;
+    }
 `
 
 const Border = styled.span`

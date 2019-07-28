@@ -13,6 +13,9 @@ const Wrapper = styled.div`
         return props.watchComment?`display: block`:`display: none`;
     }}
     padding: 5px 30px;
+    @media (max-width: 700px) {
+        padding: 0px 20px;
+    }
 `
 
 const Slicer = styled.div`

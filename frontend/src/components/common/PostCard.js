@@ -1,12 +1,14 @@
 // @flow
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons'
-import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as sheart, faStar as sstar } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as rheart, faComment, faStar as rstar, faEye } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
-import { observer, inject } from 'mobx-react';
+
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 import * as postApi from 'lib/api/post';
 
