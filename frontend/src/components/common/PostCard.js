@@ -158,6 +158,9 @@ const UserThumbnailMask = styled.div`
 const CardTitle = styled.h3`
   margin: 0px;
   font-size: 1.3rem;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const CardDate = styled.span`
@@ -293,6 +296,10 @@ const PostCard = ({
       resizeGridItem(CardEl.current, listRef.current, ContainerEl.current);
     });
   }, []);
+
+  useEffect(() => {
+    resizeGridItem(CardEl.current, listRef.current, ContainerEl.current);
+  })
 
   const { hearted, stared, hearts, views, comments, stars } = getPost({
     index

@@ -129,7 +129,7 @@ export const follow = async (ctx) => {
 
   if(existFollow === null){
     const follow = new Follow({
-      follower: currentUser._id, 
+      follower: currentUser._id,
       followed: followedUser._id
     });
 
