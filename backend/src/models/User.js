@@ -121,10 +121,9 @@ User.methods.generateToken = function() {
 };
 
 User.methods.updateFollowing = function() {
-  console.log('a');
   let user = this;
   return Follow.countDocuments({ follower: user._id }).then(function(count){
-    user.following = count;
+    user.profile.following = count;
 
     return user.save();
   });
@@ -133,7 +132,7 @@ User.methods.updateFollowing = function() {
 User.methods.updateFollower = function() {
   let user = this;
   return Follow.countDocuments({ followed: user._id }).then(function(count){
-    user.follower = count;
+    user.profile.follower = count;
 
     return user.save();
   });
