@@ -120,22 +120,23 @@ User.methods.generateToken = function() {
   return generateToken(payload, "User");
 };
 
-export default mongoose.model("User", User);
-
 User.methods.updateFollowing = function() {
-  var user = this;
+  console.log('a');
+  let user = this;
   return Follow.countDocuments({ follower: user._id }).then(function(count){
-    post.following = count;
+    user.following = count;
 
     return user.save();
   });
 };
 
 User.methods.updateFollower = function() {
-  var user = this;
+  let user = this;
   return Follow.countDocuments({ followed: user._id }).then(function(count){
-    post.follower = count;
+    user.follower = count;
 
     return user.save();
   });
 };
+
+export default mongoose.model("User", User);

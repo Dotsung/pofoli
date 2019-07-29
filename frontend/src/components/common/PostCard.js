@@ -266,7 +266,7 @@ function resizeGridItem(item, grid, container) {
       (item.getBoundingClientRect().height + rowGap) / (rowHeight + rowGap)
     ) + 5;
   container.style.gridRowEnd = "span " + rowSpan;
-  console.log(rowHeight, rowGap, rowSpan, item.getBoundingClientRect().height);
+  //console.log(rowHeight, rowGap, rowSpan, item.getBoundingClientRect().height);
 }
 
 const PostCard = ({
