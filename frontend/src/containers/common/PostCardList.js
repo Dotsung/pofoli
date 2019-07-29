@@ -40,11 +40,11 @@ const CardListWrapper = styled.div`
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
-  overflow-y: hidden;
+  overflow-y: auto;
   display: grid;
   grid-row-gap: 1px;
   grid-column-gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-auto-rows: 1px;
 `;
 
