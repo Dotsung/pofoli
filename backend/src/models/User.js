@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import crypto from "crypto";
+import Follow from './Follow';
 
 // JWT 토큰생성 함수
 import { generateToken } from "jwt/jwt_token";
@@ -120,3 +121,21 @@ User.methods.generateToken = function() {
 };
 
 export default mongoose.model("User", User);
+
+User.methods.updateFollowing = function() {
+  var user = this;
+  return Follow.countDocuments({ follower: user._id }).then(function(count){
+    post.following = count;
+
+    return user.save();
+  });
+};
+
+User.methods.updateFollower = function() {
+  var user = this;
+  return Follow.countDocuments({ followed: user._id }).then(function(count){
+    post.follower = count;
+
+    return user.save();
+  });
+};
