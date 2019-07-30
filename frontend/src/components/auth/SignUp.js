@@ -8,16 +8,19 @@ import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-ic
 import * as authApi from 'lib/api/auth';
 import { Redirect } from 'react-router';
 
+import TextField from '@material-ui/core/TextField';
+
 const SignUpCard = styled.div`
     background-color: white;
     margin: auto;
-    margin-top: 4rem;
-    width: 650px;
+    transform: translateY(-20%);
+    width: 500px;
     z-index: 2;
     @media (max-width: 650px){
         width: 100%;
         height: 100%;
         margin: auto;
+        transform: none;
     }
 `
 
@@ -26,12 +29,19 @@ const FormWrapper = styled.div`
     flex-direction: column;
     text-align: center;
     padding: 3rem;
-    padding-top: 3rem;
+    @media (max-width: 550px){
+        padding: 2rem;
+    }
 `
 
 const SignUpForm = styled.form`
     display: flex;
     flex-direction: column;
+`
+
+const ErrMsg = styled.p`
+    color: ${oc.red[6]};
+    text-align: left;
 `
 
 const StyledInput = styled.input`
@@ -48,37 +58,22 @@ const StyledInput = styled.input`
     }
 `
 
-const LabelWrapper = styled.div`
-    margin-bottom: 35px;
-    position: relative;
-    display: flex;
-    text-align: left;
-`
-
-const Label = styled.h3`
-    position: absolute;
-    margin-right: 1rem;
-    bottom: 25px;
-    left:0;
-    //width: 30%;
-`
-
 const H1 = styled.h1`
     margin: 0;
     margin-bottom: 1rem;
     font-size: 2.5rem;
 `
 
-const StyledButton = styled.button`
+const SubmitButton = styled.button`
     border: none;
+    margin-top: 2rem;
     height: 2.5rem;
-    background-color: ${oc.indigo[5]};
+    background-color: ${oc.indigo[6]};
     color: white;
-    border-radius: 3px;
     font-size: 1.5rem;
     cursor: pointer;
     &:hover{
-        background-color: ${oc.indigo[6]};
+        background-color: ${oc.indigo[8]};
     }
 `
 
@@ -87,7 +82,7 @@ const Spacer = styled.div`
 `
 
 const ToSignIn = styled(Link)`
-    margin-top: 0.7rem;
+    margin-top: 1.5rem;
     font-size: 1rem;
     color: ${oc.gray[6]};
 
@@ -177,14 +172,6 @@ const H3 = styled.h3`
     font-size: 1.5rem;
 `
 
-const ErrMsg = styled.h5`
-    position: absolute;
-    margin: 0;
-    top: 50px;
-    left: 0;
-    color: ${oc.red[8]};
-`
-
 function reducer(state, action){
     return {
         ...state,
@@ -194,6 +181,7 @@ function reducer(state, action){
 
 const SignUp = () => {
     const [redirect, setRedirect] = useState(false);
+    const [errMsg, setErrMsg] = useState('');
 
     const [state, dispatch] = useReducer(reducer, {
         email: '',
@@ -231,23 +219,42 @@ const SignUp = () => {
             <FormWrapper>
                 <H1>회원가입</H1>
                 <SignUpForm onSubmit={onSubmit}>
-                    <LabelWrapper>
-                        <Label>Email</Label>
-                        <StyledInput type="text" name="email" value={email} placeholder="Email" onChange={onChange} />
-                    </LabelWrapper>
-                    <LabelWrapper>
-                        <Label>닉네임</Label>
-                        <StyledInput type="text" name="username" value={username} placeholder="Username" onChange={onChange} />
-                    </LabelWrapper>
-                    <LabelWrapper>
-                        <Label>비밀번호</Label>
-                        <StyledInput type="password" name="password" value={password} placeholder="Password" onChange={onChange} />
-                    </LabelWrapper>
-                    <LabelWrapper>
-                        <Label>비밀번호 확인</Label>
-                        <StyledInput type="password" name="confirmPassword" value={confirmPassword} placeholder="Confirm Password" onChange={onChange} />
-                    </LabelWrapper>
-                    <StyledButton>가입하기</StyledButton>
+                    <ErrMsg>{errMsg}</ErrMsg>
+                    <TextField
+                        required
+                        label="이메일"
+                        name="email"
+                        value={email}
+                        onChange={onChange}
+                        margin="normal"
+                    />
+                    <TextField
+                        required
+                        label="닉네임"
+                        name="username"
+                        value={username}
+                        onChange={onChange}
+                        margin="normal"
+                    />
+                    <TextField
+                        required
+                        label="비밀번호"
+                        name="password"
+                        type="password"
+                        value={password}
+                        onChange={onChange}
+                        margin="normal"
+                    />
+                    <TextField
+                        required
+                        label="비밀번호 확인"
+                        name="confirmPassword"
+                        type="password"
+                        value={confirmPassword}
+                        onChange={onChange}
+                        margin="normal"
+                    />
+                    <SubmitButton>가입하기</SubmitButton>
                 </SignUpForm>
                 <ToSignIn to='/auth/signin'>계정이 이미 있으신가요?로그인</ToSignIn>
             </FormWrapper>

@@ -43,7 +43,9 @@ const FormWrapper = styled.div`
     flex-direction: column;
     text-align: center;
     padding: 3rem;
-    padding-top: 3rem;
+    @media (max-width: 550px){
+        padding: 2rem;
+    }
 `
 
 const SignInForm = styled.form`
@@ -251,6 +253,7 @@ const SignIn = ({Login, RefreshPostList}) => {
                     <TextField
                         error={emailErr}
                         label="Email"
+                        name="email"
                         value={email}
                         onChange={onChangeEmail}
                     />
@@ -258,6 +261,7 @@ const SignIn = ({Login, RefreshPostList}) => {
                         error={passwordErr}
                         label="Password"
                         type="password"
+                        name="password"
                         value={password}
                         onChange={onChangePassword}
                         margin="normal"
