@@ -4,21 +4,27 @@ import styled from 'styled-components';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import oc from 'open-color';
+
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
+
+import { styled as materialStyled } from '@material-ui/styles';
+import TextField from '@material-ui/core/TextField';
+
 import * as authApi from 'lib/api/auth';
 
 const SignInCard = styled.div`
     background-color: white;
     margin: auto;
-    margin-top: 5rem;
+    transform: translateY(-30%);
     width: 500px;
     z-index: 2;
     @media (max-width: 550px){
         width: 100%;
         height: 100%;
         margin: auto;
+        transform: none;
     }
 `
 
@@ -59,16 +65,15 @@ const ButtonWrapper = styled.div`
     display: flex;
 `
 
-const StyledButton = styled.button`
-    margin-top: 1rem;
+const SubmitButton = styled.button`
+    margin-top: 2rem;
     border: none;
     height: 2.5rem;
-    background-color: ${oc.indigo[5]};
+    background-color: ${oc.indigo[6]};
     &:hover{
-        background-color: ${oc.indigo[6]};
+        background-color: ${oc.indigo[8]};
     }
     color: white;
-    border-radius: 3px;
     font-size: 1.5rem;
     cursor: pointer;
 `
@@ -78,7 +83,7 @@ const Spacer = styled.div`
 `
 
 const ToSignUp = styled(Link)`
-    margin-top: 0.7rem;
+    margin-top: 1.5rem;
     font-size: 1rem;
     color: ${oc.gray[6]};
 
@@ -208,9 +213,19 @@ const SignIn = ({Login, RefreshPostList}) => {
             <FormWrapper>
                 <H1>로그인</H1>
                 <SignInForm onSubmit={onSubmit}>
-                    <StyledInput type="text" name="email" value={email} placeholder="Email" onChange={onChangeEmail} />
-                    <StyledInput type="password" name="password" value={password} placeholder="Password" onChange={onChangePassword} />
-                    <StyledButton>로그인</StyledButton>
+                    <TextField
+                        label="Email"
+                        value={email}
+                        onChange={onChangeEmail}
+                    />
+                    <TextField
+                        label="Password"
+                        type="password"
+                        value={password}
+                        onChange={onChangePassword}
+                        margin="normal"
+                    />
+                    <SubmitButton>로그인</SubmitButton>
                 </SignInForm>
                 <ToSignUp to='/auth/signup'>회원이 아니신가요?가입하기</ToSignUp>
             </FormWrapper>
