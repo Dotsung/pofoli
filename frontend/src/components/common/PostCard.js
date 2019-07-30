@@ -69,7 +69,6 @@ const CardContents = styled.div`
   background-color: white;
   width: 100%;
   padding: 1rem;
-  height: 7rem;
   flex: 1;
   box-sizing: border-box;
 `;
