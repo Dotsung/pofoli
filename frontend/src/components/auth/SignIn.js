@@ -5,7 +5,8 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import oc from 'open-color';
 
-import './Signin.css';
+import './Spinner.css';
+
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
@@ -78,7 +79,7 @@ const ButtonWrapper = styled.div`
 `
 
 const SubmitButton = styled.button`
-    margin-top: 2rem;
+    margin-top: 3rem;
     border: none;
     height: 2.5rem;
     background-color: ${oc.indigo[6]};

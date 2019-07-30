@@ -71,7 +71,6 @@ const CardContents = styled.div`
   z-index: 1;
   width: 100%;
   padding: 1rem;
-  height: 7rem;
   flex: 1;
   box-sizing: border-box;
 `;
