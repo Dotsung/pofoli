@@ -9,11 +9,9 @@ import uploadFile from 's3/uploadFile';
 export const localRegister = async (ctx) => {
   const schema = Joi.object().keys({
     email: Joi.string()
-      .email()
       .required(),
     username: Joi.string()
-      .alphanum()
-      .min(4)
+      .min(2)
       .max(15)
       .required(),
     password: Joi.string()
@@ -25,7 +23,7 @@ export const localRegister = async (ctx) => {
 
   // 스키마 검증 실패
   if (result.error) {
-    ctx.status = 400; // 잘못된 요청
+    ctx.status = 400;
     return;
   }
 

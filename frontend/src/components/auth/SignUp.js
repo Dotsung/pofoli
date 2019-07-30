@@ -8,6 +8,8 @@ import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-ic
 import * as authApi from 'lib/api/auth';
 import { Redirect } from 'react-router';
 
+import './Spinner.css';
+
 import TextField from '@material-ui/core/TextField';
 
 const SignUpCard = styled.div`
@@ -23,6 +25,10 @@ const SignUpCard = styled.div`
         transform: none;
     }
 `
+
+const LodingSection = styled.div`
+  display: ${props => (props.loading ? `bolck` : `none`)};
+`;
 
 const FormWrapper = styled.div`
     display: flex;
@@ -66,7 +72,7 @@ const H1 = styled.h1`
 
 const SubmitButton = styled.button`
     border: none;
-    margin-top: 2rem;
+    margin-top: 3rem;
     height: 2.5rem;
     background-color: ${oc.indigo[6]};
     color: white;
@@ -75,6 +81,7 @@ const SubmitButton = styled.button`
     &:hover{
         background-color: ${oc.indigo[8]};
     }
+    ${props=>props.loading?`display:none`:``};
 `
 
 const Spacer = styled.div`
@@ -182,6 +189,12 @@ function reducer(state, action){
 const SignUp = () => {
     const [redirect, setRedirect] = useState(false);
     const [errMsg, setErrMsg] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const [emailErr, setEmailErr] = useState(false);
+    const [usernameErr, setUsernameErr] = useState(false);
+    const [passwordErr, setPasswordErr] = useState(false);
+    const [confirmPasswordErr, setConfirmPasswordErr] = useState(false);
 
     const [state, dispatch] = useReducer(reducer, {
         email: '',
@@ -197,16 +210,52 @@ const SignUp = () => {
 
     const onSubmit = e => {
         e.preventDefault();
+        setErrMsg('');
+        setEmailErr(false);
+        setUsernameErr(false);
+        setPasswordErr(false);
+        setConfirmPasswordErr(false);
+
+        if(username.length < 2 || username.length > 15) {
+            setUsernameErr(true);
+            setErrMsg('닉네임은 2~15글자여야 합니다.');
+            return;
+        } else if (password.length < 6) {
+            setPasswordErr(true);
+            setErrMsg('비밀번호는 6글자 이상이어야 합니다.');
+            return;
+        } else if (password !== confirmPassword) {
+            setPasswordErr(true);
+            setConfirmPasswordErr(true);
+            setErrMsg('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            return;
+        }
+
+        setLoading(true);
 
         authApi.localRegister({email, username, password})
         .then((result) => {
             console.log(result);
-            console.log('성공');
             setRedirect(true);
         })
         .catch((result) => {
-            console.log(result);
-            console.log('실패');
+            // console.log(result.response);
+            // console.log(result.response.status)
+            // console.log(result.response.data);
+            if(result.response.status === 400){
+                setErrMsg('잘못된 입력값입니다.')
+            } else if(result.response.status === 409) {
+                if(result.response.data.key === 'email') {
+                    setEmailErr(true);
+                    setErrMsg('이미 존재하는 이메일입니다.');
+                } else if (result.response.data.key === 'username') {
+                    setUsernameErr(true);
+                    setErrMsg('이미 존재하는 닉네임입니다.');
+                }
+            } else if(result.response.status === 500){
+                setErrMsg('서버 오류');
+            }
+            setLoading(false);
         });
     }
 
@@ -226,6 +275,7 @@ const SignUp = () => {
                         name="email"
                         value={email}
                         onChange={onChange}
+                        error={emailErr}
                         margin="normal"
                     />
                     <TextField
@@ -234,6 +284,7 @@ const SignUp = () => {
                         name="username"
                         value={username}
                         onChange={onChange}
+                        error={usernameErr}
                         margin="normal"
                     />
                     <TextField
@@ -243,6 +294,7 @@ const SignUp = () => {
                         type="password"
                         value={password}
                         onChange={onChange}
+                        error={passwordErr}
                         margin="normal"
                     />
                     <TextField
@@ -252,9 +304,17 @@ const SignUp = () => {
                         type="password"
                         value={confirmPassword}
                         onChange={onChange}
+                        error={confirmPasswordErr}
                         margin="normal"
                     />
-                    <SubmitButton>가입하기</SubmitButton>
+                    <SubmitButton loading={loading?1:0}>가입하기</SubmitButton>
+                    <LodingSection loading={loading?1:0}>
+                        <div className="spinner">
+                        <div className="bounce1" />
+                        <div className="bounce2" />
+                        <div className="bounce3" />
+                        </div>
+                    </LodingSection>
                 </SignUpForm>
                 <ToSignIn to='/auth/signin'>계정이 이미 있으신가요?로그인</ToSignIn>
             </FormWrapper>
