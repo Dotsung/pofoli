@@ -48,7 +48,7 @@ const CardThumbnail = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
-  display: block;
+  display: ${props => (props.complete ? "block" : "none")};
 `;
 
 const Mask = styled.div`
@@ -258,7 +258,8 @@ const Spacer = styled.div`
   flex: 1;
 `;
 
-function resizeGridItem(item, grid, container) {
+function resizeGridItem(item, grid, container, message) {
+  console.log(message);
   const rowHeight = parseInt(
     window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
   );
@@ -291,15 +292,33 @@ const PostCard = ({
   const CardEl = useRef(null);
   const ContainerEl = useRef(null);
 
+  const [complete, setComplete] = useState(false);
+
   useEffect(() => {
-    resizeGridItem(CardEl.current, listRef.current, ContainerEl.current);
+    resizeGridItem(
+      CardEl.current,
+      listRef.current,
+      ContainerEl.current,
+      "First"
+    );
     window.addEventListener("resize", () => {
-      resizeGridItem(CardEl.current, listRef.current, ContainerEl.current);
+      resizeGridItem(
+        CardEl.current,
+        listRef.current,
+        ContainerEl.current,
+        "RESIZE"
+      );
     });
   }, []);
   useEffect(() => {
-    resizeGridItem(CardEl.current, listRef.current, ContainerEl.current);
-  }, [title]);
+    resizeGridItem(
+      CardEl.current,
+      listRef.current,
+      ContainerEl.current,
+      "imageload"
+    );
+  }, [complete]);
+
   const { hearted, stared, hearts, views, comments, stars } = getPost({
     index
   });
@@ -379,13 +398,19 @@ const PostCard = ({
             <CardThumbnail
               src={img}
               onLoad={() => {
-                resizeGridItem(
-                  CardEl.current,
-                  listRef.current,
-                  ContainerEl.current
-                );
+                setComplete(true);
               }}
+              complete={complete}
             />
+            {complete ? (
+              <></>
+            ) : (
+              <div className="spinner">
+                <div className="bounce1" />
+                <div className="bounce2" />
+                <div className="bounce3" />
+              </div>
+            )}
             <Mask />
           </ThumbnailWrapper>
         </Link>
