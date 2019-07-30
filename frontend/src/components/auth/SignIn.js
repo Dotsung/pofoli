@@ -28,6 +28,11 @@ const SignInCard = styled.div`
     }
 `
 
+const ErrMsg = styled.p`
+    color: ${oc.red[6]};
+    text-align: left;
+`
+
 const FormWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -178,16 +183,32 @@ const SignIn = ({Login, RefreshPostList}) => {
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
 
+    const [errMsg, setErrMsg] = useState('');
+    const [emailErr, setEmailErr] = useState(false);
+    const [passwordErr, setPasswordErr] = useState(false);
+
     const onChangeEmail = e => {
         setEmail(e.target.value);
+        setEmailErr(false);
     }
 
     const onChangePassword = e => {
         setPassword(e.target.value);
+        setPasswordErr(false);
     }
 
     const onSubmit = e => {
         e.preventDefault();
+
+        if(email === '') {
+            setErrMsg('이메일을 입력해 주세요.');
+            setEmailErr(true);
+            return;
+        } else if (password === '') {
+            setErrMsg('비밀번호를 입력해 주세요.');
+            setPasswordErr(true);
+            return;
+        }
 
         authApi.localLogin({email, password})
         .then((result) => {
@@ -201,6 +222,7 @@ const SignIn = ({Login, RefreshPostList}) => {
         .catch((result) => {
             console.log(result);
             console.log('실패');
+            setErrMsg('이메일과 비밀번호가 등록된 정보와 일치하지 않습니다.')
         });
     }
     
@@ -213,12 +235,15 @@ const SignIn = ({Login, RefreshPostList}) => {
             <FormWrapper>
                 <H1>로그인</H1>
                 <SignInForm onSubmit={onSubmit}>
+                    <ErrMsg>{errMsg}</ErrMsg>
                     <TextField
+                        error={emailErr}
                         label="Email"
                         value={email}
                         onChange={onChangeEmail}
                     />
                     <TextField
+                        error={passwordErr}
                         label="Password"
                         type="password"
                         value={password}
