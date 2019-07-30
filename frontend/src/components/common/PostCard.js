@@ -1,5 +1,5 @@
 // @flow
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import oc from "open-color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,12 +21,15 @@ import { observer } from "mobx-react-lite";
 import * as postApi from "lib/api/post";
 
 const CardWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
   width: 100%;
   break-inside: avoid;
+  background-color: white;
+`;
+
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ThumbnailWrapper = styled.div`
@@ -66,7 +69,6 @@ const Mask = styled.div`
 const CardContents = styled.div`
   position: relative;
   z-index: 1;
-  background-color: white;
   width: 100%;
   padding: 1rem;
   height: 7rem;
@@ -158,7 +160,7 @@ const UserThumbnailMask = styled.div`
 const CardTitle = styled.h3`
   margin: 0px;
   font-size: 1.3rem;
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
@@ -264,10 +266,9 @@ function resizeGridItem(item, grid, container) {
   const rowGap = parseInt(
     window.getComputedStyle(grid).getPropertyValue("grid-row-gap")
   );
-  const rowSpan =
-    Math.ceil(
-      (item.getBoundingClientRect().height + rowGap) / (rowHeight + rowGap)
-    ) + 5;
+  const rowSpan = Math.ceil(
+    (item.getBoundingClientRect().height + rowGap) / (rowHeight + rowGap)
+  );
   container.style.gridRowEnd = "span " + rowSpan;
   //console.log(rowHeight, rowGap, rowSpan, item.getBoundingClientRect().height);
 }
@@ -290,17 +291,16 @@ const PostCard = ({
 }) => {
   const CardEl = useRef(null);
   const ContainerEl = useRef(null);
+
   useEffect(() => {
     resizeGridItem(CardEl.current, listRef.current, ContainerEl.current);
     window.addEventListener("resize", () => {
       resizeGridItem(CardEl.current, listRef.current, ContainerEl.current);
     });
   }, []);
-
   useEffect(() => {
     resizeGridItem(CardEl.current, listRef.current, ContainerEl.current);
-  })
-
+  }, [title]);
   const { hearted, stared, hearts, views, comments, stars } = getPost({
     index
   });
@@ -366,8 +366,8 @@ const PostCard = ({
   };
 
   return (
-    <div ref={ContainerEl} style={{ gridRowEnd: "span 5" }}>
-      <CardWrapper ref={CardEl}>
+    <CardWrapper ref={ContainerEl} style={{ gridRowEnd: "span 50" }}>
+      <FlexWrapper ref={CardEl}>
         <Link
           to={{
             pathname: "post/" + id,
@@ -415,8 +415,8 @@ const PostCard = ({
             {StarIcon({ stared, stars, ToggleStar })}
           </Icons>
         </CardContents>
-      </CardWrapper>
-    </div>
+      </FlexWrapper>
+    </CardWrapper>
   );
 };
 
