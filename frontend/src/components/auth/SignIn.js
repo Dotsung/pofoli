@@ -5,6 +5,7 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 import oc from 'open-color';
 
+import './Signin.css';
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faGoogle } from "@fortawesome/free-brands-svg-icons"
@@ -27,6 +28,10 @@ const SignInCard = styled.div`
         transform: none;
     }
 `
+
+const LodingSection = styled.div`
+  display: ${props => (props.loading ? `bolck` : `none`)};
+`;
 
 const ErrMsg = styled.p`
     color: ${oc.red[6]};
@@ -81,6 +86,7 @@ const SubmitButton = styled.button`
     color: white;
     font-size: 1.5rem;
     cursor: pointer;
+    ${props=>props.loading?`display:none`:``};
 `
 
 const Spacer = styled.div`
@@ -187,6 +193,8 @@ const SignIn = ({Login, RefreshPostList}) => {
     const [emailErr, setEmailErr] = useState(false);
     const [passwordErr, setPasswordErr] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     const onChangeEmail = e => {
         setEmail(e.target.value);
         setEmailErr(false);
@@ -210,6 +218,9 @@ const SignIn = ({Login, RefreshPostList}) => {
             return;
         }
 
+        setErrMsg('');
+        setLoading(true);
+
         authApi.localLogin({email, password})
         .then((result) => {
             console.log(result);
@@ -222,6 +233,7 @@ const SignIn = ({Login, RefreshPostList}) => {
         .catch((result) => {
             console.log(result);
             console.log('실패');
+            setLoading(false);
             setErrMsg('이메일과 비밀번호가 등록된 정보와 일치하지 않습니다.')
         });
     }
@@ -250,7 +262,14 @@ const SignIn = ({Login, RefreshPostList}) => {
                         onChange={onChangePassword}
                         margin="normal"
                     />
-                    <SubmitButton>로그인</SubmitButton>
+                    <SubmitButton loading={loading?1:0}>로그인</SubmitButton>
+                    <LodingSection loading={loading?1:0}>
+                        <div className="spinner">
+                        <div className="bounce1" />
+                        <div className="bounce2" />
+                        <div className="bounce3" />
+                        </div>
+                    </LodingSection>
                 </SignInForm>
                 <ToSignUp to='/auth/signup'>회원이 아니신가요?가입하기</ToSignUp>
             </FormWrapper>
