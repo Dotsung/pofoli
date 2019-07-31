@@ -209,9 +209,13 @@ export const getFollowing = async (ctx) => {
   // const user = await decodeToken(token);
 
   const { userid } = ctx.params;
-
+console.log(userid)
   try {
-    const followingList = await Follow.find({follower: userid});
+    const followList = await Follow.find({follower: userid});
+    const followingList = await Promise.all(followList.map(async (follow) => { 
+      const user = await User.findById(follow.followed)
+      return user.profile;
+    }));
     ctx.body = followingList;
   } catch (err) {
     ctx.throw(500, err)
@@ -227,7 +231,11 @@ export const getFollower = async (ctx) => {
   console.log(userid);
 
   try {
-    const followerList = await Follow.find({followed: userid});
+    const followList = await Follow.find({followed: userid});
+    const followerList = await Promise.all(followList.map(async (follow) => { 
+      const user = await User.findById(follow.follower)
+      return user.profile;
+    }));
     ctx.body = followerList;
   } catch (err) {
     ctx.throw(500, err)
