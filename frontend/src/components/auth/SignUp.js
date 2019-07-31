@@ -236,6 +236,7 @@ const SignUp = () => {
         authApi.localRegister({email, username, password})
         .then((result) => {
             console.log(result);
+            alert(`가입 완료되었습니다.`);
             setRedirect(true);
         })
         .catch((result) => {
@@ -260,7 +261,7 @@ const SignUp = () => {
     }
 
     if(redirect){
-        return <Redirect to='/'/>; 
+        return <Redirect to='/auth/signin'/>; 
     }
 
     return(

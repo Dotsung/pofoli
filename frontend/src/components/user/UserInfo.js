@@ -101,6 +101,7 @@ const Icon = styled(FontAwesomeIcon)`
 const Info = styled.p`
     margin: 0;
     margin-left: 5px;
+    ${props=>props.edit?`display:none`:``};
 `
 
 const Site = styled.a`
@@ -336,7 +337,6 @@ const UserInfo = ({username, currentUsername, token}) => {
                         <InfoInput
                             label="소개"
                             margin="dense"
-                            variant="outlined"
                             value={intro}
                             onChange={onChangeIntro}
                             autoComplete="off"
@@ -344,16 +344,15 @@ const UserInfo = ({username, currentUsername, token}) => {
                         />
                         <InfoList>
                             <InfoDiv>
-                                <Icon icon={faCalendarAlt}/>
-                                <Info>가입일: {createdAt}</Info>
+                                <Icon icon={faCalendarAlt} edit={edit?1:0}/>
+                                <Info edit={edit?1:0}>가입일: {createdAt}</Info>
                             </InfoDiv>
                             <InfoDiv>
                                 <Icon icon={faEnvelope} edit={edit?1:0}/>
-                                <Site href={`mailto:${email}`} edit={edit?1:0}>{email}</Site>
+                                {email===''?<Site edit={edit?1:0}>등록된 공개 이메일이 없습니다.</Site>:<Site href={`mailto:${email}`} edit={edit?1:0}>{email}</Site>}
                                 <InfoInput
                                     label="Email"
                                     margin="dense"
-                                    variant="outlined"
                                     value={email}
                                     onChange={onChangeEmail}
                                     autoComplete="off"
@@ -362,11 +361,10 @@ const UserInfo = ({username, currentUsername, token}) => {
                             </InfoDiv>
                             <InfoDiv>
                                 <Icon icon={faLink} edit={edit?1:0}/>
-                                <Site href={site} edit={edit?1:0}>{site}</Site>
+                                {site===''?<Site edit={edit?1:0}>등록된 사이트가 없습니다.</Site>:<Site href={site} edit={edit?1:0}>{site}</Site>}
                                 <InfoInput
                                     label="웹사이트"
                                     margin="dense"
-                                    variant="outlined"
                                     value={site}
                                     onChange={onChangeSite}
                                     autoComplete="off"
@@ -375,7 +373,7 @@ const UserInfo = ({username, currentUsername, token}) => {
                             </InfoDiv>
                         </InfoList>
                     </ColumnDiv>
-                    <EditButton edit={edit?1:0} onClick={()=>{setEdit(true)}}>편집</EditButton>
+                    {username===currentUsername?<EditButton edit={edit?1:0} onClick={()=>{setEdit(true)}}>편집</EditButton>:``}
                     <CancelButton edit={edit?1:0} onClick={onCancel}>취소</CancelButton>
                     <SubmitButton edit={edit?1:0} onClick={onSubmit}>저장</SubmitButton>
                 </RowDiv>
