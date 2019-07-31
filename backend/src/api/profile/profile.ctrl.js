@@ -16,6 +16,7 @@ export const getProfile = async (ctx) => {
     }
 
     ctx.body = {
+      id:user._id,
       profile:user.profile,
       createdAt:user.createdAt
     }
@@ -145,5 +146,90 @@ export const follow = async (ctx) => {
     {
       ctx.body = '이미 존재함';
     }
+  }
+}
+
+
+export const unfollow = async (ctx) => {
+  const { token } = ctx.header;
+  const user = await decodeToken(token);
+
+  const { followed } = ctx.request.body;
+
+  if (!user) {
+    ctx.status = 404;
+    return;
+  }
+
+  let currentUser = null;
+  try {
+    currentUser = await User.findById(user)
+  } catch (err) {
+    ctx.throw(500, err);
+  }
+
+  if (!currentUser) {
+    ctx.status = 403;  // 권한 없음
+    return;
+  }
+
+  let followedUser = null;
+  try {
+    followedUser = await User.findByUsername(followed)
+  } catch (err) {
+    ctx.throw(500, err);
+  }
+
+  if (!followedUser) {
+    ctx.status = 403;  // 권한 없음
+    return;
+  }
+
+  const existFollow = await Follow.findOne({ follower: currentUser._id, followed: followedUser._id });
+
+  if(existFollow){
+    try {
+      await existFollow.remove()
+      const newCurrentUser = await currentUser.updateFollowing();
+      const newFollowedUser = await followedUser.updateFollower();
+      ctx.body = newCurrentUser;
+    } catch (err) {
+      ctx.throw(500, err)
+    }
+  } else {
+    {
+      ctx.body = '존재하지 않음';
+    }
+  }
+}
+
+
+export const getFollowing = async (ctx) => {
+  // const { token } = ctx.header;
+  // const user = await decodeToken(token);
+
+  const { userid } = ctx.params;
+
+  try {
+    const followingList = await Follow.find({follower: userid});
+    ctx.body = followingList;
+  } catch (err) {
+    ctx.throw(500, err)
+  }
+}
+
+export const getFollower = async (ctx) => {
+  // const { token } = ctx.header;
+  // const user = await decodeToken(token);
+
+  const { userid } = ctx.params;
+
+  console.log(userid);
+
+  try {
+    const followerList = await Follow.find({followed: userid});
+    ctx.body = followerList;
+  } catch (err) {
+    ctx.throw(500, err)
   }
 }
