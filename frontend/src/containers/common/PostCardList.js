@@ -4,6 +4,7 @@ import oc from "open-color";
 import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import dateFormat from "dateformat";
+import Masonry from "react-masonry-component";
 
 import { inject } from "mobx-react";
 import { observer } from "mobx-react-lite";
@@ -16,34 +17,10 @@ import WritePostButton from "components/common/WritePostButton";
 import "./PostCardList.css";
 
 const CardListWrapper = styled.div`
-  /* column-count: 6;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
   overflow-y: hidden;
-
-  @media (max-width: 1920px) {
-    column-count: 5;
-  }
-  @media (max-width: 1600px) {
-    column-count: 4;
-  }
-  @media (max-width: 1200px) {
-    column-count: 3;
-  }
-  @media (max-width: 900px) {
-    column-count: 2;
-  }
-  @media (max-width: 700px) {
-    column-count: 1;
-  } */
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-  display: grid;
-  grid-gap: 10px;
-  grid-auto-rows: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
 `;
 
 const LoadMoreButton = styled.button`
@@ -124,13 +101,18 @@ const PostCardList = ({
     }
   };
 
-  const CardListEl = useRef(null);
   return (
     <>
       <Route path="/post/:postid" component={PostContainer} />
       {NavRoute()}
       <Route path="/write" component={WritePostContainer} />
-      <CardListWrapper ref={CardListEl}>
+      <Masonry // default ''
+        elementType={"div"} // default 'div'
+        options={{ transitionDuration: 0, isFitWidth: true }} // default {}
+        style={{
+          margin: "0 auto"
+        }}
+      >
         {postList.map((card, index) => (
           <PostCard
             id={card._id}
@@ -149,10 +131,9 @@ const PostCardList = ({
             comments={card.comments}
             stars={card.stars}
             key={index}
-            listRef={CardListEl}
           />
         ))}
-      </CardListWrapper>
+      </Masonry>
       <LodingSection loading={state === "pending" ? 1 : 0}>
         <div className="spinner">
           <div className="bounce1" />

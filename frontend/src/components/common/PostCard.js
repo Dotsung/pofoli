@@ -21,15 +21,13 @@ import { observer } from "mobx-react-lite";
 import * as postApi from "lib/api/post";
 
 const CardWrapper = styled.div`
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  break-inside: avoid;
-  background-color: white;
-`;
-
-const FlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+  width: 310px;
+  break-inside: avoid;
 `;
 
 const ThumbnailWrapper = styled.div`
@@ -48,7 +46,7 @@ const CardThumbnail = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
-  display: ${props => (props.complete ? "block" : "none")};
+  display: block;
 `;
 
 const Mask = styled.div`
@@ -60,7 +58,6 @@ const Mask = styled.div`
   background: rgba(0, 0, 0, 0.25);
   opacity: 0;
   transition: 0.125s all ease-in;
-
   &:hover {
     opacity: 1;
   }
@@ -69,8 +66,10 @@ const Mask = styled.div`
 const CardContents = styled.div`
   position: relative;
   z-index: 1;
+  background-color: white;
   width: 100%;
   padding: 1rem;
+  height: 7rem;
   flex: 1;
   box-sizing: border-box;
 `;
@@ -85,7 +84,6 @@ const UserProfile = styled.div`
   width: 10rem;
   margin: 0 auto 10px;
   animation: fadein 0.5s;
-
   @keyframes fadein {
     from {
       opacity: 0;
@@ -118,7 +116,6 @@ const UserThumbnailWrapper = styled.a`
   justify-content: center;
   transform: translateY(-50%);
   display: felx;
-
   &:hover ${UserProfile} {
     // display: inline-block;
   }
@@ -146,11 +143,9 @@ const UserThumbnailMask = styled.div`
   width: 3.75rem;
   height: 3.75rem;
   border-radius: 50%;
-
   background: rgba(0, 0, 0, 0.25);
   opacity: 0;
   transition: 0.125s all ease-in;
-
   &:hover {
     opacity: 1;
   }
@@ -201,7 +196,6 @@ const Hearts = styled.div`
   }
   color: ${oc.gray[7]};
   cursor: pointer;
-
   ${props => {
     return props.hearted ? `color: ${oc.red[6]}` : ``;
   }}
@@ -244,7 +238,6 @@ const H5 = styled.h5`
   font-size: 1.1rem;
   line-height: 1.3rem;
   font-weight: 600;
-
   // 스크롤 방지
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -257,21 +250,6 @@ const H5 = styled.h5`
 const Spacer = styled.div`
   flex: 1;
 `;
-
-function resizeGridItem(item, grid, container, message) {
-  console.log(message);
-  const rowHeight = parseInt(
-    window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
-  );
-  const rowGap = parseInt(
-    window.getComputedStyle(grid).getPropertyValue("grid-row-gap")
-  );
-  const rowSpan = Math.ceil(
-    (item.getBoundingClientRect().height + rowGap) / (rowHeight + rowGap)
-  );
-  container.style.gridRowEnd = "span " + rowSpan;
-  //console.log(rowHeight, rowGap, rowSpan, item.getBoundingClientRect().height);
-}
 
 const PostCard = ({
   token,
@@ -289,39 +267,11 @@ const PostCard = ({
   index,
   listRef
 }) => {
-  const CardEl = useRef(null);
-  const ContainerEl = useRef(null);
-
-  const [complete, setComplete] = useState(false);
-
-  useEffect(() => {
-    resizeGridItem(
-      CardEl.current,
-      listRef.current,
-      ContainerEl.current,
-      "First"
-    );
-    window.addEventListener("resize", () => {
-      resizeGridItem(
-        CardEl.current,
-        listRef.current,
-        ContainerEl.current,
-        "RESIZE"
-      );
-    });
-  }, []);
-  useEffect(() => {
-    resizeGridItem(
-      CardEl.current,
-      listRef.current,
-      ContainerEl.current,
-      "imageload"
-    );
-  }, [complete]);
-
   const { hearted, stared, hearts, views, comments, stars } = getPost({
     index
   });
+
+  const [complete, setComplete] = useState(false);
 
   const ToggleHeart = () => {
     if (hearted) {
@@ -384,62 +334,60 @@ const PostCard = ({
   };
 
   return (
-    <CardWrapper ref={ContainerEl} style={{ gridRowEnd: "span 50" }}>
-      <FlexWrapper ref={CardEl}>
-        <Link
-          to={{
-            pathname: "post/" + id,
-            state: {
-              index: index
-            }
-          }}
-        >
-          <ThumbnailWrapper>
-            <CardThumbnail
-              src={img}
-              onLoad={() => {
-                setComplete(true);
-              }}
-              complete={complete}
-            />
-            {complete ? (
-              <></>
-            ) : (
-              <div className="spinner">
-                <div className="bounce1" />
-                <div className="bounce2" />
-                <div className="bounce3" />
-              </div>
-            )}
-            <Mask />
-          </ThumbnailWrapper>
-        </Link>
-        <CardContents>
-          <UserThumbnailWrapper href={"/user/" + authorUsername + "/posts/"}>
-            <UserThumbnailPositioner>
-              <UserThumbnail src={authorThumbnail} />
-              <UserThumbnailMask />
-            </UserThumbnailPositioner>
-          </UserThumbnailWrapper>
-          <CardDate>{date}</CardDate>
-          <CardTitle>{title}</CardTitle>
-          <Icons>
-            {HeartIcon({ hearted, hearts, ToggleHeart })}
-            <Spacer />
-            <Views>
-              <Icon icon={faEye} />
-              <H5>{views}</H5>
-            </Views>
-            <Spacer />
-            <Comments>
-              <Icon icon={faComment} />
-              <H5>{comments}</H5>
-            </Comments>
-            <Spacer />
-            {StarIcon({ stared, stars, ToggleStar })}
-          </Icons>
-        </CardContents>
-      </FlexWrapper>
+    <CardWrapper>
+      <Link
+        to={{
+          pathname: "post/" + id,
+          state: {
+            index: index
+          }
+        }}
+      >
+        <ThumbnailWrapper>
+          <CardThumbnail
+            src={img}
+            onLoad={() => {
+              setComplete(true);
+            }}
+            complete={complete}
+          />
+          {complete ? (
+            <></>
+          ) : (
+            <div className="spinner">
+              <div className="bounce1" />
+              <div className="bounce2" />
+              <div className="bounce3" />
+            </div>
+          )}
+          <Mask />
+        </ThumbnailWrapper>
+      </Link>
+      <CardContents>
+        <UserThumbnailWrapper href={"/user/" + authorUsername + "/posts/"}>
+          <UserThumbnailPositioner>
+            <UserThumbnail src={authorThumbnail} />
+            <UserThumbnailMask />
+          </UserThumbnailPositioner>
+        </UserThumbnailWrapper>
+        <CardDate>{date}</CardDate>
+        <CardTitle>{title}</CardTitle>
+        <Icons>
+          {HeartIcon({ hearted, hearts, ToggleHeart })}
+          <Spacer />
+          <Views>
+            <Icon icon={faEye} />
+            <H5>{views}</H5>
+          </Views>
+          <Spacer />
+          <Comments>
+            <Icon icon={faComment} />
+            <H5>{comments}</H5>
+          </Comments>
+          <Spacer />
+          {StarIcon({ stared, stars, ToggleStar })}
+        </Icons>
+      </CardContents>
     </CardWrapper>
   );
 };
