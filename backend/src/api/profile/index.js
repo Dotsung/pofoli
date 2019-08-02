@@ -12,7 +12,7 @@ profile.post('/updatethumbnail', profileCtrl.updateUserThumbnail);
 profile.post('/updateinfo', profileCtrl.updateUserInfo);
 profile.post('/follow', profileCtrl.follow);
 profile.post('/unfollow', profileCtrl.unfollow);
-profile.get('/getfollowing/:userid', profileCtrl.getFollowing);
-profile.get('/getfollower/:userid', profileCtrl.getFollower);
+profile.get('/getfollowing/:username', profileCtrl.getFollowing);
+profile.get('/getfollower/:username', profileCtrl.getFollower);
 
 export default profile

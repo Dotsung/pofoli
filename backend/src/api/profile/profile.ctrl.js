@@ -208,10 +208,11 @@ export const getFollowing = async (ctx) => {
   // const { token } = ctx.header;
   // const user = await decodeToken(token);
 
-  const { userid } = ctx.params;
-console.log(userid)
+  const { username } = ctx.params;
+  const user = await User.findByUsername(username);
+  
   try {
-    const followList = await Follow.find({follower: userid});
+    const followList = await Follow.find({follower: user._id});
     const followingList = await Promise.all(followList.map(async (follow) => { 
       const user = await User.findById(follow.followed)
       return user.profile;
@@ -226,12 +227,11 @@ export const getFollower = async (ctx) => {
   // const { token } = ctx.header;
   // const user = await decodeToken(token);
 
-  const { userid } = ctx.params;
-
-  console.log(userid);
+  const { username } = ctx.params;
+  const user = await User.findByUsername(username);
 
   try {
-    const followList = await Follow.find({followed: userid});
+    const followList = await Follow.find({followed: user._id});
     const followerList = await Promise.all(followList.map(async (follow) => { 
       const user = await User.findById(follow.follower)
       return user.profile;
