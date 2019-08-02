@@ -1,10 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import oc from 'open-color';
 
 const Padding = styled.div`
     width: 33%;
     padding: 10px;
     box-sizing: border-box;
+
+    @media (max-width:1200px) {
+        width: 50%;
+    }
+    @media (max-width:700px) {
+        width: 100%;
+        padding-bottom: 0;
+    }
 `
 
 const WhiteBox = styled.div`
@@ -20,13 +29,13 @@ const Wrapper = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    padding: 1.5rem;
+    padding: 1rem;
     box-sizing: border-box;
 `
 
 const Thumbnail = styled.img`
-    width: 4.5rem;
-    height: 4.5rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
 `
 
@@ -45,23 +54,22 @@ const Username = styled.h3`
 `
 
 const Intro = styled.span`
-    display: -webkit-box;
     margin: 0;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: ${oc.gray[7]};
 `
 
-const UserCard = () => {
+const UserCard = ({thumbnail, username, intro}) => {
     return (
         <Padding>
             <WhiteBox>
                 <Wrapper>
-                    <Thumbnail src="https://dotia-files.s3.ap-northeast-2.amazonaws.com/5d10d4b61cafd92c8c6b641e49e1fda64733cc87b30df17172a07c6c.gif"/>
+                    <Thumbnail src={thumbnail}/>
                     <Info>
-                        <Username>Dotsung</Username>
-                        <Intro>HI, I'm dotsung.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse c</Intro>
+                        <Username>{username}</Username>
+                        <Intro>{intro}</Intro>
                     </Info>
                 </Wrapper>
             </WhiteBox>

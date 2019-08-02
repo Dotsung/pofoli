@@ -10,6 +10,10 @@ const Wrapper = styled.div`
     flex-wrap: wrap;
     padding: 10px;
     box-sizing: border-box;
+
+    @media (max-width:700px) {
+        padding:0;
+    }
 `
 
 const FollowingList = ({match}) => {
@@ -28,11 +32,14 @@ const FollowingList = ({match}) => {
     
     return (
         <Wrapper>
-            <UserCard />
-            <UserCard />
-            <UserCard />
-            <UserCard />
-            <UserCard />
+            { followingList.map((user, idx) => 
+                <UserCard
+                    thumbnail={user.thumbnail}
+                    username={user.username}
+                    intro={user.introduction}
+                    key={idx}
+                />    
+            )}
         </Wrapper>
     );
 };
