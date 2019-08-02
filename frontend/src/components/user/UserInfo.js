@@ -128,6 +128,7 @@ const Desc = styled.p`
 
 const Thumbnailbox = styled.div`
     position: relative;
+    width: 96px;
 `
 
 const Filebox = styled.div`

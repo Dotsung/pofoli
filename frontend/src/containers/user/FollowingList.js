@@ -3,8 +3,13 @@ import styled from 'styled-components';
 
 import * as profileApi from 'lib/api/profile';
 
+import UserCard from 'components/user/UserCard';
+
 const Wrapper = styled.div`
     display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    box-sizing: border-box;
 `
 
 const FollowingList = ({match}) => {
@@ -22,9 +27,13 @@ const FollowingList = ({match}) => {
     },[])
     
     return (
-        <>
-        following
-        </>
+        <Wrapper>
+            <UserCard />
+            <UserCard />
+            <UserCard />
+            <UserCard />
+            <UserCard />
+        </Wrapper>
     );
 };
 
