@@ -27,3 +27,29 @@ export const updateInfo = ({ token, introduction, email, site }) =>
         'token': token
   }
 });
+
+export const follow = ({ token, followed }) => 
+  axios.post(backendPATH+"/api/profile/follow",
+  {
+    followed: followed
+  },
+  {
+    headers: {
+        'token': token
+  }
+});
+
+export const unfollow = ({ token, followed }) => 
+  axios.post(backendPATH+"/api/profile/unfollow",
+  {
+    followed: followed
+  },
+  {
+    headers: {
+        'token': token
+  }
+});
+
+export const getFollowing = ({ username }) => axios.get(backendPATH+"/api/profile/getfollowing/"+username);
+
+export const getFollower = ({ username }) => axios.get(backendPATH+"/api/profile/getfollower/"+username);
