@@ -110,7 +110,8 @@ const PostCardList = ({
         elementType={"div"} // default 'div'
         options={{ transitionDuration: 0, isFitWidth: true }} // default {}
         style={{
-          margin: "0 auto"
+          margin: "0 auto",
+          paddingTop: "10px"
         }}
       >
         {postList.map((card, index) => (
