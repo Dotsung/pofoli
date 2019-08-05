@@ -7,7 +7,10 @@
     "@koa/cors": "^3.0.0",
     "async-busboy": "^0.7.0",
     "aws-sdk": "^2.458.0",
-    "cloudinary": "^1.14.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-register": "^6.26.0",
     "dotenv": "^7.0.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
@@ -27,6 +30,7 @@
     "nodemon": "^1.18.11"
   },
   "scripts": {
-    "start": "cross-env NODE_PATH=src nodemon --exec babel-node src/app.js --config nodemon.json"
+    "start": "NODE_PATH=src babel-node src/app.js",
+    "dev": "cross-env NODE_PATH=src nodemon --exec babel-node src/app.js --config nodemon.json"
   }
 }

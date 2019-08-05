@@ -20,7 +20,6 @@ const CardListWrapper = styled.div`
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
-  overflow-y: hidden;
 `;
 
 const LoadMoreButton = styled.button`
@@ -106,44 +105,45 @@ const PostCardList = ({
       <Route path="/post/:postid" component={PostContainer} />
       {NavRoute()}
       <Route path="/write" component={WritePostContainer} />
-      <Masonry // default ''
-        elementType={"div"} // default 'div'
-        options={{ transitionDuration: 0, isFitWidth: true }} // default {}
-        style={{
-          margin: "0 auto",
-          paddingTop: "10px"
-        }}
-      >
-        {postList.map((card, index) => (
-          <PostCard
-            id={card._id}
-            index={index}
-            title={card.title}
-            date={dateFormat(new Date(card.createdAt), "yyyy.mm.dd")}
-            author={card.author}
-            body={card.body}
-            img={card.image}
-            authorThumbnail={card.authorThumbnail}
-            authorUsername={card.authorUsername}
-            hearted={card.hearted}
-            stared={card.stared}
-            hearts={card.hearts}
-            views={card.views}
-            comments={card.comments}
-            stars={card.stars}
-            key={index}
-          />
-        ))}
-      </Masonry>
-      <LodingSection loading={state === "pending" ? 1 : 0}>
-        <div className="spinner">
-          <div className="bounce1" />
-          <div className="bounce2" />
-          <div className="bounce3" />
-        </div>
-      </LodingSection>
-      <WritePostButton />
-      <LoadMoreButton onClick={loadMore}>Load More</LoadMoreButton>
+      <CardListWrapper>
+        <Masonry // default ''
+          elementType={"div"} // default 'div'
+          options={{ transitionDuration: 0, isFitWidth: true }} // default {}
+          style={{
+            margin: "0 auto"
+          }}
+        >
+          {postList.map((card, index) => (
+            <PostCard
+              id={card._id}
+              index={index}
+              title={card.title}
+              date={dateFormat(new Date(card.createdAt), "yyyy.mm.dd")}
+              author={card.author}
+              body={card.body}
+              img={card.image}
+              authorThumbnail={card.authorThumbnail}
+              authorUsername={card.authorUsername}
+              hearted={card.hearted}
+              stared={card.stared}
+              hearts={card.hearts}
+              views={card.views}
+              comments={card.comments}
+              stars={card.stars}
+              key={index}
+            />
+          ))}
+        </Masonry>
+        <LodingSection loading={state === "pending" ? 1 : 0}>
+          <div className="spinner">
+            <div className="bounce1" />
+            <div className="bounce2" />
+            <div className="bounce3" />
+          </div>
+        </LodingSection>
+        <WritePostButton />
+        <LoadMoreButton onClick={loadMore}>Load More</LoadMoreButton>
+      </CardListWrapper>
     </>
   );
 };

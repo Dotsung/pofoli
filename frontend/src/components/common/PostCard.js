@@ -26,7 +26,7 @@ const CardWrapper = styled.div`
   margin-bottom: 10px;
   margin-left: 10px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
-  width: 310px;
+  width: 300px;
   break-inside: avoid;
 `;
 

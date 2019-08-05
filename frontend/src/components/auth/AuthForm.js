@@ -37,7 +37,7 @@ const IntroSection = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(${Img1});
+    background-color: ${oc.indigo[4]};
     background-repeat: no-repeat;
     background-size: 100%;
     display: flex;

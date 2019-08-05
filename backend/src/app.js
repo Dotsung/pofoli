@@ -1,4 +1,4 @@
-import { config } from 'dotenv'
+require('dotenv').config()
 
 // Koa Server 모듈
 import Koa from 'koa'
@@ -15,7 +15,6 @@ import api from './api';
 import mongoose from 'mongoose'
 
 // Dotenv 설정파일 사용 (/.env)
-config()
 
 // 서버, 라우터, Process.env 레퍼런스 작성
 const app = new Koa()
