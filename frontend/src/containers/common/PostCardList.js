@@ -57,8 +57,11 @@ const PostCardList = ({
   getList,
   deleteList,
   getUserPostList,
+  loadMoreUserPost,
   getHeartPostList,
+  loadMoreHeartPost,
   getStarPostList,
+  loadMoreStarPost,
   match,
   state
 }) => {
@@ -99,6 +102,26 @@ const PostCardList = ({
       );
     }
   };
+
+  const getLoadMore = () => {
+    if (match) {
+      switch (match.params.category) {
+        case "posts":
+          loadMoreUserPost({ username: match.params.username });
+          break;
+        case "hearts":
+          loadMoreHeartPost({ username: match.params.username });
+          break;
+        case "stars":
+          loadMoreStarPost({ username: match.params.username });
+          break;
+        default:
+          break;
+      }
+    } else {
+      loadMore();
+    }
+  }
 
   return (
     <>
@@ -142,7 +165,7 @@ const PostCardList = ({
           </div>
         </LodingSection>
         <WritePostButton />
-        <LoadMoreButton onClick={loadMore}>Load More</LoadMoreButton>
+        <LoadMoreButton onClick={getLoadMore}>Load More</LoadMoreButton>
       </CardListWrapper>
     </>
   );
@@ -155,6 +178,9 @@ export default inject(({ postListStore }) => ({
   getList: postListStore.getList,
   deleteList: postListStore.deleteList,
   getUserPostList: postListStore.getUserPostList,
+  loadMoreUserPost: postListStore.loadMoreUserPost,
   getHeartPostList: postListStore.getHeartPostList,
-  getStarPostList: postListStore.getStarPostList
+  loadMoreHeartPost: postListStore.loadMoreHeartPost,
+  getStarPostList: postListStore.getStarPostList,
+  loadMoreStarPost: postListStore.loadMoreStarPost,
 }))(observer(PostCardList));

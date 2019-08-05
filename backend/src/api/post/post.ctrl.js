@@ -139,9 +139,6 @@ exports.list = async (ctx) => {
                                 .sort({_id: -1})
                                 .limit(15)
                                 .skip((page - 1) * 15).exec()
-      const lastpage = await Post.countDocuments().exec
-  
-      ctx.set('last-page', Math.ceil(lastpage / 10))
       ctx.body = postlist
     } catch (err) {
       ctx.throw(500, err)

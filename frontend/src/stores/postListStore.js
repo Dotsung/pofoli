@@ -20,6 +20,7 @@ class postListStore {
   @action.bound
   getList = () => {
     this.state = "pending";
+    this.page = 1;
     postApi.list({token: this.token, page: this.page})
     .then((result) => {
       //console.log('list불러오기 성공');
@@ -50,9 +51,61 @@ class postListStore {
     });
   }
 
+@action.bound
+loadMoreUserPost = ({username}) => {
+  this.state = "pending";
+  this.page = this.page + 1;
+  postApi.userPostList({token: this.token, username:username, page: this.page})
+  .then((result) => {
+      //console.log('list불러오기 성공');
+      this.postList = this.postList.concat(result.data);
+      this.state = "done";
+      //console.log(this.state.data)
+  })
+  .catch((result) => {
+      console.log('list store err');
+      console.log(result);
+  });
+}
+
+@action.bound
+loadMoreHeartPost = ({username}) => {
+  this.state = "pending";
+  this.page = this.page + 1;
+  postApi.heartPostList({token: this.token, username:username, page: this.page})
+  .then((result) => {
+      //console.log('list불러오기 성공');
+      this.postList = this.postList.concat(result.data);
+      this.state = "done";
+      //console.log(this.state.data)
+  })
+  .catch((result) => {
+      console.log('list store err');
+      console.log(result);
+  });
+}
+
+@action.bound
+loadMoreStarPost = ({username}) => {
+  this.state = "pending";
+  this.page = this.page + 1;
+  postApi.starPostList({token: this.token, username:username, page: this.page})
+  .then((result) => {
+      //console.log('list불러오기 성공');
+      this.postList = this.postList.concat(result.data);
+      this.state = "done";
+      //console.log(this.state.data)
+  })
+  .catch((result) => {
+      console.log('list store err');
+      console.log(result);
+  });
+}
+
   @action.bound
   getUserPostList = ({username}) => {
     this.state = "pending";
+    this.page = 1;
     postApi.userPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
       this.postList = result.data;
@@ -67,6 +120,7 @@ class postListStore {
   @action.bound
   getHeartPostList = ({username}) => {
     this.state = "pending";
+    this.page = 1;
     postApi.heartPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
       this.postList = result.data;
@@ -81,6 +135,7 @@ class postListStore {
   @action.bound
   getStarPostList = ({username}) => {
     this.state = "pending";
+    this.page = 1;
     postApi.starPostList({token: this.token, username:username ,page: this.page})
     .then((result) => {
       this.postList = result.data;
