@@ -495,7 +495,7 @@ const Post = ({
               <CommentNav>
                 <Comments onClick={ToggleComment} watchComment={watchComment}>
                   <Icon icon={faComment} />
-                  <IconName>Commnets</IconName>
+                  <IconName>Comments</IconName>
                   <H5>{comments}</H5>
                 </Comments>
               </CommentNav>
