@@ -1,4 +1,4 @@
-#DOTIA - Pixel Art Community
+# DOTIA - Pixel Art Community
 
 > Dotia is Community for Pixel artist. 
 
@@ -8,7 +8,7 @@
 
 
 
-##Project Stack
+## Project Stack
 
 ### Client
 
